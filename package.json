@@ -1,0 +1,62 @@
+{
+	"name": "skin3d",
+	"version": "0.0.1",
+	"description": "A fast, customizable Minecraft skin viewer powered by Three.js. Easily render and preview Minecraft skins in 3D for your projects.",
+	"main": "libs/skin3d.js",
+	"type": "module",
+	"scripts": {
+		"clean": "rimraf libs bundles",
+		"build:modules": "tsc -p .",
+		"build:bundles": "rollup -c --configPlugin=swc3",
+		"build:docs": "typedoc src/viewer.ts",
+		"build:preview": "vite build",
+		"build": "npm-run-all --parallel build:modules build:bundles build:preview",
+		"format": "prettier src examples eslint.config.js --write",
+		"test:lint": "eslint src examples eslint.config.js",
+		"test": "npm run test:lint",
+		"dev:watch:modules": "tsc -w --preserveWatchOutput --declaration --sourceMap --outDir libs -p .",
+		"dev:watch:bundles": "rollup -w --no-watch.clearScreen -c --configPlugin=swc3",
+		"dev": "vite",
+		"preview": "vite preview",
+		"prepublishOnly": "npm run clean && npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cosmic-fi/skin3d.git"
+	},
+	"author": "Cosmic-fi (https://github.com/cosmic-fi)",
+	"contributors": [],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/cosmic-fi/skin3d/issues"
+	},
+	"homepage": "https://github.com/cosmic-fi/skinview3d",
+	"files": [
+		"libs",
+		"bundles",
+		"assets"
+	],
+	"dependencies": {
+		"@types/three": "^0.156.0",
+		"skinview-utils": "^0.7.1",
+		"three": "^0.156.0"
+	},
+	"devDependencies": {
+		"@rollup/plugin-node-resolve": "^15.0.2",
+		"@swc/core": "^1.3.53",
+		"@typescript-eslint/eslint-plugin": "^8.31.1",
+		"@typescript-eslint/parser": "^8.31.1",
+		"@yushijinhun/three-minifier-rollup": "^0.4.0",
+		"eslint": "^9.26.0",
+		"eslint-plugin-tsdoc": "^0.2.17",
+		"local-web-server": "^5.2.1",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.0.3",
+		"rimraf": "^3.0.2",
+		"rollup": "^3.20.7",
+		"rollup-plugin-swc3": "^0.8.1",
+		"typedoc": "^0.25.7",
+		"typescript": "^5.0.4",
+		"vite": "^6.3.5"
+	}
+}
