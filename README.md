@@ -181,9 +181,7 @@ skinViewer.cameraLight.intensity = 0.0;
 
 ```html - index.html
 <canvas id="skin_container"></canvas>
-```
 
-```js - index.js
 <script>
     let skinViewer = new skin3d.SkinViewer({
         canvas: document.getElementById("skin_container"),
