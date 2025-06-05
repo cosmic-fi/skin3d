@@ -43,8 +43,8 @@ typings/
 .npm
 
 # scss files
-.scss
-.map
+*.scss
+*.css.map
 # Optional eslint cache
 .eslintcache
 
