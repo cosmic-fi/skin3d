@@ -1,9 +1,9 @@
 # skin3d
 
-[![CI Status](https://img.shields.io/github/actions/workflow/status/bs-community/skin3d/ci.yaml?branch=master&label=CI&logo=github&style=flat-square)](https://github.com/bs-community/skin3d/actions?query=workflow:CI)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=master&label=CI&logo=github&style=flat-square)](https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI)
 [![NPM Package](https://img.shields.io/npm/v/skin3d.svg?style=flat-square)](https://www.npmjs.com/package/skin3d)
-[![MIT License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](https://github.com/bs-community/skin3d/blob/master/LICENSE)
-[![Gitter Chat](https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg?style=flat-square)](https://gitter.im/skin3d/Lobby)
+[![MIT License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](https://github.com/cosmic-fi/skin3d/blob/main/LICENSE)
+[![Gitter Chat](https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg?style=flat-square)](https://matrix.to/#/#skin3d:gitter.im)
 
 A Three.js-powered Minecraft skin viewer and renderer.  
 Skin3d allows you to display, animate, and interact with Minecraft skins, capes, ears, and more in the browser.
@@ -179,8 +179,11 @@ skinViewer.cameraLight.intensity = 0.0;
 
 ## Example Usage
 
-```html
+```html - index.html
 <canvas id="skin_container"></canvas>
+```
+
+```js - index.js
 <script>
     let skinViewer = new skin3d.SkinViewer({
         canvas: document.getElementById("skin_container"),
@@ -314,6 +317,6 @@ MIT
 
 ## Links
 
-- [Demo](https://skin3d-demo.vercel.app)
+- [Demo Link 1](https://skin3d.vercel.app) | [Demo Link 2]() | [Demo Link 3]()
 - [NPM](https://www.npmjs.com/package/skin3d)
-- [GitHub](https://github.com/bs-community/skin3d)
+- [GitHub](https://github.com/cosmic-fi/skin3d)

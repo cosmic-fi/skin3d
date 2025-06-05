@@ -19,18 +19,12 @@ To get the preview app running locally:
    ```
 4. Open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
 
-### Offscreen Renderer
-
-To test the offscreen renderer example:
-
-1. Open [http://localhost:5173/offscreen-render.html](http://localhost:5173/offscreen-render.html) in your browser after starting the dev server.
-
 ---
 
 ## How to Contribute
 
 - **Bug Reports:**  
-  Please use [GitHub Issues](https://github.com/bs-community/skin3d/issues) to report bugs. Include steps to reproduce, expected behavior, and screenshots if possible.
+  Please use [GitHub Issues](https://github.com/cosmic-fi/skin3d/issues) to report bugs. Include steps to reproduce, expected behavior, and screenshots if possible.
 
 - **Feature Requests:**  
   Open an issue describing your idea and why it would be useful.
@@ -56,9 +50,7 @@ To test the offscreen renderer example:
 
 ## Community
 
-- Join the [Gitter chat](https://gitter.im/skin3d/Lobby) for questions and discussion.
+- Join the [Gitter chat](https://matrix.to/#/#skin3d:gitter.im) for questions and discussion.
 - Be respectful and constructive in all interactions.
-
----
 
 Thank you for helping make **skin3d** better!
