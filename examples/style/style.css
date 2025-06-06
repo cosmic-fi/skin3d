@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Minecraft";
-  src: url("/font/minecraft.woff2") format("woff2");
+  src: url("/public/font/minecraft.woff2") format("woff2");
 }
 body {
   margin: 0;
@@ -10,7 +10,7 @@ body {
   overflow: hidden;
   padding: 5px 12vw;
   overflow-y: auto;
-  background: url("/examples/public/img/background.jpg"), linear-gradient(to bottom, rgb(49, 30, 63), rgb(17, 10, 22));
+  background: linear-gradient(to bottom, rgba(49, 30, 63, 0), rgba(17, 10, 22, 0)), url("/public/img/background.jpg");
   background-size: cover;
   font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
   background-repeat: no-repeat;
@@ -29,9 +29,11 @@ body .container {
   row-gap: 10px;
   border: 1px rgba(255, 255, 255, 0.2) solid;
   overflow: hidden;
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
 }
 body .container header {
-  background-color: rgba(116, 116, 116, 0.493);
+  background-color: rgb(53, 53, 53);
   padding: 15px;
   display: flex;
   flex-direction: row;
@@ -82,6 +84,7 @@ body .container .preview legend {
   border: 1px rgba(255, 255, 255, 0.1) solid;
   border-radius: 5px;
   font-family: "Minecraft";
+  transform: rotate(5deg);
 }
 body .container .preview .canvas-container {
   position: relative;
