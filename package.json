@@ -18,7 +18,8 @@
 		"dev:watch:bundles": "rollup -w --no-watch.clearScreen -c --configPlugin=swc3",
 		"dev": "vite",
 		"preview": "vite preview",
-		"prepublishOnly": "npm run clean && npm run build"
+		"prepublishOnly": "npm run clean && npm run build",
+		"publish": "npm version patch && npm publish"
 	},
 	"repository": {
 		"type": "git",
