@@ -67,5 +67,4 @@ _ignore/
 .DS_Store
 .rpt2_cache
 
-docs/
 dist/
