@@ -8,11 +8,11 @@
 		"clean": "rimraf libs bundles",
 		"build:modules": "tsc -p .",
 		"build:bundles": "rollup -c --configPlugin=swc3",
-		"build:docs": "typedoc src/viewer.ts",
+		"build:docs": "typedoc src/view.ts",
 		"build:preview": "vite build",
 		"build": "npm-run-all --parallel build:modules build:bundles build:preview",
 		"format": "prettier src public eslint.config.js --write",
-		"test:lint": "eslint src examples eslint.config.js",
+		"test:lint": "eslint src public eslint.config.js",
 		"test": "npm run test:lint",
 		"dev:watch:modules": "tsc -w --preserveWatchOutput --declaration --sourceMap --outDir libs -p .",
 		"dev:watch:bundles": "rollup -w --no-watch.clearScreen -c --configPlugin=swc3",
@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@types/three": "^0.156.0",
-		"skin3d": "^0.0.5",
+		"skin3d": "^0.0.7",
 		"skinview-utils": "^0.7.1",
 		"three": "^0.156.0"
 	},

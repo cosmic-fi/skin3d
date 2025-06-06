@@ -405,17 +405,16 @@
 						</p>
 
 						<h3>1. Install skin3d</h3>
-						<pre><code>npm install skin3d</code></pre>
-						<p>Or use a CDN:</p>
-						<pre><code>&lt;script type="module" src="https://unpkg.com/skin3d@latest/dist/skin3d.min.js"&gt;&lt;/script&gt;</code></pre>
-
+						<pre><code>npm i skin3d</code></pre>
 						<h3>2. Basic Usage Example</h3>
 						<pre><code>
-// ES Modules / Browser (with &lt;script type="module"&gt; or bundler)
-import { SkinViewer } from "skin3d";
+&lt;div id="skin_view_container"&gt;&lt;/div&gt;
+						</code></pre>
+						<pre><code>
+import * as skin3d from 'skin3d'
 
-const viewer = new SkinViewer({
-   canvas: document.getElementById("skin_container"),
+const viewer = new skin3d.View({
+   canvas: document.getElementById("skin_view_container"),
    width: 300,
    height: 400,
    skin: "path-to-your-skin/your-skin.png"
@@ -426,50 +425,23 @@ viewer.controls.enableRotate = true;
 viewer.controls.enableZoom = true;
 viewer.controls.enablePan = false;
 						</code></pre>
-
-						<h3>2b. Using in Node.js or with &lt;script&gt; tag</h3>
-						<p>
-							If you are not using ES modules (for example, in a Node.js app or with a plain <code>&lt;script&gt;</code> tag), you can access <code>SkinViewer</code> from the global <code>window</code> object after including the script:
-						</p>
-						<pre><code>
-&lt;script src="https://unpkg.com/skin3d@latest/dist/skin3d.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   const viewer = new window.SkinViewer({
-      canvas: document.getElementById("skin_container"),
-      width: 300,
-      height: 400,
-      skin: "path-to-your-skin/your-skin.png"
-   });
-&lt;/script&gt;
-						</code></pre>
-						<p>
-							For Node.js, you can require the package after installing:
-						</p>
-						<pre><code>
-const { SkinViewer } = require("skin3d");
-const viewer = new SkinViewer({
-   // options here
-});
-						</code></pre>
 						<h3>3. Loading Capes and Elytras</h3>
 						<pre><code>
 // Set a cape
 viewer.loadCape("img/mojang_cape.png");
-
 // Set an elytra
 viewer.loadElytra("img/elytra.png");
 						</code></pre>
 
 						<h3>4. Animations</h3>
 						<pre><code>
-import { WalkingAnimation } from "skinview3d";
-const walk = viewer.animations.add(WalkingAnimation);
+viewer.animation = new skin3d.WalkingAnimation();
 
 // Change speed
-walk.speed = 1.2;
+viewer.animation.speed = 1.2;
 
 // Pause or resume
-walk.paused = false;
+viewer.animation.paused = false;
 						</code></pre>
 
 						<h3>5. More Features</h3>
@@ -504,7 +476,8 @@ walk.paused = false;
 							margin-bottom: 10px;
 						}
 						.preview h3 {
-							font-size: 1.1em;
+							font-size: .88em;
+							font-family: 'Minecraft';
 							margin-bottom: 6px;
 						}
 						.preview pre {

@@ -1,4 +1,4 @@
-# skin3d
+# Skin3d
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI)
 [![NPM Package](https://img.shields.io/npm/v/skin3d.svg?style=flat-square)](https://www.npmjs.com/package/skin3d)
@@ -7,13 +7,13 @@
 
 ---
 
-**skin3d** is a modern, browser-based Minecraft skin renderer and animator, powered by Three.js. Effortlessly display, animate, and interact with Minecraft skins, capes, ears, and more, all with a flexible and intuitive API.
+**Skin3d** is a modern, browser-based Minecraft skin renderer and animator, powered by Three.js. Effortlessly display, animate, and interact with Minecraft skins, capes, ears, and more, all with a flexible and intuitive API.
 
 ---
 
 ## What is skin3d?
 
-skin3d is a JavaScript library that lets you embed a fully interactive Minecraft player model in your web app. It supports HD skins, capes, elytras, ears, name tags, and a variety of animations. You can control the camera, lighting, and background, and even add your own customizations.
+Skin3d is a JavaScript library that lets you embed a fully interactive Minecraft player model in your web app. It supports HD skins, capes, elytras, ears, name tags, and a variety of animations. You can control the camera, lighting, and background, and even add your own customizations.
 
 ---
 
@@ -32,7 +32,7 @@ skin3d is a JavaScript library that lets you embed a fully interactive Minecraft
 Install via npm:
 
 ```sh
-npm install skin3d
+npm i skin3d
 ```
 
 ---
@@ -40,13 +40,13 @@ npm install skin3d
 ## Basic Example
 
 ```html
-<canvas id="skin_container"></canvas>
+<div id="skin_view_container"></div>
 ```
 ```js
 import * as skin3d from 'skin3d';
 
-const viewer = new skin3d.SkinViewer({
-canvas: document.getElementById("skin_container"),
+const viewer = new skin3d.View({
+canvas: document.getElementById("skin_view_container"),
 width: 400,
 height: 600,
 skin: "img/skin.png"
@@ -63,18 +63,15 @@ viewer.animation = new skin3d.WalkingAnimation();
 - **Skin, Cape, Elytra, and Ears Rendering**
 - **Name Tag Support (with Minecraft font)**
 - **Orbit Controls (rotate, zoom, pan)**
-- **FXAA Anti-Aliasing**
 - **Customizable Lighting**
 - **Panorama and Image Backgrounds**
 - **Built-in Animations (walk, run, rotate, etc.)**
-- **Responsive and High-DPI Ready**
 - **Pause/Resume Rendering**
-
 ---
 
 ## API Highlights
 
-- **SkinViewer**: The main class for rendering and controlling the player model.
+- **View**: The main class for rendering and controlling the player model.
 - **PlayerObject**: Access and control the skin, cape, elytra, and ears meshes.
 - **NameTagObject**: Display a floating name tag above the player.
 - **Animations**: Use built-in or custom animations for the player model.
@@ -153,14 +150,10 @@ To display name tags in Minecraft style, add this to your CSS:
 
 ## Project Structure
 
-- `src/viewer.ts` – Main viewer logic and rendering
-- `src/playerObject.ts` – Player model and mesh management
+- `src/view.ts` – Main viewer logic and rendering
+- `src/model.ts` – Player model and mesh management
 - `src/animation.ts` – Animation classes
-- `src/nameTagObject.ts` – Name tag rendering
-- `src/utils.ts` – Utility functions
-- `src/shaders/` – Custom shaders
-- `src/controls/OrbitControls.ts` – Camera controls
-
+- `src/nametag.ts` – Name tag rendering
 ---
 
 ## License

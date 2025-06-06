@@ -1,4 +1,5 @@
-import * as skin3d from "skin3d";
+// import * as skin3d from 'skin3d';
+import * as skin3d from 'skin3d';
 
 const skinParts = ["head", "body", "rightArm", "leftArm", "rightLeg", "leftLeg"];
 const skinLayers = ["innerLayer", "outerLayer"];
@@ -403,7 +404,7 @@ function initializeViewer() {
 		throw new Error("Canvas element not found");
 	}
 
-	skinViewer = new skin3d.SkinViewer({
+    skinViewer = new skin3d.View({
 		canvas: skinContainer,
 	});
 

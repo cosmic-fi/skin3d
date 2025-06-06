@@ -2,7 +2,7 @@
     // TypeDoc configuration file
 
     // Entry point(s) of your project
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": ["src/view.ts"],
 
     // Output directory for generated docs
     "out": "public/docs",

@@ -98,7 +98,7 @@ export interface EarsLoadOptions extends LoadOptions {
 	textureType?: "standalone" | "skin";
 }
 
-export interface SkinViewerOptions {
+export interface ViewOptions {
 	/**
 	 * The canvas where the renderer draws its output.
 	 *
@@ -205,7 +205,7 @@ export interface SkinViewerOptions {
 	 *
 	 * @defaultValue `50`
 	 *
-	 * @see {@link SkinViewer.adjustCameraDistance}
+	 * @see {@link View.adjustCameraDistance}
 	 */
 	fov?: number;
 
@@ -219,7 +219,7 @@ export interface SkinViewerOptions {
 	 *
 	 * @defaultValue `0.9`
 	 *
-	 * @see {@link SkinViewer.adjustCameraDistance}
+	 * @see {@link View.adjustCameraDistance}
 	 */
 	zoom?: number;
 
@@ -244,7 +244,7 @@ export interface SkinViewerOptions {
 	 * The name tag to display above the player.
 	 *
 	 * @defaultValue If unspecified, no name tag will be displayed.
-	 * @see {@link SkinViewer.nameTag}
+	 * @see {@link View.nameTag}
 	 */
 	nameTag?: NameTagObject | string;
 
@@ -271,7 +271,7 @@ export interface SkinViewerOptions {
 }
 
 /**
- * The SkinViewer renders the player on a canvas.
+ * The View renders the player on a canvas.
  */
 export class View {
 	/** The canvas where the renderer draws its output. */
@@ -338,7 +338,7 @@ export class View {
 
 	private _nameTag: NameTagObject | null = null;
 
-	constructor(options: SkinViewerOptions = {}) {
+	constructor(options: ViewOptions = {}) {
 		this.canvas = options.canvas ?? document.createElement("canvas");
 		this.skinCanvas = document.createElement("canvas");
 		this.capeCanvas = document.createElement("canvas");
@@ -517,7 +517,8 @@ export class View {
 
 	/**
 	 * Load a skin texture.
-	 * @param source - The skin image or canvas.
+	 * @param source 
+	 * - The skin image or canvas.
 	 * @param options - Loading options.
 	 */
 	loadSkin(empty: null): void;
@@ -820,9 +821,9 @@ export class View {
 	 * will be automatically created with default options.
 	 *
 	 * @example
-	 * skinViewer.nameTag = "Norch";
-	 * skinViewer.nameTag = new NameTagObject("hello", { textStyle: "yellow" });
-	 * skinViewer.nameTag = null;
+	 * view.nameTag = "Norch";
+	 * view.nameTag = new NameTagObject("hello", { textStyle: "yellow" });
+	 * view.nameTag = null;
 	 */
 	get nameTag(): NameTagObject | null {
 		return this._nameTag;
