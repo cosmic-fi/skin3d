@@ -30,7 +30,7 @@
 	"bugs": {
 		"url": "https://github.com/cosmic-fi/skin3d/issues"
 	},
-	"homepage": "https://github.com/cosmic-fi/skin3d",
+	"homepage": "https://skin3d.netlify.app",
 	"files": [
 		"libs",
 		"bundles",
