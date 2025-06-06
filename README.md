@@ -1,296 +1,179 @@
 # skin3d
 
-[![CI Status](https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=master&label=CI&logo=github&style=flat-square)](https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI)
 [![NPM Package](https://img.shields.io/npm/v/skin3d.svg?style=flat-square)](https://www.npmjs.com/package/skin3d)
 [![MIT License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](https://github.com/cosmic-fi/skin3d/blob/main/LICENSE)
 [![Gitter Chat](https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg?style=flat-square)](https://matrix.to/#/#skin3d:gitter.im)
 
-A Three.js-powered Minecraft skin viewer and renderer.  
-Skin3d allows you to display, animate, and interact with Minecraft skins, capes, ears, and more in the browser.
-
 ---
-- [ Live Demo ](https://skin3d.netlify.app/)
 
-## API Overview
-
-### Main Classes
-
-#### `SkinViewer`
-
-The core viewer class. Renders a Minecraft player model to a canvas.
-
-**Constructor:**
-```ts
-new SkinViewer(options?: SkinViewerOptions)
-```
-
-**Key Options (`SkinViewerOptions`):**
-- `canvas`: HTMLCanvasElement to render to
-- `width`, `height`: Canvas size
-- `skin`: Skin image URL or texture
-- `cape`: Cape image URL or texture
-- `ears`: Ears texture or `"current-skin"`
-- `model`: `"default"`, `"slim"`, or `"auto-detect"`
-- `background`: Color or texture
-- `panorama`: Panorama image
-- `fov`: Camera field of view
-- `zoom`: Camera zoom ratio
-- `enableControls`: Enable OrbitControls (mouse interaction)
-- `enableRotation`: Allow rotation
-- `allowZoom`: Allow zoom
-- `allowRotateX`, `allowRotateY`: Restrict rotation axes
-- `preserveDrawingBuffer`: Keep buffer after rendering
-- `renderPaused`: Start paused
-- `animation`: Initial animation
-- `nameTag`: Name tag text or object
-
-**Properties:**
-- `scene`: THREE.Scene instance
-- `camera`: THREE.PerspectiveCamera instance
-- `renderer`: THREE.WebGLRenderer instance
-- `controls`: OrbitControls instance
-- `playerObject`: PlayerObject (skin, cape, ears, etc.)
-- `globalLight`, `cameraLight`: Lighting objects
-- `background`: Set background color/texture
-- `fov`, `zoom`: Camera controls
-- `autoRotate`, `autoRotateSpeed`: Automatic rotation
-- `animation`: Current animation
-- `nameTag`: Name tag object or string
-
-**Methods:**
-- `loadSkin(url, options?)`: Load a new skin
-- `loadCape(url, options?)`: Load a new cape or elytra
-- `loadEars(url, options?)`: Load ears texture
-- `loadBackground(url)`: Set background image
-- `loadPanorama(url)`: Set panorama background
-- `dispose()`: Clean up resources
-- `pauseRender()`: Pause rendering
-- `resumeRender()`: Resume rendering
+**skin3d** is a modern, browser-based Minecraft skin renderer and animator, powered by Three.js. Effortlessly display, animate, and interact with Minecraft skins, capes, ears, and more, all with a flexible and intuitive API.
 
 ---
 
-#### `PlayerObject`
+## What is skin3d?
 
-Represents the player model and its parts.
-
-**Properties:**
-- `skin`: Skin mesh and layers
-- `cape`: Cape mesh
-- `elytra`: Elytra mesh
-- `ears`: Ears mesh
-- `backEquipment`: `"cape"`, `"elytra"`, or `null`
+skin3d is a JavaScript library that lets you embed a fully interactive Minecraft player model in your web app. It supports HD skins, capes, elytras, ears, name tags, and a variety of animations. You can control the camera, lighting, and background, and even add your own customizations.
 
 ---
 
-#### `NameTagObject`
+## Why use skin3d?
 
-Represents a name tag above the player.
+- **Interactive 3D Minecraft player models in the browser**
+- **Supports all modern skin and cape formats**
+- **Easy to use, easy to extend**
+- **Customizable animations and controls**
+- **Works with any web framework or vanilla JS**
 
-**Constructor:**
-```ts
-new NameTagObject(text: string, options?: { textStyle?: string })
+---
+
+## Getting Started
+
+Install via npm:
+
+```sh
+npm install skin3d
 ```
 
 ---
 
-#### `PlayerAnimation`
+## Basic Example
 
-Base class for animations.
-
-**Built-in Animations:**
-- `WalkingAnimation`
-- `RunningAnimation`
-- `RotatingAnimation`
-- (Custom animations can be implemented)
-
-**Properties:**
-- `speed`: Animation speed
-- `paused`: Pause/resume animation
-
----
-
-### Controls
-
-- **OrbitControls**: Mouse/touch controls for rotating, zooming, and panning the camera.
-  - `enableRotate`, `enableZoom`, `enablePan`: Enable/disable controls
-  - `minPolarAngle`, `maxPolarAngle`, `minAzimuthAngle`, `maxAzimuthAngle`: Restrict rotation
-
----
-
-### Lighting
-
-- `globalLight`: Ambient light (default intensity: 3)
-- `cameraLight`: Point light attached to camera (default intensity: 0.6)
-
-**Example:**
-```js
-skinViewer.globalLight.intensity = 1.0;
-skinViewer.cameraLight.intensity = 0.0;
-```
-
----
-
-### Backgrounds
-
-- `background`: Set to a color or THREE.Texture
-- `loadBackground(url)`: Load an image as background
-- `loadPanorama(url)`: Load a panorama image
-
----
-
-### Ears Support
-
-- Ears can be loaded from a standalone 14x7 image or from a skin texture.
-- Specify in constructor or via `loadEars`.
-
----
-
-### Name Tags
-
-- Set `skinViewer.nameTag = "PlayerName"` or a `NameTagObject`.
-- Requires Minecraft font (`minecraft.woff2`).
-
----
-
-### Events
-
-- Standard DOM events for canvas (e.g., `mousedown`, `mouseup`, `touchmove`, etc.)
-- No custom event system; use property setters and methods.
-
----
-
-## Example Usage
-
-```html - index.html
+```html
 <canvas id="skin_container"></canvas>
+```
+```js
+import * as skin3d from 'skin3d';
 
-<script>
-    let skinViewer = new skin3d.SkinViewer({
-        canvas: document.getElementById("skin_container"),
-        width: 300,
-        height: 400,
-        skin: "img/skin.png"
-    });
+const viewer = new skin3d.SkinViewer({
+canvas: document.getElementById("skin_container"),
+width: 400,
+height: 600,
+skin: "img/skin.png"
+});
 
-    // Change viewer size
-    skinViewer.width = 600;
-    skinViewer.height = 800;
+viewer.autoRotate = true;
+viewer.animation = new skin3d.WalkingAnimation();
+```
 
-    // Load another skin
-    skinViewer.loadSkin("img/skin2.png");
+---
 
-    // Load a cape
-    skinViewer.loadCape("img/cape.png");
+## Features at a Glance
 
-    // Load an elytra (from a cape texture)
-    skinViewer.loadCape("img/cape.png", { backEquipment: "elytra" });
+- **Skin, Cape, Elytra, and Ears Rendering**
+- **Name Tag Support (with Minecraft font)**
+- **Orbit Controls (rotate, zoom, pan)**
+- **FXAA Anti-Aliasing**
+- **Customizable Lighting**
+- **Panorama and Image Backgrounds**
+- **Built-in Animations (walk, run, rotate, etc.)**
+- **Responsive and High-DPI Ready**
+- **Pause/Resume Rendering**
 
-    // Unload(hide) the cape / elytra
-    skinViewer.loadCape(null);
+---
 
-    // Set the background color
-    skinViewer.background = 0x5a76f3;
+## API Highlights
 
-    // Set the background to a normal image
-    skinViewer.loadBackground("img/background.png");
+- **SkinViewer**: The main class for rendering and controlling the player model.
+- **PlayerObject**: Access and control the skin, cape, elytra, and ears meshes.
+- **NameTagObject**: Display a floating name tag above the player.
+- **Animations**: Use built-in or custom animations for the player model.
+- **Controls**: Enable or disable camera rotation, zoom, and pan.
+- **Lighting**: Adjust ambient and camera-attached lights.
+- **Backgrounds**: Set solid colors, images, or panoramic backgrounds.
 
-    // Set the background to a panoramic image
-    skinViewer.loadPanorama("img/panorama1.png");
+---
 
-    // Change camera FOV
-    skinViewer.fov = 70;
+## Customization
 
-    // Zoom out
-    skinViewer.zoom = 0.5;
+You can load new skins, capes, or ears at any time:
 
-    // Rotate the player
-    skinViewer.autoRotate = true;
+```js
+viewer.loadSkin("img/another_skin.png");
+viewer.loadCape("img/cape.png");
+viewer.loadEars("img/ears.png", { textureType: "standalone" });
+viewer.background = "#222244";
+viewer.loadPanorama("img/panorama.png");
+```
 
-    // Apply an animation
-    skinViewer.animation = new skin3d.WalkingAnimation();
+Change camera and controls:
 
-    // Set the speed of the animation
-    skinViewer.animation.speed = 3;
+```js
+viewer.fov = 70;
+viewer.zoom = 1.2;
+viewer.controls.enableRotate = true;
+viewer.controls.enableZoom = false;
+```
 
-    // Pause the animation
-    skinViewer.animation.paused = true;
+Add or remove animations:
 
-    // Remove the animation
-    skinViewer.animation = null;
-</script>
+```js
+viewer.animation = new skin3d.WalkingAnimation();
+viewer.animation.speed = 2;
+viewer.animation.paused = false;
+viewer.animation = null; // Remove animation
 ```
 
 ---
 
 ## Advanced Usage
 
-### Lighting
+- **Lighting**:  
+  ```js
+  viewer.globalLight.intensity = 1.5;
+  viewer.cameraLight.intensity = 0.3;
+  ```
 
-```js
-skinViewer.cameraLight.intensity = 0.9;
-skinViewer.globalLight.intensity = 0.1;
-```
+- **Name Tags**:  
+  ```js
+  viewer.nameTag = "Steve";
+  viewer.nameTag = new skin3d.NameTagObject("Alex", { textStyle: "yellow" });
+  ```
 
-### Ears
-
-```js
-new skin3d.SkinViewer({
-    skin: "img/deadmau5.png",
-    ears: "current-skin",
-});
-
-skinViewer.loadEars("img/ears.png", { textureType: "standalone" });
-skinViewer.loadEars("img/deadmau5.png", { textureType: "skin" });
-```
-
-### Name Tag
-
-```js
-skinViewer.nameTag = "hello";
-skinViewer.nameTag = new skin3d.NameTagObject("hello", { textStyle: "yellow" });
-skinViewer.nameTag = null;
-```
+- **Responsive Sizing**:  
+  ```js
+  viewer.width = window.innerWidth;
+  viewer.height = window.innerHeight;
+  ```
 
 ---
 
-## Font
+## Font Setup
 
-To display name tags correctly, you need the Minecraft font.  
-Add this to your CSS:
+To display name tags in Minecraft style, add this to your CSS:
 
 ```css
 @font-face {
-    font-family: 'Minecraft';
-    src: url('/path/to/minecraft.woff2') format('woff2');
+  font-family: 'Minecraft';
+  src: url('/path/to/minecraft.woff2') format('woff2');
 }
 ```
 
 ---
 
-## Build
+## Project Structure
 
-```sh
-npm install
-npm run build
-```
-
----
-
-## Source Structure (`/src`)
-
-- `viewer.ts` – Main SkinViewer class, rendering logic, controls, options, and resource management.
-- `playerObject.ts` – PlayerObject class, skin/cape/elytra/ears mesh management.
-- `animation.ts` – Animation base class and built-in animations.
-- `nameTagObject.ts` – NameTagObject class for rendering name tags.
-- `utils.ts` – Utility functions for textures, images, and helpers.
-- `types.ts` – TypeScript type definitions for options and interfaces.
-- `shaders/` – Custom shaders (e.g., FXAA).
-- `controls/OrbitControls.ts` – OrbitControls for camera interaction.
+- `src/viewer.ts` – Main viewer logic and rendering
+- `src/playerObject.ts` – Player model and mesh management
+- `src/animation.ts` – Animation classes
+- `src/nameTagObject.ts` – Name tag rendering
+- `src/utils.ts` – Utility functions
+- `src/shaders/` – Custom shaders
+- `src/controls/OrbitControls.ts` – Camera controls
 
 ---
 
 ## License
 
-MIT
+skin3d is released under the MIT License.
+
+---
+
+## Links
+
+- [Live Demo](https://skin3d.netlify.app/)
+- [NPM Package](https://www.npmjs.com/package/skin3d)
+- [GitHub Repository](https://github.com/cosmic-fi/skin3d)
+- [Community Chat](https://matrix.to/#/#skin3d:gitter.im)
 
 ---

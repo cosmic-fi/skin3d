@@ -1,4 +1,4 @@
 export * from "./model.js";
-export * from "./viewer.js";
+export * from "./view.js";
 export * from "./animation.js";
 export * from "./nametag.js";

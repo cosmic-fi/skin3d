@@ -13,7 +13,8 @@ export abstract class PlayerAnimation {
 
 	private currentId: number = 0;
 	private progress0: Map<number, number> = new Map();
-	private animationObjects: Map<number, (player: PlayerObject, progress: number, currentId: number) => void> = new Map();
+	private animationObjects: Map<number, (player: PlayerObject, progress: number, currentId: number) => void> =
+		new Map();
 
 	/**
 	 * Update the animation state.
@@ -235,11 +236,13 @@ export class CrouchAnimation extends PlayerAnimation {
 		if (sinVal === 1) {
 			this.erp = !this.isCrouched ? pr1 : this.erp;
 			this.isCrouched = true;
-			player.elytra.leftWing.rotation.z = 0.26179944 + 0.4582006 * Math.abs(Math.sin((Math.min(pr1 - this.erp, 1) * Math.PI) / 2));
+			player.elytra.leftWing.rotation.z =
+				0.26179944 + 0.4582006 * Math.abs(Math.sin((Math.min(pr1 - this.erp, 1) * Math.PI) / 2));
 			player.elytra.updateRightWing();
 		} else if (this.isCrouched !== undefined) {
 			this.erp = this.isCrouched ? pr1 : this.erp;
-			player.elytra.leftWing.rotation.z = 0.72 - 0.4582006 * Math.abs(Math.sin((Math.min(pr1 - this.erp, 1) * Math.PI) / 2));
+			player.elytra.leftWing.rotation.z =
+				0.72 - 0.4582006 * Math.abs(Math.sin((Math.min(pr1 - this.erp, 1) * Math.PI) / 2));
 			player.elytra.updateRightWing();
 			this.isCrouched = false;
 		}
@@ -261,7 +264,8 @@ export class CrouchAnimation extends PlayerAnimation {
 			let t = (this.progress * 18 * this.hitAnimationSpeed) / this.speed;
 			if (this.speed === 0) t = 0;
 			const isCrouching = Math.abs(Math.sin((pr2 * Math.PI) / 2)) === 1;
-			player.skin.rightArm.rotation.x = -0.4537860552 + 2 * Math.sin(t + Math.PI) * 0.3 - (isCrouching ? 0.4537860552 : 0);
+			player.skin.rightArm.rotation.x =
+				-0.4537860552 + 2 * Math.sin(t + Math.PI) * 0.3 - (isCrouching ? 0.4537860552 : 0);
 			const basicArmRotationZ = 0.01 * Math.PI + 0.06;
 			player.skin.rightArm.rotation.z = -Math.cos(t) * 0.403 + basicArmRotationZ;
 			player.skin.body.rotation.y = -Math.cos(t) * 0.06;

@@ -2,11 +2,11 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
 	base: "./",
-	root: "examples",
+	root: "public/demo",
 	build: {
 		rollupOptions: {
 			input: {
-				main: "./examples/index.html"
+				main: "./public/demo/index.html"
 			},
 		},
 	},

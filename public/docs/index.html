@@ -1,0 +1,542 @@
+<!doctype html>
+<html class="default" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="IE=edge" />
+		<title>Skin3d Documentation</title>
+		<meta name="description" content="Documentation for Skin3d Documentation" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/style.css" />
+		<link rel="stylesheet" href="assets/highlight.css" />
+		<script defer src="assets/main.js"></script>
+		<script async src="assets/icons.js" id="tsd-icons-script"></script>
+		<script async src="assets/search.js" id="tsd-search-script"></script>
+		<script async src="assets/navigation.js" id="tsd-nav-script"></script>
+	</head>
+	<body>
+		<script>
+			document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";
+			document.body.style.display = "none";
+			setTimeout(() => (app ? app.showPage() : document.body.style.removeProperty("display")), 500);
+		</script>
+		<header class="tsd-page-toolbar">
+			<div class="tsd-toolbar-contents container">
+				<div class="table-cell" id="tsd-search" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"
+							><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+								<use href="assets/icons.svg#icon-search"></use></svg></label
+						><input type="text" id="tsd-search-field" aria-label="Search" />
+					</div>
+					<div class="field"><div id="tsd-toolbar-links"></div></div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Skin3d Documentation</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"
+						><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+							<use href="assets/icons.svg#icon-menu"></use></svg
+					></a>
+				</div>
+			</div>
+		</header>
+		<div class="container container-main">
+			<div class="col-content">
+				<div class="tsd-page-title"><h2>Skin3d Documentation</h2></div>
+				<div class="tsd-panel tsd-typography">
+					<a id="md:skin3d" class="tsd-anchor"></a>
+					<h1><a href="#md:skin3d">skin3d</a></h1>
+					<p>
+						<a href="https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI"
+							><img
+								src="https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=master&label=CI&logo=github&style=flat-square"
+								alt="CI Status"
+						/></a>
+						<a href="https://www.npmjs.com/package/skin3d"
+							><img src="https://img.shields.io/npm/v/skin3d.svg?style=flat-square" alt="NPM Package"
+						/></a>
+						<a href="https://github.com/cosmic-fi/skin3d/blob/main/LICENSE"
+							><img src="https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square" alt="MIT License"
+						/></a>
+						<a href="https://matrix.to/#/#skin3d:gitter.im"
+							><img
+								src="https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg?style=flat-square"
+								alt="Gitter Chat"
+						/></a>
+					</p>
+					<p>
+						A Three.js-powered Minecraft skin viewer and renderer.<br />Skin3d allows you to display, animate, and
+						interact with Minecraft skins, capes, ears, and more in the browser.
+					</p>
+					<hr />
+					<ul>
+						<li><a href="https://skin3d.netlify.app/"> Live Demo </a></li>
+					</ul>
+					<a id="md:api-overview" class="tsd-anchor"></a>
+					<h2><a href="#md:api-overview">API Overview</a></h2>
+					<a id="md:main-classes" class="tsd-anchor"></a>
+					<h3><a href="#md:main-classes">Main Classes</a></h3>
+					<a id="md:skinviewer" class="tsd-anchor"></a>
+					<h4>
+						<a href="#md:skinviewer"><code>SkinViewer</code></a>
+					</h4>
+					<p>The core viewer class. Renders a Minecraft player model to a canvas.</p>
+					<p><strong>Constructor:</strong></p>
+					<pre><code class="language-ts"><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-2">SkinViewer</span><span class="hl-1">(</span><span class="hl-3">options</span><span class="hl-1">?: </span><span class="hl-3">SkinViewerOptions</span><span class="hl-1">)</span>
+</code><button>Copy</button></pre>
+					<p><strong>Key Options (<code>SkinViewerOptions</code>):</strong></p>
+					<ul>
+						<li><code>canvas</code>: HTMLCanvasElement to render to</li>
+						<li><code>width</code>, <code>height</code>: Canvas size</li>
+						<li><code>skin</code>: Skin image URL or texture</li>
+						<li><code>cape</code>: Cape image URL or texture</li>
+						<li><code>ears</code>: Ears texture or <code>&quot;current-skin&quot;</code></li>
+						<li>
+							<code>model</code>: <code>&quot;default&quot;</code>, <code>&quot;slim&quot;</code>, or
+							<code>&quot;auto-detect&quot;</code>
+						</li>
+						<li><code>background</code>: Color or texture</li>
+						<li><code>panorama</code>: Panorama image</li>
+						<li><code>fov</code>: Camera field of view</li>
+						<li><code>zoom</code>: Camera zoom ratio</li>
+						<li><code>enableControls</code>: Enable OrbitControls (mouse interaction)</li>
+						<li><code>enableRotation</code>: Allow rotation</li>
+						<li><code>allowZoom</code>: Allow zoom</li>
+						<li><code>allowRotateX</code>, <code>allowRotateY</code>: Restrict rotation axes</li>
+						<li><code>preserveDrawingBuffer</code>: Keep buffer after rendering</li>
+						<li><code>renderPaused</code>: Start paused</li>
+						<li><code>animation</code>: Initial animation</li>
+						<li><code>nameTag</code>: Name tag text or object</li>
+					</ul>
+					<p><strong>Properties:</strong></p>
+					<ul>
+						<li><code>scene</code>: THREE.Scene instance</li>
+						<li><code>camera</code>: THREE.PerspectiveCamera instance</li>
+						<li><code>renderer</code>: THREE.WebGLRenderer instance</li>
+						<li><code>controls</code>: OrbitControls instance</li>
+						<li><code>playerObject</code>: PlayerObject (skin, cape, ears, etc.)</li>
+						<li><code>globalLight</code>, <code>cameraLight</code>: Lighting objects</li>
+						<li><code>background</code>: Set background color/texture</li>
+						<li><code>fov</code>, <code>zoom</code>: Camera controls</li>
+						<li><code>autoRotate</code>, <code>autoRotateSpeed</code>: Automatic rotation</li>
+						<li><code>animation</code>: Current animation</li>
+						<li><code>nameTag</code>: Name tag object or string</li>
+					</ul>
+					<p><strong>Methods:</strong></p>
+					<ul>
+						<li><code>loadSkin(url, options?)</code>: Load a new skin</li>
+						<li><code>loadCape(url, options?)</code>: Load a new cape or elytra</li>
+						<li><code>loadEars(url, options?)</code>: Load ears texture</li>
+						<li><code>loadBackground(url)</code>: Set background image</li>
+						<li><code>loadPanorama(url)</code>: Set panorama background</li>
+						<li><code>dispose()</code>: Clean up resources</li>
+						<li><code>pauseRender()</code>: Pause rendering</li>
+						<li><code>resumeRender()</code>: Resume rendering</li>
+					</ul>
+					<hr />
+					<a id="md:playerobject" class="tsd-anchor"></a>
+					<h4>
+						<a href="#md:playerobject"><code>PlayerObject</code></a>
+					</h4>
+					<p>Represents the player model and its parts.</p>
+					<p><strong>Properties:</strong></p>
+					<ul>
+						<li><code>skin</code>: Skin mesh and layers</li>
+						<li><code>cape</code>: Cape mesh</li>
+						<li><code>elytra</code>: Elytra mesh</li>
+						<li><code>ears</code>: Ears mesh</li>
+						<li>
+							<code>backEquipment</code>: <code>&quot;cape&quot;</code>, <code>&quot;elytra&quot;</code>, or
+							<code>null</code>
+						</li>
+					</ul>
+					<hr />
+					<a id="md:nametagobject" class="tsd-anchor"></a>
+					<h4>
+						<a href="#md:nametagobject"><code>NameTagObject</code></a>
+					</h4>
+					<p>Represents a name tag above the player.</p>
+					<p><strong>Constructor:</strong></p>
+					<pre><code class="language-ts"><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-2">NameTagObject</span><span class="hl-1">(</span><span class="hl-3">text</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">, </span><span class="hl-3">options</span><span class="hl-1">?: { textStyle?</span><span class="hl-3">:</span><span class="hl-1"> </span><span class="hl-3">string</span><span class="hl-1"> })</span>
+</code><button>Copy</button></pre>
+					<hr />
+					<a id="md:playeranimation" class="tsd-anchor"></a>
+					<h4>
+						<a href="#md:playeranimation"><code>PlayerAnimation</code></a>
+					</h4>
+					<p>Base class for animations.</p>
+					<p><strong>Built-in Animations:</strong></p>
+					<ul>
+						<li><code>WalkingAnimation</code></li>
+						<li><code>RunningAnimation</code></li>
+						<li><code>RotatingAnimation</code></li>
+						<li>(Custom animations can be implemented)</li>
+					</ul>
+					<p><strong>Properties:</strong></p>
+					<ul>
+						<li><code>speed</code>: Animation speed</li>
+						<li><code>paused</code>: Pause/resume animation</li>
+					</ul>
+					<hr />
+					<a id="md:controls" class="tsd-anchor"></a>
+					<h3><a href="#md:controls">Controls</a></h3>
+					<ul>
+						<li>
+							<strong>OrbitControls</strong>: Mouse/touch controls for rotating, zooming, and panning the camera.
+							<ul>
+								<li>
+									<code>enableRotate</code>, <code>enableZoom</code>, <code>enablePan</code>: Enable/disable controls
+								</li>
+								<li>
+									<code>minPolarAngle</code>, <code>maxPolarAngle</code>, <code>minAzimuthAngle</code>,
+									<code>maxAzimuthAngle</code>: Restrict rotation
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<hr />
+					<a id="md:lighting" class="tsd-anchor"></a>
+					<h3><a href="#md:lighting">Lighting</a></h3>
+					<ul>
+						<li><code>globalLight</code>: Ambient light (default intensity: 3)</li>
+						<li><code>cameraLight</code>: Point light attached to camera (default intensity: 0.6)</li>
+					</ul>
+					<p><strong>Example:</strong></p>
+					<pre><code class="language-js"><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">globalLight</span><span class="hl-1">.</span><span class="hl-3">intensity</span><span class="hl-1"> = </span><span class="hl-4">1.0</span><span class="hl-1">;</span><br/><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">cameraLight</span><span class="hl-1">.</span><span class="hl-3">intensity</span><span class="hl-1"> = </span><span class="hl-4">0.0</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+					<hr />
+					<a id="md:backgrounds" class="tsd-anchor"></a>
+					<h3><a href="#md:backgrounds">Backgrounds</a></h3>
+					<ul>
+						<li><code>background</code>: Set to a color or THREE.Texture</li>
+						<li><code>loadBackground(url)</code>: Load an image as background</li>
+						<li><code>loadPanorama(url)</code>: Load a panorama image</li>
+					</ul>
+					<hr />
+					<a id="md:ears-support" class="tsd-anchor"></a>
+					<h3><a href="#md:ears-support">Ears Support</a></h3>
+					<ul>
+						<li>Ears can be loaded from a standalone 14x7 image or from a skin texture.</li>
+						<li>Specify in constructor or via <code>loadEars</code>.</li>
+					</ul>
+					<hr />
+					<a id="md:name-tags" class="tsd-anchor"></a>
+					<h3><a href="#md:name-tags">Name Tags</a></h3>
+					<ul>
+						<li>Set <code>skinViewer.nameTag = &quot;PlayerName&quot;</code> or a <code>NameTagObject</code>.</li>
+						<li>Requires Minecraft font (<code>minecraft.woff2</code>).</li>
+					</ul>
+					<hr />
+					<a id="md:events" class="tsd-anchor"></a>
+					<h3><a href="#md:events">Events</a></h3>
+					<ul>
+						<li>
+							Standard DOM events for canvas (e.g., <code>mousedown</code>, <code>mouseup</code>,
+							<code>touchmove</code>, etc.)
+						</li>
+						<li>No custom event system; use property setters and methods.</li>
+					</ul>
+					<hr />
+					<a id="md:example-usage" class="tsd-anchor"></a>
+					<h2><a href="#md:example-usage">Example Usage</a></h2>
+					<pre><code class="language-html"><span class="hl-5">&lt;</span><span class="hl-6">canvas</span><span class="hl-1"> </span><span class="hl-7">id</span><span class="hl-1">=</span><span class="hl-8">&quot;skin_container&quot;</span><span class="hl-5">&gt;&lt;/</span><span class="hl-6">canvas</span><span class="hl-5">&gt;</span><br/><br/><span class="hl-5">&lt;</span><span class="hl-6">script</span><span class="hl-5">&gt;</span><br/><span class="hl-9">    </span><span class="hl-0">let</span><span class="hl-9"> </span><span class="hl-3">skinViewer</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-0">new</span><span class="hl-9"> </span><span class="hl-3">skin3d</span><span class="hl-9">.</span><span class="hl-2">SkinViewer</span><span class="hl-9">({</span><br/><span class="hl-9">        </span><span class="hl-3">canvas:</span><span class="hl-9"> </span><span class="hl-3">document</span><span class="hl-9">.</span><span class="hl-2">getElementById</span><span class="hl-9">(</span><span class="hl-10">&quot;skin_container&quot;</span><span class="hl-9">),</span><br/><span class="hl-9">        </span><span class="hl-3">width:</span><span class="hl-9"> </span><span class="hl-4">300</span><span class="hl-9">,</span><br/><span class="hl-9">        </span><span class="hl-3">height:</span><span class="hl-9"> </span><span class="hl-4">400</span><span class="hl-9">,</span><br/><span class="hl-9">        </span><span class="hl-3">skin:</span><span class="hl-9"> </span><span class="hl-10">&quot;img/skin.png&quot;</span><br/><span class="hl-9">    });</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Change viewer size</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">width</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-4">600</span><span class="hl-9">;</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">height</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-4">800</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Load another skin</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-2">loadSkin</span><span class="hl-9">(</span><span class="hl-10">&quot;img/skin2.png&quot;</span><span class="hl-9">);</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Load a cape</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-2">loadCape</span><span class="hl-9">(</span><span class="hl-10">&quot;img/cape.png&quot;</span><span class="hl-9">);</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Load an elytra (from a cape texture)</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-2">loadCape</span><span class="hl-9">(</span><span class="hl-10">&quot;img/cape.png&quot;</span><span class="hl-9">, { </span><span class="hl-3">backEquipment:</span><span class="hl-9"> </span><span class="hl-10">&quot;elytra&quot;</span><span class="hl-9"> });</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Unload(hide) the cape / elytra</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-2">loadCape</span><span class="hl-9">(</span><span class="hl-0">null</span><span class="hl-9">);</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Set the background color</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">background</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-4">0x5a76f3</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Set the background to a normal image</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-2">loadBackground</span><span class="hl-9">(</span><span class="hl-10">&quot;img/background.png&quot;</span><span class="hl-9">);</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Set the background to a panoramic image</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-2">loadPanorama</span><span class="hl-9">(</span><span class="hl-10">&quot;img/panorama1.png&quot;</span><span class="hl-9">);</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Change camera FOV</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">fov</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-4">70</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Zoom out</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">zoom</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-4">0.5</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Rotate the player</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">autoRotate</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-0">true</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Apply an animation</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">animation</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-0">new</span><span class="hl-9"> </span><span class="hl-3">skin3d</span><span class="hl-9">.</span><span class="hl-2">WalkingAnimation</span><span class="hl-9">();</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Set the speed of the animation</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">animation</span><span class="hl-9">.</span><span class="hl-3">speed</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-4">3</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Pause the animation</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">animation</span><span class="hl-9">.</span><span class="hl-3">paused</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-0">true</span><span class="hl-9">;</span><br/><br/><span class="hl-9">    </span><span class="hl-11">// Remove the animation</span><br/><span class="hl-9">    </span><span class="hl-3">skinViewer</span><span class="hl-9">.</span><span class="hl-3">animation</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-0">null</span><span class="hl-9">;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">script</span><span class="hl-5">&gt;</span>
+</code><button>Copy</button></pre>
+					<hr />
+					<a id="md:advanced-usage" class="tsd-anchor"></a>
+					<h2><a href="#md:advanced-usage">Advanced Usage</a></h2>
+					<a id="md:lighting-1" class="tsd-anchor"></a>
+					<h3><a href="#md:lighting-1">Lighting</a></h3>
+					<pre><code class="language-js"><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">cameraLight</span><span class="hl-1">.</span><span class="hl-3">intensity</span><span class="hl-1"> = </span><span class="hl-4">0.9</span><span class="hl-1">;</span><br/><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">globalLight</span><span class="hl-1">.</span><span class="hl-3">intensity</span><span class="hl-1"> = </span><span class="hl-4">0.1</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+					<a id="md:ears" class="tsd-anchor"></a>
+					<h3><a href="#md:ears">Ears</a></h3>
+					<pre><code class="language-js"><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">skin3d</span><span class="hl-1">.</span><span class="hl-2">SkinViewer</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-3">skin:</span><span class="hl-1"> </span><span class="hl-10">&quot;img/deadmau5.png&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">ears:</span><span class="hl-1"> </span><span class="hl-10">&quot;current-skin&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-2">loadEars</span><span class="hl-1">(</span><span class="hl-10">&quot;img/ears.png&quot;</span><span class="hl-1">, { </span><span class="hl-3">textureType:</span><span class="hl-1"> </span><span class="hl-10">&quot;standalone&quot;</span><span class="hl-1"> });</span><br/><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-2">loadEars</span><span class="hl-1">(</span><span class="hl-10">&quot;img/deadmau5.png&quot;</span><span class="hl-1">, { </span><span class="hl-3">textureType:</span><span class="hl-1"> </span><span class="hl-10">&quot;skin&quot;</span><span class="hl-1"> });</span>
+</code><button>Copy</button></pre>
+					<a id="md:name-tag" class="tsd-anchor"></a>
+					<h3><a href="#md:name-tag">Name Tag</a></h3>
+					<pre><code class="language-js"><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">nameTag</span><span class="hl-1"> = </span><span class="hl-10">&quot;hello&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">nameTag</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">skin3d</span><span class="hl-1">.</span><span class="hl-2">NameTagObject</span><span class="hl-1">(</span><span class="hl-10">&quot;hello&quot;</span><span class="hl-1">, { </span><span class="hl-3">textStyle:</span><span class="hl-1"> </span><span class="hl-10">&quot;yellow&quot;</span><span class="hl-1"> });</span><br/><span class="hl-3">skinViewer</span><span class="hl-1">.</span><span class="hl-3">nameTag</span><span class="hl-1"> = </span><span class="hl-0">null</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+					<hr />
+					<a id="md:font" class="tsd-anchor"></a>
+					<h2><a href="#md:font">Font</a></h2>
+					<p>To display name tags correctly, you need the Minecraft font.<br />Add this to your CSS:</p>
+					<pre><code class="language-css"><span class="hl-12">@font-face</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-7">font-family</span><span class="hl-1">: </span><span class="hl-10">&#39;Minecraft&#39;</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-7">src</span><span class="hl-1">: </span><span class="hl-2">url</span><span class="hl-1">(</span><span class="hl-10">&#39;/path/to/minecraft.woff2&#39;</span><span class="hl-1">) </span><span class="hl-2">format</span><span class="hl-1">(</span><span class="hl-10">&#39;woff2&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+					<hr />
+					<a id="md:build" class="tsd-anchor"></a>
+					<h2><a href="#md:build">Build</a></h2>
+					<pre><code class="language-sh"><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-10">install</span><br/><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-10">run</span><span class="hl-1"> </span><span class="hl-10">build</span>
+</code><button>Copy</button></pre>
+					<hr />
+					<a id="md:source-structure-src" class="tsd-anchor"></a>
+					<h2><a href="#md:source-structure-src">Source Structure (<code>/src</code>)</a></h2>
+					<ul>
+						<li>
+							<code>viewer.ts</code> – Main SkinViewer class, rendering logic, controls, options, and resource
+							management.
+						</li>
+						<li><code>playerObject.ts</code> – PlayerObject class, skin/cape/elytra/ears mesh management.</li>
+						<li><code>animation.ts</code> – Animation base class and built-in animations.</li>
+						<li><code>nameTagObject.ts</code> – NameTagObject class for rendering name tags.</li>
+						<li><code>utils.ts</code> – Utility functions for textures, images, and helpers.</li>
+						<li><code>types.ts</code> – TypeScript type definitions for options and interfaces.</li>
+						<li><code>shaders/</code> – Custom shaders (e.g., FXAA).</li>
+						<li><code>controls/OrbitControls.ts</code> – OrbitControls for camera interaction.</li>
+					</ul>
+					<hr />
+					<a id="md:license" class="tsd-anchor"></a>
+					<h2><a href="#md:license">License</a></h2>
+					<p>MIT</p>
+					<hr />
+				</div>
+			</div>
+			<div class="col-sidebar">
+				<div class="page-menu">
+					<div class="tsd-navigation settings">
+						<details class="tsd-index-accordion">
+							<summary class="tsd-accordion-summary">
+								<h3>
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+										<use href="assets/icons.svg#icon-chevronDown"></use></svg
+									>Settings
+								</h3>
+							</summary>
+							<div class="tsd-accordion-details">
+								<div class="tsd-filter-visibility">
+									<h4 class="uppercase">Member Visibility</h4>
+									<form>
+										<ul id="tsd-filter-options">
+											<li class="tsd-filter-item">
+												<label class="tsd-filter-input"
+													><input type="checkbox" id="tsd-filter-protected" name="protected" /><svg
+														width="32"
+														height="32"
+														viewBox="0 0 32 32"
+														aria-hidden="true"
+													>
+														<rect
+															class="tsd-checkbox-background"
+															width="30"
+															height="30"
+															x="1"
+															y="1"
+															rx="6"
+															fill="none"
+														></rect>
+														<path
+															class="tsd-checkbox-checkmark"
+															d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+															stroke="none"
+															stroke-width="3.5"
+															stroke-linejoin="round"
+															fill="none"
+														></path></svg
+													><span>Protected</span></label
+												>
+											</li>
+											<li class="tsd-filter-item">
+												<label class="tsd-filter-input"
+													><input type="checkbox" id="tsd-filter-private" name="private" /><svg
+														width="32"
+														height="32"
+														viewBox="0 0 32 32"
+														aria-hidden="true"
+													>
+														<rect
+															class="tsd-checkbox-background"
+															width="30"
+															height="30"
+															x="1"
+															y="1"
+															rx="6"
+															fill="none"
+														></rect>
+														<path
+															class="tsd-checkbox-checkmark"
+															d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+															stroke="none"
+															stroke-width="3.5"
+															stroke-linejoin="round"
+															fill="none"
+														></path></svg
+													><span>Private</span></label
+												>
+											</li>
+											<li class="tsd-filter-item">
+												<label class="tsd-filter-input"
+													><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked /><svg
+														width="32"
+														height="32"
+														viewBox="0 0 32 32"
+														aria-hidden="true"
+													>
+														<rect
+															class="tsd-checkbox-background"
+															width="30"
+															height="30"
+															x="1"
+															y="1"
+															rx="6"
+															fill="none"
+														></rect>
+														<path
+															class="tsd-checkbox-checkmark"
+															d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+															stroke="none"
+															stroke-width="3.5"
+															stroke-linejoin="round"
+															fill="none"
+														></path></svg
+													><span>Inherited</span></label
+												>
+											</li>
+										</ul>
+									</form>
+								</div>
+								<div class="tsd-theme-toggle">
+									<h4 class="uppercase">Theme</h4>
+									<select id="tsd-theme">
+										<option value="os">OS</option>
+										<option value="light">Light</option>
+										<option value="dark">Dark</option>
+									</select>
+								</div>
+							</div>
+						</details>
+					</div>
+					<details open class="tsd-index-accordion tsd-page-navigation">
+						<summary class="tsd-accordion-summary">
+							<h3>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+									<use href="assets/icons.svg#icon-chevronDown"></use></svg
+								>On This Page
+							</h3>
+						</summary>
+						<div class="tsd-accordion-details">
+							<a href="#md:skin3d"><span>skin3d</span></a>
+							<ul>
+								<li>
+									<a href="#md:api-overview"
+										><span>API <wbr />Overview</span></a
+									>
+								</li>
+								<li>
+									<ul>
+										<li>
+											<a href="#md:main-classes"
+												><span>Main <wbr />Classes</span></a
+											>
+										</li>
+										<li>
+											<ul>
+												<li>
+													<a href="#md:skinviewer"
+														><span>Skin<wbr />Viewer</span></a
+													>
+												</li>
+												<li>
+													<a href="#md:playerobject"
+														><span>Player<wbr />Object</span></a
+													>
+												</li>
+												<li>
+													<a href="#md:nametagobject"
+														><span>Name<wbr />Tag<wbr />Object</span></a
+													>
+												</li>
+												<li>
+													<a href="#md:playeranimation"
+														><span>Player<wbr />Animation</span></a
+													>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#md:controls"><span>Controls</span></a>
+										</li>
+										<li>
+											<a href="#md:lighting"><span>Lighting</span></a>
+										</li>
+										<li>
+											<a href="#md:backgrounds"><span>Backgrounds</span></a>
+										</li>
+										<li>
+											<a href="#md:ears-support"
+												><span>Ears <wbr />Support</span></a
+											>
+										</li>
+										<li>
+											<a href="#md:name-tags"
+												><span>Name <wbr />Tags</span></a
+											>
+										</li>
+										<li>
+											<a href="#md:events"><span>Events</span></a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#md:example-usage"
+										><span>Example <wbr />Usage</span></a
+									>
+								</li>
+								<li>
+									<a href="#md:advanced-usage"
+										><span>Advanced <wbr />Usage</span></a
+									>
+								</li>
+								<li>
+									<ul>
+										<li>
+											<a href="#md:lighting-1"><span>Lighting</span></a>
+										</li>
+										<li>
+											<a href="#md:ears"><span>Ears</span></a>
+										</li>
+										<li>
+											<a href="#md:name-tag"
+												><span>Name <wbr />Tag</span></a
+											>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#md:font"><span>Font</span></a>
+								</li>
+								<li>
+									<a href="#md:build"><span>Build</span></a>
+								</li>
+								<li>
+									<a href="#md:source-structure-src"
+										><span>Source <wbr />Structure (/src)</span></a
+									>
+								</li>
+								<li>
+									<a href="#md:license"><span>License</span></a>
+								</li>
+							</ul>
+						</div>
+					</details>
+				</div>
+				<div class="site-menu">
+					<nav class="tsd-navigation">
+						<a href="modules.html" class="current"
+							><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg
+							><span>Skin3d Documentation</span></a
+						>
+						<ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base=".">
+							<li>Loading...</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+		</footer>
+		<div class="overlay"></div>
+	</body>
+</html>

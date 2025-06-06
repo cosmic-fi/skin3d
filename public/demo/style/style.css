@@ -1,0 +1,263 @@
+@font-face {
+	font-family: "Minecraft";
+	src: url("../public/font/minecraft.woff2") format("woff2");
+}
+body {
+	margin: 0;
+	padding: 0;
+	background-color: rgb(19, 11, 24);
+	color: rgb(184, 39, 228);
+	overflow: hidden;
+	padding: 5px 12vw;
+	overflow-y: auto;
+	background: linear-gradient(to bottom, rgba(49, 30, 63, 0), rgba(17, 10, 22, 0)), url("../public/img/background.jpg");
+	background-size: cover;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	/* Custom scrollbar styles for all scrollable elements */
+}
+body a {
+	color: #b47be0;
+}
+body .container {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+	padding: 10px;
+	row-gap: 10px;
+	border: 1px rgba(255, 255, 255, 0.2) solid;
+	overflow: hidden;
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+}
+body .container header {
+	background-color: rgb(53, 53, 53);
+	padding: 15px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 5px;
+}
+body .container header .brand {
+	font-size: 2rem;
+	display: flex;
+	align-items: center;
+}
+body .container header .brand img {
+	width: 10vw;
+}
+body .container header .nav {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	-moz-column-gap: 10px;
+	column-gap: 10px;
+}
+body .container header .nav .nav-item {
+	color: #efdcf8;
+	text-decoration: none;
+	opacity: 0.8;
+}
+body .container header .nav .nav-item:hover {
+	color: #c688eb;
+}
+body .container .preview {
+	background-color: rgb(48, 48, 48);
+	display: flex;
+	flex-direction: row;
+	padding: 13px 10px 10px 10px;
+	border-radius: 5px;
+	border: 1px rgba(255, 255, 255, 0.1) solid;
+	-moz-column-gap: 20px;
+	column-gap: 20px;
+	overflow: hidden;
+	justify-content: start;
+	gap: 10px;
+}
+body .container .preview legend {
+	background-color: #9462b1;
+	padding: 10px 20px;
+	color: #ffffff;
+	border: 1px rgba(255, 255, 255, 0.1) solid;
+	border-radius: 5px;
+	font-family: "Minecraft";
+	transform: rotate(5deg);
+}
+body .container .preview .canvas-container {
+	position: relative;
+	overflow: hidden;
+	border-radius: 5px;
+	max-width: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+body .container .preview .canvas-container canvas {
+	border-radius: 5px;
+}
+body .container .preview .canvas-container #reset_all {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+body .container .preview .controls {
+	border: 1px rgba(255, 255, 255, 0.1) solid;
+	width: 100%;
+	max-height: 500px;
+	border-radius: 5px;
+	overflow: hidden;
+	position: relative;
+	color: rgba(239, 220, 248, 0.6784313725);
+}
+body .container .preview .controls .controls-wrapper {
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll !important;
+	padding: 10px;
+	height: 480px;
+	overflow: hidden;
+	row-gap: 20px;
+}
+body .container .preview .controls .controls-wrapper .control-section {
+	display: flex;
+	flex-direction: column;
+	row-gap: 5px;
+	margin: 0 !important;
+	border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+	padding-bottom: 10px;
+	align-items: start;
+}
+body .container .preview .controls .controls-wrapper .control-section h1 {
+	padding: 0px;
+	margin: 0;
+	font-size: 0.9rem;
+	color: #efdcf8;
+	font-family: "Minecraft" !important;
+}
+body .container .preview .controls .controls-wrapper .control-section .input-group {
+	display: flex;
+	flex-direction: row;
+	-moz-column-gap: 20px;
+	column-gap: 20px;
+}
+body .container .preview .controls .controls-wrapper .control-section div {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+body .container .preview .controls .controls-wrapper .control-section div .control {
+	display: flex;
+	flex-direction: column;
+	row-gap: 5px;
+	align-items: start;
+	font-size: 0.89rem;
+}
+body .container table {
+	border-collapse: collapse;
+	border: 1px rgba(255, 255, 255, 0.1764705882) dashed;
+	margin-left: 10px;
+}
+body .container table td,
+body .container table th {
+	border: 1px rgba(255, 255, 255, 0.1764705882) dashed;
+	text-align: left;
+	padding: 5px;
+}
+body .container table thead th {
+	border-top: unset;
+	font-size: 0.94rem;
+}
+body .container table tbody tr:last-child td,
+body .container table tbody tr:last-child th {
+	border-bottom: unset;
+}
+body .container table th:first-child,
+body .container table td:first-child {
+	border-left: unset;
+}
+body .container table th:last-child,
+body .container table td:last-child {
+	border-right: unset;
+}
+body .container table td input[type="checkbox"] {
+	vertical-align: middle;
+	margin: 0;
+	width: 100%;
+}
+body .btn-primary {
+	background-color: #9462b1;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	padding: 8px 18px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition:
+		background 0.2s,
+		color 0.2s;
+}
+body .btn-primary:hover,
+body .btn-primary:focus {
+	background-color: #b47be0;
+	color: #fff;
+}
+body .btn-primary:active {
+	background-color: #7a4791;
+}
+body input,
+body textarea,
+body select {
+	background: #2d183a;
+	color: #efdcf8;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 4px;
+	padding: 8px 12px;
+	font-size: 1rem;
+	outline: none;
+	transition:
+		border-color 0.2s,
+		box-shadow 0.2s;
+}
+body input:focus,
+body textarea:focus,
+body select:focus {
+	border-color: #9462b1;
+	box-shadow: 0 0 0 2px rgba(148, 98, 177, 0.2);
+}
+body input[type="checkbox"],
+body input[type="radio"] {
+	accent-color: #9462b1;
+	width: 18px;
+	height: 18px;
+	margin-right: 8px;
+	vertical-align: middle;
+	cursor: pointer;
+	transition: accent-color 0.2s;
+}
+body input[type="checkbox"]:focus,
+body input[type="radio"]:focus {
+	outline: 2px solid #b47be0;
+	outline-offset: 2px;
+}
+body * {
+	scrollbar-width: thin;
+	scrollbar-color: #9462b1 #2d183a;
+}
+body *::-webkit-scrollbar {
+	width: 8px;
+	background: #2d183a;
+	border-radius: 5px;
+}
+body *::-webkit-scrollbar-thumb {
+	background: #9462b1;
+	border-radius: 5px;
+}
+body *::-webkit-scrollbar-thumb:hover {
+	background: #b47be0;
+} /*# sourceMappingURL=style.css.map */

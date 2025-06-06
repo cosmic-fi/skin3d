@@ -5,7 +5,7 @@
     "entryPoints": ["src/index.ts"],
 
     // Output directory for generated docs
-    "out": "docs",
+    "out": "public/docs",
 
     // Include private members in documentation
     "excludePrivate": false,
@@ -26,7 +26,7 @@
     // "plugin": ["typedoc-plugin-markdown"],
 
     // Set the theme (default, minimal, etc.)
-    // "theme": "default",
+    "theme": "default",
 
     // Treat warnings as errors
     "treatWarningsAsErrors": false

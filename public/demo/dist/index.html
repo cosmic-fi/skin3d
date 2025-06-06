@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Skin3D: Real-Time 3D Minecraft Skin Viewer & Library</title>
+		<meta name="description" content="Skin3D: Instantly mess with Minecraft skins, capes, elytras, and more in real-time 3D. Tweak, preview, and play—perfect for devs who want to see what’s up fast.">
+		<meta name="keywords" content="Minecraft, skin viewer, 3D, skin3d, skinview3d, cape, elytra, animation, preview, editor, API, web, JavaScript">
+		<meta name="author" content="">
+		<meta property="og:title" content="Skin3D - Home">
+		<meta property="og:description" content="Skin3D: Instantly mess with Minecraft skins, capes, elytras, and more in real-time 3D. Tweak, preview, and play—perfect for devs who want to see what’s up fast.">
+		<meta property="og:image" content="img/logo.png">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://github.com/cosmic-fi/skin3d">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="Skin3D - Home">
+		<meta name="twitter:description" content="Skin3D: Instantly mess with Minecraft skins, capes, elytras, and more in real-time 3D. Tweak, preview, and play—perfect for devs who want to see what’s up fast.">
+		<meta name="twitter:image" content="img/logo.png">
+		<link rel="icon" type="image/png" href="./assets/favicon-C8A7Lfty.png">
+		<script type="module" crossorigin src="./assets/main-CVoYK9xv.js"></script>
+		<link rel="stylesheet" crossorigin href="./assets/main-BCbYhA3h.css">
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				<a href="" class="brand">
+					<img src="./assets/logo-D8F6KzFo.png" alt="Skin3D">
+				</a>
+				<div class="nav">
+					<a href="https://docs.skin3d.netlify.app" class="nav-item">Doc</a>
+					<a href="https://github.com/cosmic-fi/skin3d" class="nav-item">Github</a>
+					<a href="https://buymeacoffee.com/cosmic_fi" class="nav-item">Donate</a>
+				</div>
+			</header>
+			<div class="wrapper">
+				<div class="hero">
+					<h1 style="font-family: 'Minecraft';">Welcome to Skin3D</h1>
+					<p>
+						Experience Minecraft skins like never before with Skin3D! Instantly preview skins, capes, elytras, and accessories in real-time 3D. Enjoy smooth animations, dynamic lighting, and advanced customization—perfect for your projects.
+					</p>
+					<div class="hero-actions">
+						<a href="https://github.com/cosmic-fi/skin3d" class="button primary" target="_blank">View on GitHub</a>
+						<a href="#preview" class="button">Try it out!</a>
+					</div>
+					<style>
+						.hero {
+							padding: 40px 20px;
+							background: linear-gradient(90deg, #c2b4ff 0%, #C688EB 100%);
+							border-radius: 5px;
+							text-align: center;
+							margin-bottom: 32px;
+						}
+						.hero h1 {
+							margin: 0 0 12px 0;
+							font-size: 2.2em;
+							color: #333;
+						}
+						.hero p {
+							font-size: 1.1em;
+							color: #444;
+							margin-bottom: 24px;
+						}
+						.hero-actions {
+							display: flex;
+							justify-content: center;
+							gap: 16px;
+						}
+						.button {
+							display: inline-block;
+							padding: 10px 24px;
+							border-radius: 6px;
+							background: #732e9b;
+							color: #fff;
+							text-decoration: none;
+							font-weight: 600;
+							transition: background 0.2s;
+						}
+						.button.primary {
+							background: #57157E;
+						}
+						.button:hover {
+							background: #481268;
+						}
+					</style>
+				</div>
+				<fieldset class="preview" id="preview">
+					<legend>Preview</legend>
+					<div class="canvas-container">
+						<canvas id="skin_container"></canvas>
+						<button id="reset_all" type="button" class="btn-primary">Reset All</button>
+					</div>
+					<div class="controls">		
+						<div class="controls-wrapper">
+							<div class="control-section">
+								<h1>Viewport</h1>
+								<div class="input-group">
+									<label class="control">FOV
+										<input id="fov" type="number" value="70" step="1" min="1" max="179" size="2"/>
+									</label>
+									<label class="control"
+										>Zoom: <input id="zoom" type="number" value="0.6" step="0.01" min="0.01" max="2.00" size="4"
+									/></label>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Light</h1>
+								<div class="input-group">
+									<label class="control"
+										>Global <input id="global_light" type="number" value="3" step="0.01" min="0.00" max="2.00" size="4"
+									/></label>
+									<label class="control"
+										>Camera <input id="camera_light" type="number" value="0.60" step="0.01" min="0.00" max="2.00" size="4"
+									/></label>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Rotation</h1>
+								<div class="input-group">
+									<label class="control" style="flex-direction: row-reverse !important; align-items: center; column-gap: 5px">Enable<input id="auto_rotate" type="checkbox" /></label>
+									<label class="control"
+										>Speed <input id="auto_rotate_speed" type="number" value="1" step="0.1" size="3"
+									/></label>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Animation</h1>
+								<div>
+									<label><input type="radio" id="animation_none" name="animation" value="" checked /> None</label>
+									<label><input type="radio" id="animation_idle" name="animation" value="idle" /> Idle</label>
+									<label><input type="radio" id="animation_walk" name="animation" value="walk" /> Walk</label>
+									<label><input type="radio" id="animation_run" name="animation" value="run" /> Run</label>
+									<label><input type="radio" id="animation_fly" name="animation" value="fly" /> Fly</label>
+									<label><input type="radio" id="animation_wave" name="animation" value="wave" /> Wave</label>
+									<label><input type="radio" id="animation_crouch" name="animation" value="crouch" /> Crouch</label>
+									<label><input type="radio" id="animation_hit" name="animation" value="hit" /> Hit</label>
+									
+									<label class="control" style="flex-direction: row !important;align-items:center;column-gap: 5px;margin-top: 5px;">
+										Speed: 
+										<input id="animation_speed" type="number" value="1" step="0.1" size="3" />
+										<button id="animation_pause_resume" type="button" class="control btn-primary" style="margin-left: 10px;">Pause / Resume</button>
+									</label>
+					
+									<br />
+									<div class="control" id="crouch_setting" style="display: flex; margin: 0 !important">
+										Crouch settings:
+										<label><input type="checkbox" id="run_once" name="crouch_setting_item" value="runOnce" />Run once</label>
+										<label
+											><input type="checkbox" id="show_progress" name="crouch_setting_item" value="showProgress" />Show
+											progress</label
+										>
+										<label>
+											<input type="checkbox" id="add_hitting_animation" name="crouch_setting_item" value="addHitAnimation" />Add
+											hitting animation</label
+										>
+										<br /><label class="control" id="hit_speed_label" style="display: none"
+											>Hit speed :<input
+												id="hit_speed"
+												type="number"
+												value=""
+												step="0.1"
+												size="3"
+												placeholder="default following crouch speed"
+												style="width: 190px"
+										/></label>
+									</div>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Mouse Control</h1>
+								<div class="control">
+									<label><input type="checkbox" id="control_rotate" checked /> Enable Rotate</label>
+									<label><input type="checkbox" id="control_zoom" checked /> Enable Zoom</label>
+									<label><input type="checkbox" id="control_pan" /> Enable Pan</label>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Skin Layers</h1>
+								<table id="layers_table">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Head</th>
+											<th>Body</th>
+											<th>Right arm</th>
+											<th>Left arm</th>
+											<th>Right leg</th>
+											<th>Left leg</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Inner</th>
+											<td><input type="checkbox" data-layer="innerLayer" data-part="head" checked /></td>
+											<td><input type="checkbox" data-layer="innerLayer" data-part="body" checked /></td>
+											<td><input type="checkbox" data-layer="innerLayer" data-part="rightArm" checked /></td>
+											<td><input type="checkbox" data-layer="innerLayer" data-part="leftArm" checked /></td>
+											<td><input type="checkbox" data-layer="innerLayer" data-part="rightLeg" checked /></td>
+											<td><input type="checkbox" data-layer="innerLayer" data-part="leftLeg" checked /></td>
+										</tr>
+										<tr>
+											<th>outer</th>
+											<td><input type="checkbox" data-layer="outerLayer" data-part="head" checked /></td>
+											<td><input type="checkbox" data-layer="outerLayer" data-part="body" checked /></td>
+											<td><input type="checkbox" data-layer="outerLayer" data-part="rightArm" checked /></td>
+											<td><input type="checkbox" data-layer="outerLayer" data-part="leftArm" checked /></td>
+											<td><input type="checkbox" data-layer="outerLayer" data-part="rightLeg" checked /></td>
+											<td><input type="checkbox" data-layer="outerLayer" data-part="leftLeg" checked /></td>
+										</tr>
+									</tbody>
+								</table>
+								<div>
+									<span style="margin-top: 5px">Back Equipment</span>
+									<div class="control">
+										<div style=" column-gap: 5px;margin:0px !important">
+											<label style="flex-direction: row !important;align-items: center"
+												><input type="radio" id="back_equipment_cape" name="back_equipment" value="cape" checked /> Cape</label
+											>
+											<label><input type="radio" id="back_equipment_elytra" name="back_equipment" value="elytra" /> Elytra</label>
+										</div>
+									</div>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Skin</h1>
+								<div>
+									<div class="control" style="flex-direction: row;column-gap: 10px">
+										<label style="margin: 0px !"
+											>URL:
+											<input
+												id="skin_url"
+												type="text"
+												value="img/skins/OSYDIAN_Blossom.png"
+												placeholder="none"
+												list="default_skins"
+												size="20"
+										/></label>
+										<datalist id="default_skins">
+											<option value="img/skins/OSYDIAN_Blossom.png"></option>
+											<option value="img/skins/OSYDIAN_Bliss.png"></option>
+											<option value="img/skins/COSMICxO11y_Royal_prince.png"></option>
+											<option value="img/skins/COSMICxO11y_Sales_man.png"></option>
+											<option value="img/skins/1_8_texturemap_redux"></option>
+										</datalist><br>
+										<div style="display: flex; flex-direction: row; align-items: center;margin-left: 5px;column-gap: 10px;">
+											<input id="skin_url_upload" type="file" class="hidden" accept="image/*" />
+											<button id="skin_url_unset" type="button" class="btn-primary control hidden">Unset</button>
+											<button type="button" class="control btn-primary" onclick="document.getElementById('skin_url_upload').click();">
+												Browse...
+											</button>
+										</div>
+									</div>
+								</div>
+								<div>
+									<label class="control"
+										>Model:
+										<select id="skin_model">
+											<option value="auto-detect" selected>Auto detect</option>
+											<option value="default">Default</option>
+											<option value="slim">Slim</option>
+										</select>
+									</label>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Cape</h1>
+								<div class="control" style="flex-direction: row">
+									<label
+										>URL:
+										<input
+											id="cape_url"
+											type="text"
+											value="img/capes/mojang_cape.png"
+											placeholder="none"
+											list="default_capes"
+											size="20"
+									/></label>
+									<datalist id="default_capes">
+										<option value=""></option>
+										<option value="img/capes/mojang_cape.png"></option>
+										<option value="img/capes/hd_cape.png"></option>
+										<option value="img/capes/legacy_cape.png"></option>
+										<option value="img/capes/Common.png"></option>
+										<option value="img/capes/MCC15thAnni.png"></option>
+									</datalist>
+									
+									<div style="flex-direction: row;column-gap: 10px;align-items: center;">
+										<input id="cape_url_upload" type="file" class="hidden" accept="image/*" />
+										<button id="cape_url_unset" type="button" class="control btn-primary hidden">Unset</button>
+										<button type="button" class="control btn-primary" onclick="document.getElementById('cape_url_upload').click();">
+											Browse...
+										</button>
+									</div>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Ears</h1>
+								<div>
+									<label class="control"
+										>Source:
+										<select id="ears_source">
+											<option value="none">None</option>
+											<option value="current_skin">Current skin</option>
+											<option value="skin">Skin texture</option>
+											<option value="standalone">Standalone texture</option>
+										</select>
+									</label>
+								</div>
+								<div id="ears_texture_input" style="display: flex; flex-direction: row;align-items: center;">
+									<div>
+										<label class="control"
+											>URL: <input id="ears_url" type="text" value="" placeholder="none" list="default_ears" size="20"
+										/></label>
+										<datalist id="default_ears">
+											<option value=""></option>
+											<option value="img/ears/ears.png" data-texture-type="standalone"></option>
+											<option value="img/ears/deadmau5.png" data-texture-type="skin"></option>
+										</datalist>
+									</div>
+									
+									<div style="flex-direction: row; align-items: center;column-gap: 10px;">
+										<input id="ears_url_upload" type="file" class="hidden" accept="image/*" />
+										<button id="ears_url_unset" type="button" class="btn-primary control hidden">Unset</button>
+										<button type="button" class="btn-primary control" onclick="document.getElementById('ears_url_upload').click();">
+											Browse...
+										</button>
+									</div>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Background</h1>
+								<div class="control">
+									<label
+										>Type:
+										<select id="background_type" value="panorama">
+											<option value="color">Solid Color</option>
+											<option value="panorama">Panorama</option>
+										</select>
+									</label>
+								</div>
+								<div id="background_color_options" class="control">
+									<label
+										>Color:
+										<select id="background_color">
+											<option value="#c2b4ff">Purple (#c2b4ff)</option>
+											<option value="#87CEEB">Sky Blue (#87CEEB)</option>
+											<option value="#90EE90">Light Green (#90EE90)</option>
+											<option value="#FFB6C1">Light Pink (#FFB6C1)</option>
+											<option value="#DDA0DD">Plum (#DDA0DD)</option>
+										</select>
+									</label>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Panorama</h1>
+								<div class="control" style="flex-direction: row;align-items: center;column-gap: 15px;">
+									<label
+										>URL:
+										<input
+											id="panorama_url"
+											type="text"
+											value="img/panoramas/panorama.png"
+											placeholder="none"
+											list="default_panorama"
+											size="20"
+									/></label>
+									<datalist id="default_panorama">
+										<option value=""></option>
+										<option value="img/panoramas/panorama.png"></option>
+									</datalist>
+									<div style="flex-direction: row;align-items: center;column-gap: 10px;">
+										<input id="panorama_url_upload" type="file" class="hidden" accept="image/*" />
+										<button id="panorama_url_unset" type="button" class="control btn-primary hidden">Unset</button>
+										<button type="button" class="control btn-primary" onclick="document.getElementById('panorama_url_upload').click();">
+											Browse...
+										</button>
+									</div>
+								</div>
+							</div>
+				
+							<div class="control-section">
+								<h1>Name Tag</h1>
+								<div class="control">
+									<label>Text: <input id="nametag_text" type="text" value="" placeholder="none" size="15" /></label>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</fieldset>
+				<fieldset class="preview" style="margin-top: 25px;">
+					<legend>Getting started</legend>
+					<div class="wrapper">
+						<h2>How to Get Started</h2>
+						<p>
+							Skin3D is a standalone 3D Minecraft skin viewer and editor. Follow these steps to set up and use the API in your own project.
+						</p>
+
+						<h3>1. Install skin3d</h3>
+						<pre><code>npm install skin3d</code></pre>
+						<p>Or use a CDN:</p>
+						<pre><code>&lt;script type="module" src="https://unpkg.com/skin3d@latest/dist/skin3d.min.js"&gt;&lt;/script&gt;</code></pre>
+
+						<h3>2. Basic Usage Example</h3>
+						<pre><code>
+// ES Modules / Browser (with &lt;script type="module"&gt; or bundler)
+import { SkinViewer } from "skin3d";
+
+const viewer = new SkinViewer({
+   canvas: document.getElementById("skin_container"),
+   width: 300,
+   height: 400,
+   skin: "path-to-your-skin/your-skin.png"
+});
+
+// Optional: Add controls
+viewer.controls.enableRotate = true;
+viewer.controls.enableZoom = true;
+viewer.controls.enablePan = false;
+						</code></pre>
+
+						<h3>2b. Using in Node.js or with &lt;script&gt; tag</h3>
+						<p>
+							If you are not using ES modules (for example, in a Node.js app or with a plain <code>&lt;script&gt;</code> tag), you can access <code>SkinViewer</code> from the global <code>window</code> object after including the script:
+						</p>
+						<pre><code>
+&lt;script src="https://unpkg.com/skin3d@latest/dist/skin3d.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   const viewer = new window.SkinViewer({
+      canvas: document.getElementById("skin_container"),
+      width: 300,
+      height: 400,
+      skin: "path-to-your-skin/your-skin.png"
+   });
+&lt;/script&gt;
+						</code></pre>
+						<p>
+							For Node.js, you can require the package after installing:
+						</p>
+						<pre><code>
+const { SkinViewer } = require("skin3d");
+const viewer = new SkinViewer({
+   // options here
+});
+						</code></pre>
+						<h3>3. Loading Capes and Elytras</h3>
+						<pre><code>
+// Set a cape
+viewer.loadCape("img/mojang_cape.png");
+
+// Set an elytra
+viewer.loadElytra("img/elytra.png");
+						</code></pre>
+
+						<h3>4. Animations</h3>
+						<pre><code>
+import { WalkingAnimation } from "skinview3d";
+const walk = viewer.animations.add(WalkingAnimation);
+
+// Change speed
+walk.speed = 1.2;
+
+// Pause or resume
+walk.paused = false;
+						</code></pre>
+
+						<h3>5. More Features</h3>
+						<ul>
+							<li>Change background: 
+								<code>viewer.setBackground("#c2b4ff");</code>
+							</li>
+							<li>Change FOV: <code>viewer.fov = 70;</code></li>
+							<li>Show/hide layers: <code>viewer.playerObject.skin.visible = false;</code></li>
+						</ul>
+
+						<p>
+							See the <a href="https://docs.skin3d.netlify.app/" style="color: #C688EB;" target="_blank">DOCUMENTATION</a> for more advanced usage and API details.
+						</p>
+					</div>
+					<style>
+						.preview {
+							border: 2px solid #c2b4ff;
+							border-radius: 8px;
+							padding: 24px 18px 18px 18px;
+							background: #faf7ff;
+							box-shadow: 0 2px 8px rgba(114, 46, 155, 0.07);
+							margin-bottom: 24px;
+							color: #b9b9b9
+						}
+						.preview h2, .preview h3 {
+							color: #b9b9b9;
+							margin-top: 0;
+						}
+						.preview h2 {
+							font-size: 1.5em;
+							margin-bottom: 10px;
+						}
+						.preview h3 {
+							font-size: 1.1em;
+							margin-bottom: 6px;
+						}
+						.preview pre {
+							background: #1f1f1f;
+							border-radius: 5px;
+							padding: 10px 14px;
+							overflow-x: auto;
+							font-size: 1em;
+							margin-bottom: 12px;
+						}
+						.preview code {
+							font-family: "Fira Mono", "Consolas", "Menlo", monospace;
+							color: #bf98d6;
+						}
+						.preview ul {
+							margin: 10px 0 10px 20px;
+						}
+						.preview a {
+							color: #732e9b;
+							text-decoration: underline;
+						}
+						.preview a:hover {
+							color: #57157E;
+						}
+						@media (max-width: 600px) {
+							.preview {
+								padding: 12px 4px 8px 4px;
+							}
+							.preview .wrapper {
+								max-width: 100%;
+							}
+						}
+					</style>
+				</fieldset>
+				<fieldset class="preview">
+					<legend>Contributors</legend>
+					<div class="" style="row-gap: 5px !important;">
+						<p>Thanks to all contributors!</p>
+						<p>Want to see your avatar here? <a href="https://github.com/cosmic-fi/skin3d/graphs/contributors" target="_blank">Contribute on GitHub</a> and help make Skin3D better!</p>
+						<div id="contributors" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 10px;background-color: #1f1f1f;padding: 10px;border-radius: 5px"></div>
+					</div>
+				</fieldset>
+			</div>
+			<footer>
+				<div style="font-size: 0.95em; color: #cfcfcf; margin-top: 8px;">
+					Disclaimer: This project is based on <a href="https://github.com/bs-community/skinview3d" target="_blank">skinview3d</a>, optimized for both performance and usability. All credits go to the original authors and contributors.
+				</div></div>
+			</footer>
+		</div>
+		<script
+			type="module"
+			src="https://unpkg.com/stats.js@0.17.0/src/Stats.js"
+			integrity="sha384-W71K+d2HbqXqQWSj3Vj4RDsIVvIV7lR8O6RArKAiqB39ntwLci0W08qOn4Z1n8sM"
+			crossorigin="anonymous"
+			async
+		></script>
+	</body>
+</html>
