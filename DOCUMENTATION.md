@@ -39,7 +39,7 @@ npm install skin3d
 Or include the UMD bundle in your HTML:
 
 ```html
-<script src="https://unpkg.com/skin3d/dist/skin3d.min.js"></script>
+<script src="https://unpkg.com/skin3d/bundles/skin3d.bundle.js"></script>
 ```
 
 ---
@@ -343,6 +343,6 @@ MIT
 
 ## Links
 
-- [Demo Link 1](https://skin3d.netlify.app/)
+- [Demo](https://skin3d.netlify.app/)
 - [NPM](https://www.npmjs.com/package/skin3d)
 - [GitHub](https://github.com/cosmic-fi/skin3d)

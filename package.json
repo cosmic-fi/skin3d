@@ -46,6 +46,7 @@
 	},
 	"dependencies": {
 		"@types/three": "^0.156.0",
+		"skin3d": "^0.0.3",
 		"skinview-utils": "^0.7.1",
 		"three": "^0.156.0",
 		"vite-plugin-vercel": "^9.0.7"
