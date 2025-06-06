@@ -340,9 +340,3 @@ viewer.nameTag = null;
 MIT
 
 ---
-
-## Links
-
-- [Demo](https://skin3d.netlify.app/)
-- [NPM](https://www.npmjs.com/package/skin3d)
-- [GitHub](https://github.com/cosmic-fi/skin3d)

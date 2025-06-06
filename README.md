@@ -9,25 +9,7 @@ A Three.js-powered Minecraft skin viewer and renderer.
 Skin3d allows you to display, animate, and interact with Minecraft skins, capes, ears, and more in the browser.
 
 ---
-
-## Features
-
-- **1.8 Skins** (Alex/Steve, slim arms, automatic model detection)
-- **HD Skins** (any resolution)
-- **Capes** (with elytra support)
-- **Ears** (standalone or embedded in skin)
-- **Elytras** (rendered from cape textures)
-- **Name Tags** (customizable, Minecraft font)
-- **Panorama & Image Backgrounds**
-- **FXAA (Anti-Aliasing)**
-- **Lighting Controls** (ambient and camera lights)
-- **Orbit Controls** (rotate, zoom, pan)
-- **Animations** (walking, running, rotating, custom)
-- **Responsive & High-DPI Support**
-- **Pause/Resume Rendering**
-- **Customizable Scene**
-
----
+- [ Live Demo ](https://skin3d.netlify.app/)
 
 ## API Overview
 
@@ -312,9 +294,3 @@ npm run build
 MIT
 
 ---
-
-## Links
-
-- [Demo](https://skin3d.netlify.app/)
-- [NPM](https://www.npmjs.com/package/skin3d)
-- [GitHub](https://github.com/cosmic-fi/skin3d)
