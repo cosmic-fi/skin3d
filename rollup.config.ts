@@ -9,8 +9,7 @@ export default defineConfig({
 		file: "bundles/skin3d.bundle.js",
 		format: "umd",
 		name: "skin3d",
-		banner:
-			"/* @preserve skin3d / MIT License / https://github.com/cosmic-fi/skin3d */",
+		banner: "/* @preserve skin3d / MIT License / https://github.com/cosmic-fi/skin3d */",
 		sourcemap: true,
 		compact: true,
 	},
@@ -20,7 +19,7 @@ export default defineConfig({
 		swc({
 			jsc: { minify: { compress: true, mangle: true, sourceMap: true } },
 			minify: true,
-			sourceMaps: true,
+			sourceMaps: true
 		}),
 	],
 });
