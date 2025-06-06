@@ -1,6 +1,6 @@
 {
 	"name": "skin3d",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "A fast, customizable Minecraft skin viewer powered by Three.js. Easily render and preview Minecraft skins in 3D for your projects.",
 	"main": "libs/skin3d.js",
 	"type": "module",
