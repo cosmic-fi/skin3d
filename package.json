@@ -30,12 +30,20 @@
 	"bugs": {
 		"url": "https://github.com/cosmic-fi/skin3d/issues"
 	},
-	"homepage": "https://github.com/cosmic-fi/skinview3d",
+	"homepage": "https://github.com/cosmic-fi/skin3d",
 	"files": [
 		"libs",
 		"bundles",
 		"assets"
 	],
+	"optionalDependencies": {
+		"@rollup/rollup-linux-x64-gnu": "4.9.5"
+	},
+	"overrides": {
+		"vite": {
+		"rollup": "npm:@rollup/wasm-node"
+		}
+	},
 	"dependencies": {
 		"@types/three": "^0.156.0",
 		"skinview-utils": "^0.7.1",

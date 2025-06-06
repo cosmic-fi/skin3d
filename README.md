@@ -315,6 +315,6 @@ MIT
 
 ## Links
 
-- [Demo Link 1](https://skin3d.vercel.app) | [Demo Link 2]() | [Demo Link 3]()
+- [Demo Link 1](https://skin3d.netlify.app/)
 - [NPM](https://www.npmjs.com/package/skin3d)
 - [GitHub](https://github.com/cosmic-fi/skin3d)

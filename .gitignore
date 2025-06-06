@@ -45,6 +45,7 @@ typings/
 # scss files
 *.scss
 *.css.map
+
 # Optional eslint cache
 .eslintcache
 

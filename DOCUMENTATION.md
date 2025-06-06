@@ -1,6 +1,6 @@
 # skin3d Documentation
 
-skin3d is a powerful, browser-based Minecraft skin viewer and renderer built on top of Three.js. It allows you to display, animate, and interact with Minecraft skins, capes, ears, and more, with a flexible API for customization and integration.
+Skin3d is a powerful, browser-based Minecraft skin viewer and renderer built on top of Three.js. It allows you to display, animate, and interact with Minecraft skins, capes, ears, and more, with a flexible API for customization and integration.
 
 ---
 
@@ -343,6 +343,6 @@ MIT
 
 ## Links
 
-- [Demo Link 1](https://skin3d.vercel.app) | [Demo Link 2]() | [Demo Link 3]()
+- [Demo Link 1](https://skin3d.netlify.app/)
 - [NPM](https://www.npmjs.com/package/skin3d)
 - [GitHub](https://github.com/cosmic-fi/skin3d)
