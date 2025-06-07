@@ -41,9 +41,11 @@
 	},
 	"dependencies": {
 		"@types/three": "^0.156.0",
+		"path": "^0.12.7",
 		"skin3d": "^0.0.7",
 		"skinview-utils": "^0.7.1",
-		"three": "^0.156.0"
+		"three": "^0.156.0",
+		"url": "^0.11.4"
 	},
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "^15.0.2",
