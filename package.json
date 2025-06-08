@@ -31,6 +31,19 @@
 		"url": "https://github.com/cosmic-fi/skin3d/issues"
 	},
 	"homepage": "https://github.com/cosmic-fi/skin3d",
+	"keywords": [
+		"minecraft",
+		"skin",
+		"viewer",
+		"3d",
+		"three.js",
+		"renderer",
+		"preview",
+		"webgl",
+		"avatar",
+		"model",
+		"skin3d"
+	],
 	"files": [
 		"libs",
 		"bundles",
