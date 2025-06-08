@@ -16,16 +16,14 @@
 		<meta name="twitter:title" content="Skin3D - Home">
 		<meta name="twitter:description" content="Skin3D: Instantly mess with Minecraft skins, capes, elytras, and more in real-time 3D. Tweak, preview, and play—perfect for devs who want to see what’s up fast.">
 		<meta name="twitter:image" content="img/logo.png">
-		<link rel="icon" type="image/png" href="../assets/favicon.png">
-		<script type="module" crossorigin src="../assets/main.js"></script>
-		<link rel="stylesheet" crossorigin href="../assets/main.css">
+		<link rel="icon" type="image/png" href="favicon.png">
 	</head>
 
 	<body>
 		<div class="container">
 			<header>
 				<a href="" class="brand">
-					<img src="../assets/logo.png" alt="Skin3D">
+					<img src="public/img/logo.png" alt="Skin3D">
 				</a>
 				<div class="nav">
 					<a href="https://docs-skin3d.netlify.app" class="nav-item">Doc</a>
@@ -520,6 +518,71 @@ viewer.animation.paused = false;
 						<p>Want to see your avatar here? <a href="https://github.com/cosmic-fi/skin3d/graphs/contributors" target="_blank">Contribute on GitHub</a> and help make Skin3D better!</p>
 						<div id="contributors" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 10px;background-color: #1f1f1f;padding: 10px;border-radius: 5px"></div>
 					</div>
+					<script type="module">
+						const container = document.getElementById('contributors');
+						// Fetch contributors for skinview3d
+						fetch('https://api.github.com/repos/bs-community/skinview3d/contributors')
+							.then(r => r.json())
+							.then(contributors => {
+								contributors.forEach(user => {
+									const a = document.createElement('a');
+									a.href = user.html_url;
+									a.target = '_blank';
+									a.title = user.login;
+									a.style.display = 'inline-block';
+									a.style.borderRadius = '50%';
+									a.style.overflow = 'hidden';
+									a.style.width = '48px';
+									a.style.height = '48px';
+									a.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+									a.style.background = '#fff';
+									a.style.transition = 'transform 0.15s';
+									a.onmouseover = () => a.style.transform = 'scale(1.08)';
+									a.onmouseout = () => a.style.transform = '';
+									const img = document.createElement('img');
+									img.src = user.avatar_url + '&s=96';
+									img.alt = user.login;
+									img.width = 48;
+									img.height = 48;
+									img.style.display = 'block';
+									img.style.width = '100%';
+									img.style.height = '100%';
+									a.appendChild(img);
+									container.appendChild(a);
+								});
+							});
+
+						fetch('https://api.github.com/repos/cosmic-fi/skin3d/contributors')
+							.then(r => r.json())
+							.then(contributors => {
+								contributors.forEach(user => {
+									const a = document.createElement('a');
+									a.href = user.html_url;
+									a.target = '_blank';
+									a.title = user.login;
+									a.style.display = 'inline-block';
+									a.style.borderRadius = '50%';
+									a.style.overflow = 'hidden';
+									a.style.width = '48px';
+									a.style.height = '48px';
+									a.style.boxShadow = '0 1px 4px rgba(0,0,0,0.08)';
+									a.style.background = '#fff';
+									a.style.transition = 'transform 0.15s';
+									a.onmouseover = () => a.style.transform = 'scale(1.08)';
+									a.onmouseout = () => a.style.transform = '';
+									const img = document.createElement('img');
+									img.src = user.avatar_url + '&s=96';
+									img.alt = user.login;
+									img.width = 48;
+									img.height = 48;
+									img.style.display = 'block';
+									img.style.width = '100%';
+									img.style.height = '100%';
+									a.appendChild(img);
+									container.appendChild(a);
+								});
+							});
+						</script>
 				</fieldset>
 			</div>
 			<footer>
@@ -528,6 +591,7 @@ viewer.animation.paused = false;
 				</div></div>
 			</footer>
 		</div>
+		<script src="main.ts" type="module"></script>
 		<script
 			type="module"
 			src="https://unpkg.com/stats.js@0.17.0/src/Stats.js"
@@ -535,5 +599,17 @@ viewer.animation.paused = false;
 			crossorigin="anonymous"
 			async
 		></script>
+		<script type="module" async>
+			import Stats from "https://unpkg.com/stats.js@0.17.0/src/Stats.js";
+			const stats = new Stats();
+			stats.dom.style.left = "";
+			stats.dom.style.right = "0";
+			document.body.appendChild(stats.dom);
+			function loop() {
+				stats.update();
+				requestAnimationFrame(loop);
+			}
+			requestAnimationFrame(loop);
+		</script>
 	</body>
 </html>
