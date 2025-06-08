@@ -5,7 +5,7 @@
     "entryPoints": ["src/view.ts"],
 
     // Output directory for generated docs
-    "out": "public/docs",
+    "out": "docs",
 
     // Include private members in documentation
     "excludePrivate": false,
@@ -19,11 +19,10 @@
     // Exclude files or patterns
     "exclude": ["**/*.spec.ts", "**/test/**"],
 
+    "includeVersion": true,
+
     // Name of the project
     "name": "Skin3d Documentation",
-
-    // Generate documentation in markdown format
-    // "plugin": ["typedoc-plugin-markdown"],
 
     // Set the theme (default, minimal, etc.)
     "theme": "default",

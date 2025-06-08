@@ -7,13 +7,13 @@
 
 ---
 
-**Skin3d** is a modern, browser-based Minecraft skin renderer and animator, powered by Three.js. Effortlessly display, animate, and interact with Minecraft skins, capes, ears, and more, all with a flexible and intuitive API.
+**Skin3d** is a JavaScript library for displaying and animating Minecraft player models in the browser. It supports rendering skins, capes, elytras, and ears, and provides a simple API for customizing animations, camera controls, and backgrounds.
 
 ---
 
 ## What is skin3d?
 
-Skin3d is a JavaScript library that lets you embed a fully interactive Minecraft player model in your web app. It supports HD skins, capes, elytras, ears, name tags, and a variety of animations. You can control the camera, lighting, and background, and even add your own customizations.
+**Skin3d** is a JavaScript library for embedding interactive Minecraft player models in web applications. It supports HD skins, capes, elytras, ears, and name tags, along with built-in animations. You can customize camera controls, lighting, backgrounds, and extend functionality with your own features.
 
 ---
 
@@ -46,10 +46,10 @@ npm i skin3d
 import * as skin3d from 'skin3d';
 
 const viewer = new skin3d.View({
-canvas: document.getElementById("skin_view_container"),
-width: 400,
-height: 600,
-skin: "img/skin.png"
+  canvas: document.getElementById("skin_view_container"),
+  width: 400,
+  height: 600,
+  skin: "img/skin.png"
 });
 
 viewer.autoRotate = true;
@@ -116,22 +116,22 @@ viewer.animation = null; // Remove animation
 ## Advanced Usage
 
 - **Lighting**:  
-  ```js
-  viewer.globalLight.intensity = 1.5;
-  viewer.cameraLight.intensity = 0.3;
-  ```
+```js
+viewer.globalLight.intensity = 1.5;
+viewer.cameraLight.intensity = 0.3;
+```
 
 - **Name Tags**:  
-  ```js
-  viewer.nameTag = "Steve";
-  viewer.nameTag = new skin3d.NameTagObject("Alex", { textStyle: "yellow" });
-  ```
+```js
+viewer.nameTag = "Steve";
+viewer.nameTag = new skin3d.NameTagObject("Alex", { textStyle: "yellow" });
+```
 
 - **Responsive Sizing**:  
-  ```js
-  viewer.width = window.innerWidth;
-  viewer.height = window.innerHeight;
-  ```
+```js
+viewer.width = window.innerWidth;
+viewer.height = window.innerHeight;
+```
 
 ---
 
@@ -164,7 +164,7 @@ skin3d is released under the MIT License.
 
 ## Links
 
-- [Live Demo](https://skin3d.netlify.app/)
+- [Live Demo](https://skin3d.vercel.app/)
 - [NPM Package](https://www.npmjs.com/package/skin3d)
 - [GitHub Repository](https://github.com/cosmic-fi/skin3d)
 - [Community Chat](https://matrix.to/#/#skin3d:gitter.im)
