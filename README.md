@@ -1,4 +1,5 @@
 # Skin3d
+<img width="1343" height="593" alt="brave_screenshot_skin3d vercel app" src="https://github.com/user-attachments/assets/9d2eae32-4cc1-4820-b085-83cd64e2b5f1" />
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI)
 [![NPM Package](https://img.shields.io/npm/v/skin3d.svg?style=flat-square)](https://www.npmjs.com/package/skin3d)
