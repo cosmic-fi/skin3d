@@ -53,16 +53,16 @@
 		"@rollup/rollup-linux-x64-gnu": "4.9.5"
 	},
 	"dependencies": {
-		"@types/three": "^0.156.0",
 		"path": "^0.12.7",
 		"skin3d": "^0.0.7",
 		"skinview-utils": "^0.7.1",
-		"three": "^0.156.0",
+		"three": "^0.156.1",
 		"url": "^0.11.4"
 	},
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "^15.0.2",
 		"@swc/core": "^1.3.53",
+		"@types/three": "^0.182.0",
 		"@typescript-eslint/eslint-plugin": "^8.31.1",
 		"@typescript-eslint/parser": "^8.31.1",
 		"@yushijinhun/three-minifier-rollup": "^0.4.0",
