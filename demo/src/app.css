@@ -120,7 +120,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--background), transparent 90%), var(--background)), url('./img/bg.jpg');
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--background), transparent 90%), var(--background)), url('img/bg.jpg');
   pointer-events: none;
   background-size: cover;
   background-repeat: no-repeat;
