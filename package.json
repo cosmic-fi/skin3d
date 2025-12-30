@@ -57,6 +57,7 @@
 		"skin3d": "^0.0.7",
 		"skinview-utils": "^0.7.1",
 		"three": "^0.156.1",
+		"typedoc-material-theme": "^1.4.1",
 		"url": "^0.11.4"
 	},
 	"devDependencies": {

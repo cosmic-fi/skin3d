@@ -24,6 +24,9 @@
     // Name of the project
     "name": "Skin3d Documentation",
 
+    "plugin": ["typedoc-material-theme"],
+    "themeColor": "#cb9820",
+
     // Set the theme (default, minimal, etc.)
     "theme": "default",
 
