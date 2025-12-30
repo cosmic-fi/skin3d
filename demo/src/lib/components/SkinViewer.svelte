@@ -1,6 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import * as skin3d from '../../../../src/skin3d';
+	import * as skin3d from 'skin3d';
 	
 	let canvas;
 	let viewer;

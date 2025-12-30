@@ -22,6 +22,7 @@
 	},
 	"dependencies": {
 		"@types/three": "^0.182.0",
+		"skin3d": "^0.0.12",
 		"three": "^0.182.0"
 	}
 }
