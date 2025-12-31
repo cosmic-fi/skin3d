@@ -65,7 +65,7 @@
 	</button>
 		
 		<div class="nav-links" class:nav-links-mobile={isMenuOpen}>
-			<a href="https://skin3d.vercel.app/docs/" class="nav-link" target="_blank" on:click={toggleMenu}>
+			<a href="/docs" class="nav-link" on:click={toggleMenu}>
 				<i class="fa fa-book"></i>
 				DOCUMENTATION
 			</a>
