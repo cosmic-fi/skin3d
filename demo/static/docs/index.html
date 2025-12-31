@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="default" lang="en">
+
+<head>
+  <meta charSet="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <title>Skin3d Documentation - v0.0.11</title>
+  <meta name="description" content="Documentation for Skin3d Documentation" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/highlight.css" />
+  <script defer src="assets/main.js"></script>
+  <script async src="assets/icons.js" id="tsd-icons-script"></script>
+  <script async src="assets/search.js" id="tsd-search-script"></script>
+  <script async src="assets/navigation.js" id="tsd-nav-script"></script>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --md-sys-color-primary: #f6be46;
+        --md-sys-color-on-primary: #412d00;
+        --md-sys-color-primary-container: #5d4200;
+        --md-sys-color-on-primary-container: #ffdea3;
+        --md-sys-color-secondary: #d9c4a0;
+        --md-sys-color-on-secondary: #3b2f15;
+        --md-sys-color-secondary-container: #53452a;
+        --md-sys-color-on-secondary-container: #f6e0bb;
+        --md-sys-color-tertiary: #b2cfa8;
+        --md-sys-color-on-tertiary: #1e361a;
+        --md-sys-color-tertiary-container: #344d2f;
+        --md-sys-color-on-tertiary-container: #cdebc2;
+        --md-sys-color-error: #ffb4ab;
+        --md-sys-color-on-error: #690005;
+        --md-sys-color-error-container: #93000a;
+        --md-sys-color-on-error-container: #ffb4ab;
+        --md-sys-color-background: #1e1b16;
+        --md-sys-color-on-background: #e9e1d9;
+        --md-sys-color-surface: #1e1b16;
+        --md-sys-color-on-surface: #e9e1d9;
+        --md-sys-color-surface-variant: #4e4639;
+        --md-sys-color-on-surface-variant: #d1c5b4;
+        --md-sys-color-outline: #9a8f80;
+        --md-sys-color-outline-variant: #4e4639;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-inverse-surface: #e9e1d9;
+        --md-sys-color-inverse-on-surface: #34302a;
+        --md-sys-color-inverse-primary: #7a5900;
+        --md-sys-color-surface-dim: #16130e;
+        --md-sys-color-surface-bright: #3d3933;
+        --md-sys-color-surface-container-lowest: #110e09;
+        --md-sys-color-surface-container-low: #1e1b16;
+        --md-sys-color-surface-container: #221f1a;
+        --md-sys-color-surface-container-high: #2d2924;
+        --md-sys-color-surface-container-highest: #38342e
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --md-sys-color-primary: #f6be46;
+      --md-sys-color-on-primary: #412d00;
+      --md-sys-color-primary-container: #5d4200;
+      --md-sys-color-on-primary-container: #ffdea3;
+      --md-sys-color-secondary: #d9c4a0;
+      --md-sys-color-on-secondary: #3b2f15;
+      --md-sys-color-secondary-container: #53452a;
+      --md-sys-color-on-secondary-container: #f6e0bb;
+      --md-sys-color-tertiary: #b2cfa8;
+      --md-sys-color-on-tertiary: #1e361a;
+      --md-sys-color-tertiary-container: #344d2f;
+      --md-sys-color-on-tertiary-container: #cdebc2;
+      --md-sys-color-error: #ffb4ab;
+      --md-sys-color-on-error: #690005;
+      --md-sys-color-error-container: #93000a;
+      --md-sys-color-on-error-container: #ffb4ab;
+      --md-sys-color-background: #1e1b16;
+      --md-sys-color-on-background: #e9e1d9;
+      --md-sys-color-surface: #1e1b16;
+      --md-sys-color-on-surface: #e9e1d9;
+      --md-sys-color-surface-variant: #4e4639;
+      --md-sys-color-on-surface-variant: #d1c5b4;
+      --md-sys-color-outline: #9a8f80;
+      --md-sys-color-outline-variant: #4e4639;
+      --md-sys-color-shadow: #000000;
+      --md-sys-color-scrim: #000000;
+      --md-sys-color-inverse-surface: #e9e1d9;
+      --md-sys-color-inverse-on-surface: #34302a;
+      --md-sys-color-inverse-primary: #7a5900;
+      --md-sys-color-surface-dim: #16130e;
+      --md-sys-color-surface-bright: #3d3933;
+      --md-sys-color-surface-container-lowest: #110e09;
+      --md-sys-color-surface-container-low: #1e1b16;
+      --md-sys-color-surface-container: #221f1a;
+      --md-sys-color-surface-container-high: #2d2924;
+      --md-sys-color-surface-container-highest: #38342e
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --md-sys-color-primary: #7a5900;
+        --md-sys-color-on-primary: #ffffff;
+        --md-sys-color-primary-container: #ffdea3;
+        --md-sys-color-on-primary-container: #261900;
+        --md-sys-color-secondary: #6c5c3f;
+        --md-sys-color-on-secondary: #ffffff;
+        --md-sys-color-secondary-container: #f6e0bb;
+        --md-sys-color-on-secondary-container: #251a04;
+        --md-sys-color-tertiary: #4b6545;
+        --md-sys-color-on-tertiary: #ffffff;
+        --md-sys-color-tertiary-container: #cdebc2;
+        --md-sys-color-on-tertiary-container: #092007;
+        --md-sys-color-error: #ba1a1a;
+        --md-sys-color-on-error: #ffffff;
+        --md-sys-color-error-container: #ffdad6;
+        --md-sys-color-on-error-container: #410002;
+        --md-sys-color-background: #fffbff;
+        --md-sys-color-on-background: #1e1b16;
+        --md-sys-color-surface: #fffbff;
+        --md-sys-color-on-surface: #1e1b16;
+        --md-sys-color-surface-variant: #ede1cf;
+        --md-sys-color-on-surface-variant: #4e4639;
+        --md-sys-color-outline: #7f7667;
+        --md-sys-color-outline-variant: #d1c5b4;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-inverse-surface: #34302a;
+        --md-sys-color-inverse-on-surface: #f8efe7;
+        --md-sys-color-inverse-primary: #f6be46;
+        --md-sys-color-surface-dim: #e1d9d0;
+        --md-sys-color-surface-bright: #fff8f2;
+        --md-sys-color-surface-container-lowest: #ffffff;
+        --md-sys-color-surface-container-low: #fbf2e9;
+        --md-sys-color-surface-container: #f5ede4;
+        --md-sys-color-surface-container-high: #efe7de;
+        --md-sys-color-surface-container-highest: #e9e1d9
+      }
+    }
+
+    :root[data-theme="light"] {
+      --md-sys-color-primary: #7a5900;
+      --md-sys-color-on-primary: #ffffff;
+      --md-sys-color-primary-container: #ffdea3;
+      --md-sys-color-on-primary-container: #261900;
+      --md-sys-color-secondary: #6c5c3f;
+      --md-sys-color-on-secondary: #ffffff;
+      --md-sys-color-secondary-container: #f6e0bb;
+      --md-sys-color-on-secondary-container: #251a04;
+      --md-sys-color-tertiary: #4b6545;
+      --md-sys-color-on-tertiary: #ffffff;
+      --md-sys-color-tertiary-container: #cdebc2;
+      --md-sys-color-on-tertiary-container: #092007;
+      --md-sys-color-error: #ba1a1a;
+      --md-sys-color-on-error: #ffffff;
+      --md-sys-color-error-container: #ffdad6;
+      --md-sys-color-on-error-container: #410002;
+      --md-sys-color-background: #fffbff;
+      --md-sys-color-on-background: #1e1b16;
+      --md-sys-color-surface: #fffbff;
+      --md-sys-color-on-surface: #1e1b16;
+      --md-sys-color-surface-variant: #ede1cf;
+      --md-sys-color-on-surface-variant: #4e4639;
+      --md-sys-color-outline: #7f7667;
+      --md-sys-color-outline-variant: #d1c5b4;
+      --md-sys-color-shadow: #000000;
+      --md-sys-color-scrim: #000000;
+      --md-sys-color-inverse-surface: #34302a;
+      --md-sys-color-inverse-on-surface: #f8efe7;
+      --md-sys-color-inverse-primary: #f6be46;
+      --md-sys-color-surface-dim: #e1d9d0;
+      --md-sys-color-surface-bright: #fff8f2;
+      --md-sys-color-surface-container-lowest: #ffffff;
+      --md-sys-color-surface-container-low: #fbf2e9;
+      --md-sys-color-surface-container: #f5ede4;
+      --md-sys-color-surface-container-high: #efe7de;
+      --md-sys-color-surface-container-highest: #e9e1d9
+    }
+  </style>
+  <link rel="stylesheet" href="assets/material-style.css" />
+</head>
+
+<body>
+  <script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"; document.body.style.display = "none"; setTimeout(() => app ? app.showPage() : document.body.style.removeProperty("display"), 500)</script>
+  <header class="tsd-page-toolbar">
+    <div class="tsd-toolbar-contents container">
+      <div class="table-cell" id="tsd-search" data-base=".">
+        <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg
+              width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <use href="assets/icons.svg#icon-search"></use>
+            </svg></label><input type="text" id="tsd-search-field" aria-label="Search" /></div>
+        <div class="field">
+          <div id="tsd-toolbar-links"></div>
+        </div>
+        <ul class="results">
+          <li class="state loading">Preparing search index...</li>
+          <li class="state failure">The search index is not available</li>
+        </ul><a href="index.html" class="title">Skin3d Documentation - v0.0.11</a>
+      </div>
+      <div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption"
+          data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <use href="assets/icons.svg#icon-menu"></use>
+          </svg></a></div>
+    </div>
+  </header>
+  <div class="container container-main">
+    <div class="col-content">
+      <div class="tsd-panel tsd-typography"><img width="1346" alt="preview"
+          src="https://github.com/user-attachments/assets/b58aacb5-6ba9-41ba-917c-df5f91382369" />
+
+
+        <p><a href="https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI"><img
+              src="https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=main&label=CI&logo=github&style=flat-square"
+              alt="CI Status"></a>
+          <a href="https://www.npmjs.com/package/skin3d"><img
+              src="https://img.shields.io/npm/v/skin3d.svg?style=flat-square" alt="NPM Package"></a>
+          <a href="https://github.com/cosmic-fi/skin3d/blob/main/LICENSE"><img
+              src="https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square" alt="MIT License"></a>
+          <a href="https://matrix.to/#/#skin3d:gitter.im"><img
+              src="https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg?style=flat-square"
+              alt="Gitter Chat"></a>
+        </p>
+        <hr>
+        <p><strong>Skin3d</strong> is a JavaScript library for displaying and animating Minecraft player models in the
+          browser. It supports rendering skins, capes, elytras, and ears, and provides a simple API for customizing
+          animations, camera controls, and backgrounds.</p>
+        <hr>
+        <a id="md:what-is-skin3d" class="tsd-anchor"></a>
+        <h2><a href="#md:what-is-skin3d">What is skin3d?</a></h2>
+        <p><strong>Skin3d</strong> is a JavaScript library for embedding interactive Minecraft player models in web
+          applications. It supports HD skins, capes, elytras, ears, and name tags, along with built-in animations. You
+          can customize camera controls, lighting, backgrounds, and extend functionality with your own features.</p>
+        <hr>
+        <a id="md:why-use-skin3d" class="tsd-anchor"></a>
+        <h2><a href="#md:why-use-skin3d">Why use skin3d?</a></h2>
+        <ul>
+          <li><strong>Interactive 3D Minecraft player models in the browser</strong></li>
+          <li><strong>Supports all modern skin and cape formats</strong></li>
+          <li><strong>Easy to use, easy to extend</strong></li>
+          <li><strong>Customizable animations and controls</strong></li>
+          <li><strong>Works with any web framework or vanilla JS</strong></li>
+        </ul>
+        <hr>
+        <a id="md:getting-started" class="tsd-anchor"></a>
+        <h2><a href="#md:getting-started">Getting Started</a></h2>
+        <p>Install via npm:</p>
+        <pre><code class="language-sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">i</span><span class="hl-1"> </span><span class="hl-2">skin3d</span>
+</code><button>Copy</button></pre>
+        <hr>
+        <a id="md:basic-example" class="tsd-anchor"></a>
+        <h2><a href="#md:basic-example">Basic Example</a></h2>
+        <pre><code class="language-html"><span class="hl-3">&lt;</span><span class="hl-4">div</span><span class="hl-1"> </span><span class="hl-5">id</span><span class="hl-1">=</span><span class="hl-6">&quot;skin_view_container&quot;</span><span class="hl-3">&gt;&lt;/</span><span class="hl-4">div</span><span class="hl-3">&gt;</span>
+</code><button>Copy</button></pre>
+        <pre><code class="language-js"><span class="hl-7">import</span><span class="hl-1"> </span><span class="hl-8">*</span><span class="hl-1"> </span><span class="hl-7">as</span><span class="hl-1"> </span><span class="hl-9">skin3d</span><span class="hl-1"> </span><span class="hl-7">from</span><span class="hl-1"> </span><span class="hl-2">&#39;skin3d&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-8">const</span><span class="hl-1"> </span><span class="hl-10">viewer</span><span class="hl-1"> = </span><span class="hl-8">new</span><span class="hl-1"> </span><span class="hl-9">skin3d</span><span class="hl-1">.</span><span class="hl-0">View</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-9">canvas:</span><span class="hl-1"> </span><span class="hl-9">document</span><span class="hl-1">.</span><span class="hl-0">getElementById</span><span class="hl-1">(</span><span class="hl-2">&quot;skin_view_container&quot;</span><span class="hl-1">),</span><br/><span class="hl-1">  </span><span class="hl-9">width:</span><span class="hl-1"> </span><span class="hl-11">400</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">height:</span><span class="hl-1"> </span><span class="hl-11">600</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-9">skin:</span><span class="hl-1"> </span><span class="hl-2">&quot;img/skin.png&quot;</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">autoRotate</span><span class="hl-1"> = </span><span class="hl-8">true</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">animation</span><span class="hl-1"> = </span><span class="hl-8">new</span><span class="hl-1"> </span><span class="hl-9">skin3d</span><span class="hl-1">.</span><span class="hl-0">WalkingAnimation</span><span class="hl-1">();</span>
+</code><button>Copy</button></pre>
+        <hr>
+        <a id="md:features-at-a-glance" class="tsd-anchor"></a>
+        <h2><a href="#md:features-at-a-glance">Features at a Glance</a></h2>
+        <ul>
+          <li><strong>Skin, Cape, Elytra, and Ears Rendering</strong></li>
+          <li><strong>Name Tag Support (with Minecraft font)</strong></li>
+          <li><strong>Orbit Controls (rotate, zoom, pan)</strong></li>
+          <li><strong>Customizable Lighting</strong></li>
+          <li><strong>Panorama and Image Backgrounds</strong></li>
+          <li><strong>Built-in Animations (walk, run, rotate, etc.)</strong></li>
+          <li><strong>Pause/Resume Rendering</strong></li>
+        </ul>
+        <hr>
+        <a id="md:api-highlights" class="tsd-anchor"></a>
+        <h2><a href="#md:api-highlights">API Highlights</a></h2>
+        <ul>
+          <li><strong>View</strong>: The main class for rendering and controlling the player model.</li>
+          <li><strong>PlayerObject</strong>: Access and control the skin, cape, elytra, and ears meshes.</li>
+          <li><strong>NameTagObject</strong>: Display a floating name tag above the player.</li>
+          <li><strong>Animations</strong>: Use built-in or custom animations for the player model.</li>
+          <li><strong>Controls</strong>: Enable or disable camera rotation, zoom, and pan.</li>
+          <li><strong>Lighting</strong>: Adjust ambient and camera-attached lights.</li>
+          <li><strong>Backgrounds</strong>: Set solid colors, images, or panoramic backgrounds.</li>
+        </ul>
+        <hr>
+        <a id="md:customization" class="tsd-anchor"></a>
+        <h2><a href="#md:customization">Customization</a></h2>
+        <p>You can load new skins, capes, or ears at any time:</p>
+        <pre><code class="language-js"><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-0">loadSkin</span><span class="hl-1">(</span><span class="hl-2">&quot;img/another_skin.png&quot;</span><span class="hl-1">);</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-0">loadCape</span><span class="hl-1">(</span><span class="hl-2">&quot;img/cape.png&quot;</span><span class="hl-1">);</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-0">loadEars</span><span class="hl-1">(</span><span class="hl-2">&quot;img/ears.png&quot;</span><span class="hl-1">, { </span><span class="hl-9">textureType:</span><span class="hl-1"> </span><span class="hl-2">&quot;standalone&quot;</span><span class="hl-1"> });</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">background</span><span class="hl-1"> = </span><span class="hl-2">&quot;#222244&quot;</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-0">loadPanorama</span><span class="hl-1">(</span><span class="hl-2">&quot;img/panorama.png&quot;</span><span class="hl-1">);</span>
+</code><button>Copy</button></pre>
+        <p>Change camera and controls:</p>
+        <pre><code class="language-js"><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">fov</span><span class="hl-1"> = </span><span class="hl-11">70</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">zoom</span><span class="hl-1"> = </span><span class="hl-11">1.2</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">controls</span><span class="hl-1">.</span><span class="hl-9">enableRotate</span><span class="hl-1"> = </span><span class="hl-8">true</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">controls</span><span class="hl-1">.</span><span class="hl-9">enableZoom</span><span class="hl-1"> = </span><span class="hl-8">false</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+        <p>Add or remove animations:</p>
+        <pre><code class="language-js"><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">animation</span><span class="hl-1"> = </span><span class="hl-8">new</span><span class="hl-1"> </span><span class="hl-9">skin3d</span><span class="hl-1">.</span><span class="hl-0">WalkingAnimation</span><span class="hl-1">();</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">animation</span><span class="hl-1">.</span><span class="hl-9">speed</span><span class="hl-1"> = </span><span class="hl-11">2</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">animation</span><span class="hl-1">.</span><span class="hl-9">paused</span><span class="hl-1"> = </span><span class="hl-8">false</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">animation</span><span class="hl-1"> = </span><span class="hl-8">null</span><span class="hl-1">; </span><span class="hl-12">// Remove animation</span>
+</code><button>Copy</button></pre>
+        <hr>
+        <a id="md:advanced-usage" class="tsd-anchor"></a>
+        <h2><a href="#md:advanced-usage">Advanced Usage</a></h2>
+        <ul>
+          <li><strong>Lighting</strong>:</li>
+        </ul>
+        <pre><code class="language-js"><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">globalLight</span><span class="hl-1">.</span><span class="hl-9">intensity</span><span class="hl-1"> = </span><span class="hl-11">1.5</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">cameraLight</span><span class="hl-1">.</span><span class="hl-9">intensity</span><span class="hl-1"> = </span><span class="hl-11">0.3</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+        <ul>
+          <li><strong>Name Tags</strong>:</li>
+        </ul>
+        <pre><code class="language-js"><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">nameTag</span><span class="hl-1"> = </span><span class="hl-2">&quot;Steve&quot;</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">nameTag</span><span class="hl-1"> = </span><span class="hl-8">new</span><span class="hl-1"> </span><span class="hl-9">skin3d</span><span class="hl-1">.</span><span class="hl-0">NameTagObject</span><span class="hl-1">(</span><span class="hl-2">&quot;Alex&quot;</span><span class="hl-1">, { </span><span class="hl-9">textStyle:</span><span class="hl-1"> </span><span class="hl-2">&quot;yellow&quot;</span><span class="hl-1"> });</span>
+</code><button>Copy</button></pre>
+        <ul>
+          <li><strong>Responsive Sizing</strong>:</li>
+        </ul>
+        <pre><code class="language-js"><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">width</span><span class="hl-1"> = </span><span class="hl-9">window</span><span class="hl-1">.</span><span class="hl-9">innerWidth</span><span class="hl-1">;</span><br/><span class="hl-9">viewer</span><span class="hl-1">.</span><span class="hl-9">height</span><span class="hl-1"> = </span><span class="hl-9">window</span><span class="hl-1">.</span><span class="hl-9">innerHeight</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+        <hr>
+        <a id="md:font-setup" class="tsd-anchor"></a>
+        <h2><a href="#md:font-setup">Font Setup</a></h2>
+        <p>To display name tags in Minecraft style, add this to your CSS:</p>
+        <pre><code class="language-css"><span class="hl-7">@font-face</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">font-family</span><span class="hl-1">: </span><span class="hl-2">&#39;Minecraft&#39;</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-5">src</span><span class="hl-1">: </span><span class="hl-0">url</span><span class="hl-1">(</span><span class="hl-2">&#39;/path/to/minecraft.woff2&#39;</span><span class="hl-1">) </span><span class="hl-0">format</span><span class="hl-1">(</span><span class="hl-2">&#39;woff2&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+        <hr>
+        <a id="md:project-structure" class="tsd-anchor"></a>
+        <h2><a href="#md:project-structure">Project Structure</a></h2>
+        <ul>
+          <li><code>src/view.ts</code> – Main viewer logic and rendering</li>
+          <li><code>src/model.ts</code> – Player model and mesh management</li>
+          <li><code>src/animation.ts</code> – Animation classes</li>
+          <li><code>src/nametag.ts</code> – Name tag rendering</li>
+        </ul>
+        <hr>
+        <a id="md:license" class="tsd-anchor"></a>
+        <h2><a href="#md:license">License</a></h2>
+        <p>skin3d is released under the MIT License.</p>
+        <hr>
+        <a id="md:links" class="tsd-anchor"></a>
+        <h2><a href="#md:links">Links</a></h2>
+        <ul>
+          <li><a href="https://skin3d.vercel.app/">Live Demo</a></li>
+          <li><a href="https://www.npmjs.com/package/skin3d">NPM Package</a></li>
+          <li><a href="https://github.com/cosmic-fi/skin3d">GitHub Repository</a></li>
+          <li><a href="https://matrix.to/#/#skin3d:gitter.im">Community Chat</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+    <div class="col-sidebar">
+      <div class="page-menu">
+        <div class="tsd-navigation settings">
+          <details class="tsd-index-accordion">
+            <summary class="tsd-accordion-summary">
+              <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <use href="assets/icons.svg#icon-chevronDown"></use>
+                </svg>Settings</h3>
+            </summary>
+            <div class="tsd-accordion-details">
+              <div class="tsd-filter-visibility">
+                <h4 class="uppercase">Member Visibility</h4>
+                <form>
+                  <ul id="tsd-filter-options">
+                    <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox"
+                          id="tsd-filter-protected" name="protected" /><svg width="32" height="32" viewBox="0 0 32 32"
+                          aria-hidden="true">
+                          <rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none">
+                          </rect>
+                          <path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                            stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path>
+                        </svg><span>Protected</span></label></li>
+                    <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox"
+                          id="tsd-filter-private" name="private" /><svg width="32" height="32" viewBox="0 0 32 32"
+                          aria-hidden="true">
+                          <rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none">
+                          </rect>
+                          <path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                            stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path>
+                        </svg><span>Private</span></label></li>
+                    <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox"
+                          id="tsd-filter-inherited" name="inherited" checked /><svg width="32" height="32"
+                          viewBox="0 0 32 32" aria-hidden="true">
+                          <rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none">
+                          </rect>
+                          <path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                            stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path>
+                        </svg><span>Inherited</span></label></li>
+                  </ul>
+                </form>
+              </div>
+              <div class="tsd-theme-toggle">
+                <h4 class="uppercase">Theme</h4><select id="tsd-theme">
+                  <option value="os">OS</option>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                </select>
+              </div>
+            </div>
+          </details>
+        </div>
+        <details open class="tsd-index-accordion tsd-page-navigation">
+          <summary class="tsd-accordion-summary">
+            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <use href="assets/icons.svg#icon-chevronDown"></use>
+              </svg>On This Page</h3>
+          </summary>
+          <div class="tsd-accordion-details"><a href="#md:what-is-skin3d"><span>What is skin3d?</span></a><a
+              href="#md:why-use-skin3d"><span>Why use skin3d?</span></a><a href="#md:getting-started"><span>Getting
+                <wbr/>Started</span></a><a href="#md:basic-example"><span>Basic <wbr/>Example</span></a><a
+              href="#md:features-at-a-glance"><span>Features at a <wbr/>Glance</span></a><a
+              href="#md:api-highlights"><span>API <wbr/>Highlights</span></a><a
+              href="#md:customization"><span>Customization</span></a><a href="#md:advanced-usage"><span>Advanced
+                <wbr/>Usage</span></a><a href="#md:font-setup"><span>Font <wbr/>Setup</span></a><a
+              href="#md:project-structure"><span>Project <wbr/>Structure</span></a><a
+              href="#md:license"><span>License</span></a><a href="#md:links"><span>Links</span></a></div>
+        </details>
+      </div>
+      <div class="site-menu">
+        <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon"
+              viewBox="0 0 24 24">
+              <use href="assets/icons.svg#icon-1"></use>
+            </svg><span>Skin3d Documentation - v0.0.11</span></a>
+          <ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base=".">
+            <li>Loading...</li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="tsd-generator">Created by <a href="https://github.com/cosmic-fi" target="_blank">Cosmic-fi</a></p>
+  </footer>
+</body>
+
+</html>
