@@ -1,41 +1,60 @@
 # Changelog
 All notable changes to the skin3d library will be documented in this file.
 
-## [Unreleased]
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.1.0] - 2025-12-31
+
+**Major Release: Refactored Library with Enhanced Documentation**
 
 ### Added
-- New `Render.ts` class replacing the previous `skin3d.ts` - Core rendering engine for 3D player models using Three.js
-- New modular structure with separate `index.ts` entry point for cleaner exports
-- Refactored module exports: `Model.ts`, `Render.ts`, `Animation.ts`, `Nametag.ts`
+- ✨ **Modular Architecture**: Refactored library structure with separated concerns
+  - New `Render.ts` class replacing the previous `skin3d.ts` - Core rendering engine for 3D player models using Three.js
+  - New modular structure with separate `index.ts` entry point for cleaner exports
+  - Refactored module exports: `Model.ts`, `Render.ts`, `Animation.ts`, `Nametag.ts`
+
+- 📚 **Comprehensive Documentation Suite** (8 documentation files, 3,200+ lines)
+  - GETTING_STARTED.md - Installation, setup, and framework integration (React, Vue, Svelte)
+  - EXAMPLES.md - 10+ practical code examples
+  - API_REFERENCE.md - Complete API documentation with all classes and methods
+  - ARCHITECTURE.md - Library design, structure, and design patterns
+  - ADVANCED_USAGE.md - Performance optimization, custom animations, and extensions
+  - MIGRATION_GUIDE.md - Upgrade path from previous versions
+  - TROUBLESHOOTING.md - Common issues and solutions
+  - README.md - Documentation index and overview
+
+- 🧹 **Dependency Cleanup**
+  - Removed unused npm polyfills (path, url)
+  - Optimized production bundle size
+  - Improved tree-shaking with named exports
 
 ### Changed
-- Refactored library structure from monolithic entry point to modular component exports
-- Updated file naming convention (capitalized: `Animation.ts`, `Model.ts`, `Nametag.ts`, `Render.ts`)
-- Modified project dependencies in `package.json` to support new architecture
+- 🔄 **Breaking Change:** Main class renamed from `View` to `Render`
+  - Updated all imports and examples to use new name
+  - Added migration guide for upgrading from v0.0.10
+
+- 📦 **Enhanced Module Structure**
+  - Refactored library structure from monolithic entry point to modular component exports
+  - Updated file naming convention (capitalized: `Animation.ts`, `Model.ts`, `Nametag.ts`, `Render.ts`)
+  - Modified project dependencies in `package.json` to support new architecture
+
+- 📖 **Improved README**
+  - Added recent changes section
+  - Updated code examples with named imports
+  - Added comprehensive documentation section
+  - Added breaking changes notice with migration guide link
+
+### Fixed
+- ✅ Corrected background image path in app.css
+- ✅ Improved error handling in documentation loading
 
 ### Removed
 - Legacy `skin3d.ts` entry point (functionality moved to `Render.ts`)
 - Legacy `view.ts` file
 - Removed `demo/` folder (no longer part of main library distribution)
 - Removed `docs/` static folder (now generated dynamically)
-
----
-
-## [0.1.0] - 2025-12-31
-
-### Added
-- Documentation site with TypeDoc-generated API reference
-- HTML, CSS, JS, and SVG assets for documentation
-- Build script integration (`copy-docs.js`) to generate and copy documentation to static folder
-- Documentation pages including class hierarchy, interfaces, and modules
-
-### Fixed
-- Corrected background image path in `app.css`
-
-### Changed
-- Refactored documentation loading from fetching/processing HTML to direct redirect to static files
-- Simplified documentation route handling
-- Removed complex loading logic and error handling
+- Unused npm dependencies (path, url polyfills)
 
 ---
 
@@ -75,3 +94,10 @@ All notable changes to the skin3d library will be documented in this file.
 - `npm run dev:watch:bundles`: Watch mode for bundle creation
 - `npm run format`: Format code with Prettier
 - `npm run test:lint`: Run ESLint
+
+---
+
+## Release History
+
+- **0.1.0** (Dec 31, 2025) - Major refactoring with comprehensive documentation
+- **0.0.10** - Previous release
