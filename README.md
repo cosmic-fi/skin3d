@@ -10,11 +10,15 @@
 
 **Skin3d** is a JavaScript library for displaying and animating Minecraft player models in the browser. It supports rendering skins, capes, elytras, and ears, and provides a simple API for customizing animations, camera controls, and backgrounds.
 
+> **✨ Recently refactored** with improved modularity, better documentation, and dependency cleanup. See [Migration Guide](./DOCS/MIGRATION_GUIDE.md) for details.
+
 ---
 
 ## What is skin3d?
 
 **Skin3d** is a JavaScript library for embedding interactive Minecraft player models in web applications. It supports HD skins, capes, elytras, ears, and name tags, along with built-in animations. You can customize camera controls, lighting, backgrounds, and extend functionality with your own features.
+
+**Built with:** [Three.js](https://threejs.org/) + TypeScript
 
 ---
 
@@ -44,9 +48,9 @@ npm i skin3d
 <div id="skin_view_container"></div>
 ```
 ```js
-import * as skin3d from 'skin3d';
+import { Render, WalkingAnimation } from 'skin3d';
 
-const viewer = new skin3d.View({
+const viewer = new Render({
   canvas: document.getElementById("skin_view_container"),
   width: 400,
   height: 600,
@@ -54,8 +58,10 @@ const viewer = new skin3d.View({
 });
 
 viewer.autoRotate = true;
-viewer.animation = new skin3d.WalkingAnimation();
+viewer.animation = new WalkingAnimation();
 ```
+
+**Note:** The main class is now `Render` (previously `View` in v0.0.10). See [Migration Guide](./DOCS/MIGRATION_GUIDE.md) for upgrading.
 
 ---
 
@@ -106,11 +112,15 @@ viewer.controls.enableZoom = false;
 Add or remove animations:
 
 ```js
-viewer.animation = new skin3d.WalkingAnimation();
+import { IdleAnimation, WalkingAnimation, RunningAnimation } from 'skin3d';
+
+viewer.animation = new WalkingAnimation();
 viewer.animation.speed = 2;
 viewer.animation.paused = false;
 viewer.animation = null; // Remove animation
 ```
+
+See [Examples](./DOCS/EXAMPLES.md) for more usage patterns.
 
 ---
 
@@ -124,15 +134,27 @@ viewer.cameraLight.intensity = 0.3;
 
 - **Name Tags**:  
 ```js
+import { NameTagObject } from 'skin3d';
+
 viewer.nameTag = "Steve";
-viewer.nameTag = new skin3d.NameTagObject("Alex", { textStyle: "yellow" });
+viewer.nameTag = new NameTagObject("Alex", { 
+  scale: 1.5,
+  textStyle: { fillStyle: "#FFD700" }
+});
 ```
 
 - **Responsive Sizing**:  
 ```js
 viewer.width = window.innerWidth;
 viewer.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  viewer.width = window.innerWidth;
+  viewer.height = window.innerHeight;
+});
 ```
+
+See [Advanced Usage](./DOCS/ADVANCED_USAGE.md) for more features and optimization tips.
 
 ---
 
@@ -149,12 +171,65 @@ To display name tags in Minecraft style, add this to your CSS:
 
 ---
 
+## Documentation
+
+Comprehensive documentation is available in the [DOCS](./DOCS/) directory:
+
+- **[Getting Started](./DOCS/GETTING_STARTED.md)** - Installation, setup, and framework integration
+- **[Examples](./DOCS/EXAMPLES.md)** - 10+ practical examples covering common use cases
+- **[API Reference](./DOCS/API_REFERENCE.md)** - Complete API documentation with all classes and methods
+- **[Advanced Usage](./DOCS/ADVANCED_USAGE.md)** - Performance optimization, custom animations, and advanced features
+- **[Architecture](./DOCS/ARCHITECTURE.md)** - Understanding the library structure and design patterns
+- **[Migration Guide](./DOCS/MIGRATION_GUIDE.md)** - Upgrading from previous versions
+- **[Troubleshooting](./DOCS/TROUBLESHOOTING.md)** - Common issues and solutions
+
+---
+
+## Recent Changes (v0.1.0)
+
+### What's New ✨
+
+- **Modular Architecture**: Refactored for better code organization and maintainability
+- **New Export System**: Improved module exports with better tree-shaking support
+- **Enhanced Documentation**: Comprehensive guides, examples, and API reference
+- **Dependency Cleanup**: Removed unused polyfills, optimized for production
+- **Main Class Rename**: `View` → `Render` for clarity
+
+### Updated Files
+
+- `src/Render.ts` - Core rendering engine (replaces legacy `skin3d.ts`)
+- `src/Model.ts` - Player model and mesh management
+- `src/Animation.ts` - Animation system
+- `src/Nametag.ts` - Name tag rendering
+- `src/index.ts` - Main entry point
+
+### Breaking Changes
+
+The main class `View` has been renamed to `Render`:
+
+```js
+// Old
+import { View } from 'skin3d';
+const viewer = new View({ ... });
+
+// New
+import { Render } from 'skin3d';
+const viewer = new Render({ ... });
+```
+
+See [Migration Guide](./DOCS/MIGRATION_GUIDE.md) for complete upgrade instructions.
+
+---
+
 ## Project Structure
 
-- `src/view.ts` – Main viewer logic and rendering
-- `src/model.ts` – Player model and mesh management
-- `src/animation.ts` – Animation classes
-- `src/nametag.ts` – Name tag rendering
+- `src/Render.ts` – Main rendering engine
+- `src/Model.ts` – Player model and mesh components
+- `src/Animation.ts` – Animation system
+- `src/Nametag.ts` – Name tag rendering
+- `src/index.ts` – Public API exports
+- `DOCS/` – [Comprehensive documentation](./DOCS/README.md)
+
 ---
 
 ## License

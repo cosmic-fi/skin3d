@@ -1,3 +1,10 @@
+/**
+ * @file Model.ts
+ * @description This file defines the 3D model classes for Minecraft-style player models, including skin, cape, elytra, and ears.
+ * @author Cosmic-fi
+ * @license MIT
+ */
+
 import type { ModelType } from "skinview-utils";
 import {
 	BoxGeometry,
@@ -14,6 +21,14 @@ import {
 
 /**
  * Set the UV mapping for a box geometry.
+ * @param box The box geometry to set UVs for.
+ * @param u The U coordinate of the top-left corner of the texture region.
+ * @param v The V coordinate of the top-left corner of the texture region.
+ * @param width The width of the texture region.
+ * @param height The height of the texture region.
+ * @param depth The depth of the texture region.
+ * @param textureWidth The total width of the texture.
+ * @param textureHeight The total height of the texture.
  */
 function setUVs(
 	box: BoxGeometry,
@@ -57,18 +72,34 @@ function setUVs(
 	uvAttr.needsUpdate = true;
 }
 
-/** Set UVs for a skin box (64x64 texture). */
+/**
+ * Set UVs for a skin box (64x64 texture). 
+ * @param box The box geometry to set UVs for.
+ * @param u The U coordinate of the top-left corner of the texture region.
+ * @param v The V coordinate of the top-left corner of the texture region.
+ * @param width The width of the texture region.
+ * @param height The height of the texture region.
+ * @param depth The depth of the texture region.
+*/
 function setSkinUVs(box: BoxGeometry, u: number, v: number, width: number, height: number, depth: number): void {
 	setUVs(box, u, v, width, height, depth, 64, 64);
 }
 
-/** Set UVs for a cape box (64x32 texture). */
+/** Set UVs for a cape box (64x32 texture). 
+ * @param box The box geometry to set UVs for.
+ * @param u The U coordinate of the top-left corner of the texture region.
+ * @param v The V coordinate of the top-left corner of the texture region.
+ * @param width The width of the texture region.
+ * @param height The height of the texture region.
+ * @param depth The depth of the texture region.
+*/
 function setCapeUVs(box: BoxGeometry, u: number, v: number, width: number, height: number, depth: number): void {
 	setUVs(box, u, v, width, height, depth, 64, 32);
 }
 
 /**
  * Represents a body part with an inner and outer layer.
+ * For example, the head with the hat layer.
  */
 export class BodyPart extends Group {
 	constructor(
@@ -83,6 +114,7 @@ export class BodyPart extends Group {
 
 /**
  * Represents the player's skin model, including all body parts.
+ * Supports "default" and "slim" model types.
  */
 export class SkinObject extends Group {
 	readonly head: BodyPart;
@@ -104,7 +136,9 @@ export class SkinObject extends Group {
 	constructor() {
 		super();
 
-		// Main materials for skin layers
+		/**
+		 * Material for the inner layer (layer 1) of the skin.
+		 */
 		this.layer1Material = new MeshStandardMaterial({ side: FrontSide });
 		this.layer2Material = new MeshStandardMaterial({ side: DoubleSide, transparent: true, alphaTest: 1e-5 });
 
@@ -118,7 +152,9 @@ export class SkinObject extends Group {
 		this.layer2MaterialBiased.polygonOffsetFactor = 1.0;
 		this.layer2MaterialBiased.polygonOffsetUnits = 1.0;
 
-		// Head
+		/**
+		 * Head part of the skin model.
+		 */
 		const headBox = new BoxGeometry(8, 8, 8);
 		setSkinUVs(headBox, 0, 0, 8, 8, 8);
 		const headMesh = new Mesh(headBox, this.layer1Material);
@@ -134,7 +170,9 @@ export class SkinObject extends Group {
 		head2Mesh.position.y = 4;
 		this.add(this.head);
 
-		// Body
+		/**
+		 * Body part of the skin model.
+		 */
 		const bodyBox = new BoxGeometry(8, 12, 4);
 		setSkinUVs(bodyBox, 16, 16, 8, 12, 4);
 		const bodyMesh = new Mesh(bodyBox, this.layer1Material);
@@ -149,7 +187,9 @@ export class SkinObject extends Group {
 		this.body.position.y = -6;
 		this.add(this.body);
 
-		// Right Arm
+		/**
+		 * Right Arm part of the skin model.
+		 */
 		const rightArmBox = new BoxGeometry();
 		const rightArmMesh = new Mesh(rightArmBox, this.layer1MaterialBiased);
 		this.modelListeners.push(() => {
@@ -182,7 +222,9 @@ export class SkinObject extends Group {
 		this.rightArm.position.y = -2;
 		this.add(this.rightArm);
 
-		// Left Arm
+		/**
+		 * Left Arm part of the skin model.
+		 */
 		const leftArmBox = new BoxGeometry();
 		const leftArmMesh = new Mesh(leftArmBox, this.layer1MaterialBiased);
 		this.modelListeners.push(() => {
@@ -215,7 +257,9 @@ export class SkinObject extends Group {
 		this.leftArm.position.y = -2;
 		this.add(this.leftArm);
 
-		// Right Leg
+		/***
+		 * Right Leg part of the skin model.
+		 */
 		const rightLegBox = new BoxGeometry(4, 12, 4);
 		setSkinUVs(rightLegBox, 0, 16, 4, 12, 4);
 		const rightLegMesh = new Mesh(rightLegBox, this.layer1MaterialBiased);
@@ -236,7 +280,9 @@ export class SkinObject extends Group {
 		this.rightLeg.position.z = -0.1;
 		this.add(this.rightLeg);
 
-		// Left Leg
+		/**
+		 * Left Leg part of the skin model.
+		 */
 		const leftLegBox = new BoxGeometry(4, 12, 4);
 		setSkinUVs(leftLegBox, 16, 48, 4, 12, 4);
 		const leftLegMesh = new Mesh(leftLegBox, this.layer1MaterialBiased);
@@ -260,10 +306,18 @@ export class SkinObject extends Group {
 		this.modelType = "default";
 	}
 
-	/** The texture map for the skin. */
+	/** 
+	 * The texture map for the skin. 
+	 * @return The texture map for the skin.
+	*/
 	get map(): Texture | null {
 		return this._map;
 	}
+
+	/**
+	 * Set the texture map for the skin.
+	 * @param newMap The new texture map.
+	 */
 	set map(newMap: Texture | null) {
 		this._map = newMap;
 		this.layer1Material.map = newMap;
@@ -276,31 +330,50 @@ export class SkinObject extends Group {
 		this.layer2MaterialBiased.needsUpdate = true;
 	}
 
-	/** The model type ("default" or "slim"). */
+	/** 
+	 * The model type ("default" or "slim"). 
+	 * @return The model type.
+	*/
 	get modelType(): ModelType {
 		return this.slim ? "slim" : "default";
 	}
+
+	/**
+	 * Set the model type.
+	 * @param value The new model type.
+	 */
 	set modelType(value: ModelType) {
 		this.slim = value === "slim";
 		this.modelListeners.forEach(listener => listener());
 	}
 
-	/** Get all body parts in this skin. */
+	/** 
+	 * Get all body parts in this skin. 
+	 * @return An array of all body parts.
+	*/
 	private getBodyParts(): Array<BodyPart> {
 		return this.children.filter(it => it instanceof BodyPart) as Array<BodyPart>;
 	}
 
-	/** Show or hide the inner layer of all body parts. */
+	/** 
+	 * Show or hide the inner layer of all body parts. 
+	 * @param value Whether to show the inner layer.
+	*/
 	setInnerLayerVisible(value: boolean): void {
 		this.getBodyParts().forEach(part => (part.innerLayer.visible = value));
 	}
 
-	/** Show or hide the outer layer of all body parts. */
+	/** 
+	 * Show or hide the outer layer of all body parts. 
+	 * @param value Whether to show the outer layer.
+	 */
 	setOuterLayerVisible(value: boolean): void {
 		this.getBodyParts().forEach(part => (part.outerLayer.visible = value));
 	}
 
-	/** Reset all joint rotations and positions to default. */
+	/** 
+	 * Reset all joint rotations and positions to default.
+	 */
 	resetJoints(): void {
 		this.head.rotation.set(0, 0, 0);
 		this.leftArm.rotation.set(0, 0, 0);
@@ -348,9 +421,18 @@ export class CapeObject extends Group {
 		this.add(this.cape);
 	}
 
+	/**
+	 * The texture map for the cape.
+	 * @return The texture map for the cape.
+	 */
 	get map(): Texture | null {
 		return this.material.map;
 	}
+
+	/**
+	 * Set the texture map for the cape.
+	 * @param newMap The new texture map.
+	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
 		this.material.needsUpdate = true;
@@ -399,7 +481,9 @@ export class ElytraObject extends Group {
 		this.resetJoints();
 	}
 
-	/** Reset wing rotations to default. */
+	/** 
+	 * Reset wing rotations to default. 
+	*/
 	resetJoints(): void {
 		this.leftWing.rotation.y = 0.01; // avoid z-fighting
 		this.leftWing.rotation.z = 0.2617994;
@@ -417,9 +501,18 @@ export class ElytraObject extends Group {
 		this.rightWing.rotation.z = -this.leftWing.rotation.z;
 	}
 
+	/**
+	 * The texture map for the elytra.
+	 * @return The texture map for the elytra.
+	 */
 	get map(): Texture | null {
 		return this.material.map;
 	}
+
+	/**
+	 * Set the texture map for the elytra.
+	 * @param newMap The new texture map.
+	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
 		this.material.needsUpdate = true;
@@ -451,16 +544,29 @@ export class EarsObject extends Group {
 		this.add(this.leftEar);
 	}
 
+	/**
+	 * The texture map for the ears.
+	 * @return The texture map for the ears.
+	 */
 	get map(): Texture | null {
 		return this.material.map;
 	}
+
+	/**
+	 * Set the texture map for the ears.
+	 * @param newMap The new texture map.
+	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
 		this.material.needsUpdate = true;
 	}
 }
 
+/**
+ * Options for configuring a NameTagObject.
+ */
 export type BackEquipment = "cape" | "elytra";
+
 const CapeDefaultAngle = (10.8 * Math.PI) / 180;
 
 /**
@@ -503,18 +609,28 @@ export class PlayerObject extends Group {
 		this.skin.head.add(this.ears);
 	}
 
-	/** Which back equipment is visible ("cape", "elytra", or null). */
+	/** 
+	 * Which back equipment is visible ("cape", "elytra", or null). 
+	 * @return The currently visible back equipment.
+	 */
 	get backEquipment(): BackEquipment | null {
 		if (this.cape.visible) return "cape";
 		if (this.elytra.visible) return "elytra";
 		return null;
 	}
+
+	/**
+	 * Set which back equipment is visible.
+	 * @param value The back equipment to show, or null to hide both.
+	 */
 	set backEquipment(value: BackEquipment | null) {
 		this.cape.visible = value === "cape";
 		this.elytra.visible = value === "elytra";
 	}
 
-	/** Reset all joints and positions to default. */
+	/** 
+	 * Reset all joints and positions to default. 
+	 */
 	resetJoints(): void {
 		this.skin.resetJoints();
 		this.cape.rotation.x = CapeDefaultAngle;

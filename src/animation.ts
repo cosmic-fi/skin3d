@@ -1,16 +1,32 @@
-import { PlayerObject } from "./model.js";
+/**
+ * @file Animation.ts
+ * @description This file defines the PlayerAnimation class and its subclasses for animating PlayerObject instances.
+ * @author Cosmic-fi
+ * @license MIT
+ */
+
+import { PlayerObject } from "./Model.js";
 
 /**
  * Abstract base class for animations that can be played on a PlayerObject.
  */
 export abstract class PlayerAnimation {
-	/** Animation speed multiplier. @defaultValue 1.0 */
+	/** 
+	 * Animation speed multiplier. 
+	 * @defaultValue 1.0 
+	*/
 	speed: number = 1.0;
-	/** Whether the animation is paused. @defaultValue false */
+	
+	/** 
+	 * Whether the animation is paused. 
+	 * @defaultValue false 
+	 */
 	paused: boolean = false;
+
 	/** Current animation progress. */
 	progress: number = 0;
 
+	/** Internal id counter for animations. */
 	private currentId: number = 0;
 	private progress0: Map<number, number> = new Map();
 	private animationObjects: Map<number, (player: PlayerObject, progress: number, currentId: number) => void> =
@@ -74,6 +90,7 @@ export class FunctionAnimation extends PlayerAnimation {
 		this.fn = fn;
 	}
 
+	/** @inheritdoc */
 	protected animate(player: PlayerObject, delta: number): void {
 		this.fn(player, this.progress, delta);
 	}
@@ -83,6 +100,8 @@ export class FunctionAnimation extends PlayerAnimation {
  * Idle animation (arms and cape sway gently).
  */
 export class IdleAnimation extends PlayerAnimation {
+
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 2;
 		const basicArmRotationZ = Math.PI * 0.02;
@@ -97,9 +116,13 @@ export class IdleAnimation extends PlayerAnimation {
  * Walking animation (arms and legs swing, head bobs).
  */
 export class WalkingAnimation extends PlayerAnimation {
-	/** Whether to shake head when walking. @defaultValue true */
+	/** 
+	 * Whether to shake head when walking. 
+	 * @defaultValue true 
+	 */
 	headBobbing: boolean = true;
 
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 8;
 		player.skin.leftLeg.rotation.x = Math.sin(t) * 0.5;
@@ -127,6 +150,7 @@ export class WalkingAnimation extends PlayerAnimation {
  * Running animation (faster, more exaggerated swing).
  */
 export class RunningAnimation extends PlayerAnimation {
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 15 + Math.PI * 0.5;
 		player.skin.leftLeg.rotation.x = Math.cos(t + Math.PI) * 1.3;
@@ -144,6 +168,13 @@ export class RunningAnimation extends PlayerAnimation {
 	}
 }
 
+/**
+ * Clamps a number between a minimum and maximum value.
+ * @param num - The number to clamp.
+ * @param min - The minimum value.
+ * @param max - The maximum value.
+ * @returns The clamped number.
+ */
 function clamp(num: number, min: number, max: number): number {
 	return num <= min ? min : num >= max ? max : num;
 }
@@ -152,6 +183,7 @@ function clamp(num: number, min: number, max: number): number {
  * Flying animation (body rotates, elytra wings expand).
  */
 export class FlyingAnimation extends PlayerAnimation {
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress > 0 ? this.progress * 20 : 0;
 		const startProgress = clamp((t * t) / 100, 0, 1);
@@ -176,6 +208,10 @@ export class FlyingAnimation extends PlayerAnimation {
  * Waving animation (one arm waves).
  */
 export class WaveAnimation extends PlayerAnimation {
+	/** 
+	 * Which arm to wave. 
+	 * defaultValue "left" 
+	*/
 	whichArm: "left" | "right";
 
 	constructor(whichArm: "left" | "right" = "left") {
@@ -183,6 +219,7 @@ export class WaveAnimation extends PlayerAnimation {
 		this.whichArm = whichArm;
 	}
 
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * Math.PI;
 		const targetArm = this.whichArm === "left" ? player.skin.leftArm : player.skin.rightArm;
@@ -195,9 +232,16 @@ export class WaveAnimation extends PlayerAnimation {
  * Crouch animation (body and limbs move to crouch pose).
  */
 export class CrouchAnimation extends PlayerAnimation {
-	/** Show progress of animation. @defaultValue false */
+	/** 
+	 * Show progress of animation. 
+	 * @defaultValue false 
+	 */
 	showProgress: boolean = false;
-	/** Run this animation once. @defaultValue false */
+
+	/** 
+	 * Run this animation once. 
+	 * @defaultValue false 
+	 */
 	runOnce: boolean = false;
 
 	private isRunningHitAnimation: boolean = false;
@@ -214,6 +258,7 @@ export class CrouchAnimation extends PlayerAnimation {
 		this.hitAnimationSpeed = speed;
 	}
 
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		let pr = this.progress * 8;
 		if (pr === 0) this.isCrouched = undefined;
@@ -283,6 +328,7 @@ export class CrouchAnimation extends PlayerAnimation {
  * Hit animation (right arm swings).
  */
 export class HitAnimation extends PlayerAnimation {
+	/** @inheritdoc */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 18;
 		player.skin.rightArm.rotation.x = -0.4537860552 * 2 + 2 * Math.sin(t + Math.PI) * 0.3;

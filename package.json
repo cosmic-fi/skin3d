@@ -1,6 +1,6 @@
 {
 	"name": "skin3d",
-	"version": "0.0.11",
+	"version": "0.1.0",
 	"description": "A fast, customizable Minecraft skin viewer powered by Three.js. Easily render and preview Minecraft skins in 3D for your projects.",
 	"main": "libs/skin3d.js",
 	"type": "module",
@@ -9,15 +9,12 @@
 		"build:modules": "tsc -p .",
 		"build:bundles": "rollup -c --configPlugin=swc3",
 		"build:docs": "typedoc src/view.ts",
-		"build:preview": "vite build",
 		"build": "npm-run-all --parallel build:modules build:bundles build:preview",
 		"format": "prettier src public eslint.config.js --write",
 		"test:lint": "eslint src public eslint.config.js",
 		"test": "npm run test:lint",
 		"dev:watch:modules": "tsc -w --preserveWatchOutput --declaration --sourceMap --outDir libs -p .",
 		"dev:watch:bundles": "rollup -w --no-watch.clearScreen -c --configPlugin=swc3",
-		"dev": "vite",
-		"preview": "vite preview",
 		"prepublishOnly": "npm run clean && npm run build"
 	},
 	"repository": {
@@ -34,6 +31,7 @@
 	"keywords": [
 		"minecraft",
 		"skin",
+		"3d-skinviewer",
 		"viewer",
 		"3d",
 		"three.js",
@@ -42,41 +40,30 @@
 		"webgl",
 		"avatar",
 		"model",
-		"skin3d"
+		"skin3d",
+		"skin-viewer"
 	],
 	"files": [
 		"libs",
 		"bundles",
 		"assets"
 	],
-	"optionalDependencies": {
-		"@rollup/rollup-linux-x64-gnu": "4.9.5"
-	},
 	"dependencies": {
-		"path": "^0.12.7",
-		"skin3d": "^0.0.7",
 		"skinview-utils": "^0.7.1",
-		"three": "^0.156.1",
-		"typedoc-material-theme": "^1.4.1",
-		"url": "^0.11.4"
+		"three": "^0.156.1"
 	},
 	"devDependencies": {
-		"@rollup/plugin-node-resolve": "^15.0.2",
-		"@swc/core": "^1.3.53",
 		"@types/three": "^0.182.0",
 		"@typescript-eslint/eslint-plugin": "^8.31.1",
 		"@typescript-eslint/parser": "^8.31.1",
-		"@yushijinhun/three-minifier-rollup": "^0.4.0",
 		"eslint": "^9.26.0",
 		"eslint-plugin-tsdoc": "^0.2.17",
 		"local-web-server": "^5.2.1",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^3.0.3",
 		"rimraf": "^3.0.2",
-		"rollup": "^3.20.7",
-		"rollup-plugin-swc3": "^0.8.1",
 		"typedoc": "^0.25.7",
-		"typescript": "^5.0.4",
-		"vite": "^6.3.5"
+		"typedoc-material-theme": "^1.4.1",
+		"typescript": "^5.0.4"
 	}
 }

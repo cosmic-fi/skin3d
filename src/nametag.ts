@@ -1,23 +1,27 @@
+/**
+ * @file Nametag.ts
+ * @description This file defines the NameTagObject class for creating Minecraft-style name tags.
+ * @author Cosmic-fi
+ * @license MIT
+ */
+
 import { CanvasTexture, NearestFilter, Sprite, SpriteMaterial } from "three";
 
 export interface NameTagOptions {
 	/**
-	 * A font specification using the CSS value syntax.
+	 * Font specification using CSS font syntax (e.g., "48px Arial").
 	 *
-	 * The default value uses `Minecraft` font from
-	 * {@link https://github.com/South-Paw/typeface-minecraft | South-Paw/typeface-minecraft},
-	 * which is available at `skinview3d/assets/minecraft.woff2`.
+	 * @defaultValue `"48px Minecraft"`
 	 *
-	 * In order to use this font, please add the `@font-face` rule to your CSS:
+	 * @remarks
+	 * To use the Minecraft font, add this @font-face rule to your CSS:
 	 * ```css
-	 * ＠font-face {
+	 * @font-face {
 	 *   font-family: 'Minecraft';
 	 *   src: url('/path/to/minecraft.woff2') format('woff2');
 	 * }
 	 * ```
-	 * Remember to replace the font URL based on your situation.
-	 *
-	 * @defaultValue `"48px Minecraft"`
+	 * Get the font from {@link https://github.com/South-Paw/typeface-minecraft}.
 	 */
 	font?: string;
 
@@ -119,35 +123,63 @@ export class NameTagObject extends Sprite {
 		}
 	}
 
+	/**
+	 * Set the text of the name tag.
+	 * @param newText The new text.
+	 */
 	private async loadAndPaint() {
 		await document.fonts.load(this.font, this.text);
 		this.paint();
 	}
 
+	/**
+	 * Paint the name tag.
+	 * This method creates a canvas, draws the text and background,
+	 * and applies it as a texture to the sprite.
+	 * @private
+	 */
 	private paint() {
 		const canvas = document.createElement("canvas");
 
-		// Measure the text size
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		/**
+		 * Measure the text size
+		 * 
+		 * @remarks
+		 * We need to create the canvas and get the context first,
+		 * because some browsers (e.g., Safari) require a canvas to measure text.
+		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Advanced_text_metrics}
+		*/
+
 		let ctx = canvas.getContext("2d")!;
 		ctx.font = this.font;
 		const metrics = ctx.measureText(this.text);
 
-		// Compute canvas size
+		/**
+		 * Resize the canvas to fit the text with margins
+		 */
 		canvas.width = this.margin[3] + metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight + this.margin[1];
 		canvas.height =
 			this.margin[0] + metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent + this.margin[2];
 
-		// After change canvas size, the context needs to be re-created
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		/**
+		 * Draw the background and text
+		 * @remarks
+		 * We need to get the context again after resizing the canvas,
+		 * because resizing clears the canvas and resets the context.
+		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#resizing_the_canvas
+		 */
 		ctx = canvas.getContext("2d")!;
 		ctx.font = this.font;
 
-		// Fill background
+		/**
+		 * Draw the background
+		 */
 		ctx.fillStyle = this.backgroundStyle;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-		// Draw text
+		/**
+		 * Draw the text
+		 */
 		ctx.fillStyle = this.textStyle;
 		ctx.fillText(
 			this.text,
@@ -155,14 +187,18 @@ export class NameTagObject extends Sprite {
 			this.margin[0] + metrics.actualBoundingBoxAscent
 		);
 
-		// Apply texture
+		/**
+		 * Create the texture and apply it to the sprite
+		 */
 		const texture = new CanvasTexture(canvas);
 		texture.magFilter = NearestFilter;
 		texture.minFilter = NearestFilter;
 		this.textMaterial.map = texture;
 		this.textMaterial.needsUpdate = true;
 
-		// Update size
+		/**
+		 * Adjust the scale of the sprite to maintain aspect ratio
+		 */
 		this.scale.x = (canvas.width / canvas.height) * this.height;
 		this.scale.y = this.height;
 	}

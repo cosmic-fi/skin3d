@@ -1,0 +1,77 @@
+# Changelog
+All notable changes to the skin3d library will be documented in this file.
+
+## [Unreleased]
+
+### Added
+- New `Render.ts` class replacing the previous `skin3d.ts` - Core rendering engine for 3D player models using Three.js
+- New modular structure with separate `index.ts` entry point for cleaner exports
+- Refactored module exports: `Model.ts`, `Render.ts`, `Animation.ts`, `Nametag.ts`
+
+### Changed
+- Refactored library structure from monolithic entry point to modular component exports
+- Updated file naming convention (capitalized: `Animation.ts`, `Model.ts`, `Nametag.ts`, `Render.ts`)
+- Modified project dependencies in `package.json` to support new architecture
+
+### Removed
+- Legacy `skin3d.ts` entry point (functionality moved to `Render.ts`)
+- Legacy `view.ts` file
+- Removed `demo/` folder (no longer part of main library distribution)
+- Removed `docs/` static folder (now generated dynamically)
+
+---
+
+## [0.1.0] - 2025-12-31
+
+### Added
+- Documentation site with TypeDoc-generated API reference
+- HTML, CSS, JS, and SVG assets for documentation
+- Build script integration (`copy-docs.js`) to generate and copy documentation to static folder
+- Documentation pages including class hierarchy, interfaces, and modules
+
+### Fixed
+- Corrected background image path in `app.css`
+
+### Changed
+- Refactored documentation loading from fetching/processing HTML to direct redirect to static files
+- Simplified documentation route handling
+- Removed complex loading logic and error handling
+
+---
+
+## [0.0.10] - Previous Release
+
+---
+
+## Library Information
+
+**Version**: 0.1.0  
+**Name**: skin3d  
+**Description**: A fast, customizable Minecraft skin viewer powered by Three.js. Easily render and preview Minecraft skins in 3D for your projects.  
+**License**: MIT  
+**Author**: Cosmic-fi (https://github.com/cosmic-fi)  
+**Repository**: https://github.com/cosmic-fi/skin3d
+
+### Main Entry Point
+- `libs/skin3d.js` (built from TypeScript sources)
+
+### Core Modules
+- **Render.ts**: Main rendering engine for 3D player models using Three.js
+- **Model.ts**: 3D model handling and management
+- **Animation.ts**: Animation system for player movements
+- **Nametag.ts**: Nametag rendering and display
+- **index.ts**: Main export point for all public APIs
+
+### Key Dependencies
+- **three**: 3D graphics library
+- **skinview-utils**: Minecraft skin utilities and texture handling
+
+### Build Scripts
+- `npm run build`: Complete build (modules, bundles, and preview)
+- `npm run build:modules`: Compile TypeScript to JavaScript
+- `npm run build:bundles`: Create browser bundles with Rollup
+- `npm run build:docs`: Generate TypeDoc documentation
+- `npm run dev:watch:modules`: Watch mode for module compilation
+- `npm run dev:watch:bundles`: Watch mode for bundle creation
+- `npm run format`: Format code with Prettier
+- `npm run test:lint`: Run ESLint
