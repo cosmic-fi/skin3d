@@ -7,9 +7,9 @@
 	"scripts": {
 		"clean": "rimraf libs bundles",
 		"build:modules": "tsc -p .",
-		"build:bundles": "rollup -c --configPlugin=swc3",
-		"build:docs": "typedoc src/view.ts",
-		"build": "npm-run-all --parallel build:modules build:bundles build:preview",
+		"build:bundles": "npx rollup -c",
+		"build:docs": "typedoc src/index.ts",
+		"build": "npm-run-all --parallel build:modules build:bundles",
 		"format": "prettier src public eslint.config.js --write",
 		"test:lint": "eslint src public eslint.config.js",
 		"test": "npm run test:lint",
