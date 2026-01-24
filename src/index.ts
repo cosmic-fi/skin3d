@@ -6,6 +6,6 @@
  */
 
 export * from "./Model.js";
-export * from "./Render.js";
+export * from "./skin3d.js";
 export * from "./Animation.js";
 export * from "./Nametag.js";
