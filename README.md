@@ -1,9 +1,10 @@
-<img width="3740" height="1998" alt="Frame 45" src="https://github.com/user-attachments/assets/588b1cf2-a9fd-4a90-a73c-514fedb051b4" />
+<a href="https://skin3d.cosmicfi.dev" target="_blank">
+	<img width="2805" height="1499" alt="Frame 45" src="https://github.com/user-attachments/assets/8a7f7fce-3cd3-4103-9984-cbf2f657a48b" />
+</a>
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/cosmic-fi/skin3d/ci.yaml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/cosmic-fi/skin3d/actions?query=workflow:CI)
 [![NPM Package](https://img.shields.io/npm/v/skin3d.svg?style=flat-square)](https://www.npmjs.com/package/skin3d)
 [![MIT License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](https://github.com/cosmic-fi/skin3d/blob/main/LICENSE)
-[![Gitter Chat](https://img.shields.io/gitter/room/TechnologyAdvice/Stardust.svg?style=flat-square)](https://matrix.to/#/#skin3d:gitter.im)
 
 ---
 
