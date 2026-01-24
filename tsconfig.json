@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"outDir": "libs",
+		"outDir": "dist",
 		"allowJs": false,
 		"allowSyntheticDefaultImports": true,
 		"allowUnreachableCode": false,

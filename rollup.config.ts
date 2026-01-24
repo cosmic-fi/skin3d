@@ -1,9 +1,9 @@
 export default [
 	{
-		input: 'libs/index.js',
+		input: 'dist/index.js',
 		external: ['three'],
 		output: {
-			file: 'bundles/skin3d.js',
+			file: 'dist/skin3d.umd.js',
 			format: 'umd',
 			globals: {
 				three: 'THREE'
@@ -12,10 +12,10 @@ export default [
 		}
 	},
 	{
-		input: 'libs/index.js',
+		input: 'dist/index.js',
 		external: ['three'],
 		output: {
-			file: 'bundles/skin3d.esm.js',
+			file: 'dist/skin3d.esm.js',
 			format: 'es'
 		}
 	}

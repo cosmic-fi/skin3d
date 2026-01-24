@@ -2,19 +2,32 @@
 	"name": "skin3d",
 	"version": "0.1.2",
 	"description": "Skin3d is a lightweight JS library that renders any Minecraft skin as a smooth, interactive 3D model you can drop straight into a webpage.",
-	"main": "libs/index.js",
-	"types": "libs/index.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
 	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./bundles/*": {
+			"import": "./dist/*.esm.js",
+			"require": "./dist/*.umd.js"
+		}
+	},
 	"scripts": {
-		"clean": "rimraf libs bundles",
-		"build:modules": "tsc -p .",
+		"clean": "rimraf dist",
+	"build:modules": "tsc -p . && npm run build:esm",
+	"build:esm": "copy dist\\index.js dist\\index.mjs",
 		"build:bundles": "npx rollup -c",
 		"build:docs": "typedoc src/index.ts",
 		"build": "npm-run-all --parallel build:modules build:bundles",
 		"format": "prettier src public eslint.config.js --write",
 		"test:lint": "eslint src public eslint.config.js",
 		"test": "npm run test:lint",
-		"dev:watch:modules": "tsc -w --preserveWatchOutput --declaration --sourceMap --outDir libs -p .",
+		"dev:watch:modules": "tsc -w --preserveWatchOutput --declaration --sourceMap --outDir dist -p .",
 		"dev:watch:bundles": "rollup -w --no-watch.clearScreen -c --configPlugin=swc3",
 		"prepublishOnly": "npm run clean && npm run build"
 	},
@@ -45,8 +58,7 @@
 		"skin-viewer"
 	],
 	"files": [
-		"libs",
-		"bundles",
+		"dist",
 		"assets"
 	],
 	"dependencies": {
