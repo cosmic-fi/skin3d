@@ -6,7 +6,7 @@
  */
 
 // Export from Model.js
-export * from "./Model.js";
+export * from "./model.js";
 
 // Export from skin3d.js - explicitly export the main Render class
 export { Render } from "./skin3d.js";
