@@ -4,6 +4,25 @@ All notable changes to the skin3d library will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-01-04
+
+**Patch Release: Build Fixes and Configuration Updates**
+
+### Fixed
+- ✅ **Resolved TypeScript build error TS1261**: Fixed file casing mismatch between `model.ts` and import statements
+  - Updated imports in `src/Animation.ts`, `src/index.ts`, and `src/skin3d.ts` from `./Model.js` to `./model.js`
+  - This resolved the "Already included file name differs only in casing" error on Windows systems
+  
+- ✅ **Updated Rollup configuration**: Added missing external dependencies to prevent build warnings
+  - Added `skinview-utils` and three.js example modules to external dependencies list
+  - Added corresponding global variable mappings for UMD bundle format
+
+### Changed
+- 🔧 **Build system improvements**: Enhanced rollup.config.ts with complete external dependency declarations
+- 🔧 **Cross-platform compatibility**: Fixed case-sensitivity issues for Windows development environments
+
+---
+
 ## [0.1.0] - 2025-12-31
 
 **Major Release: Refactored Library with Enhanced Documentation**
