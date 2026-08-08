@@ -1,6 +1,6 @@
 {
 	"name": "skin3d",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "Skin3d is a lightweight JS library that renders any Minecraft skin as a smooth, interactive 3D model you can drop straight into a webpage.",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
