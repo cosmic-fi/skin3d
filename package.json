@@ -20,7 +20,7 @@
 	"scripts": {
 		"clean": "rimraf dist",
 	"build:modules": "tsc -p . && npm run build:esm",
-	"build:esm": "copy dist\\index.js dist\\index.mjs",
+		"build:esm": "node -e \"require('fs').copyFileSync('dist/index.js', 'dist/index.mjs')\"",
 		"build:bundles": "npx rollup -c",
 		"build:docs": "typedoc src/index.ts",
 		"build": "npm-run-all --parallel build:modules build:bundles",
