@@ -4,6 +4,49 @@ All notable changes to the skin3d library will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-08-08
+
+**Minor Release: Performance Optimizations, Memory Leak Fixes, and Rendering Improvements**
+
+### Added
+- ✨ **Material quality presets**: New `MaterialType` option for performance/quality tradeoff
+  - `"standard"`: `MeshStandardMaterial` (PBR, better lighting, slower)
+  - `"lambert"`: `MeshLambertMaterial` (flat Gouraud shading, faster)
+  - Available in `PlayerObject`, `SkinObject`, `CapeObject`, `ElytraObject`, and `EarsObject` constructors
+  - Backward compatible with default `"standard"` behavior
+
+- ✨ **Pixel ratio control**: New `maxPixelRatio` property on `Render` class
+  - Allows clamping device pixel ratio to improve performance on high-DPI displays
+  - Helps reduce rendering overhead on 4K/5K displays
+
+### Fixed
+- ✅ **Critical memory leak fixes**: Comprehensive resource cleanup in `Render.dispose()`
+  - Proper disposal of name tag textures and materials
+  - Complete cleanup of player object meshes (geometry + materials)
+  - Disposal of FXAA pass materials, shaders, and composer render targets
+  - Proper removal of event listeners (mousedown, mouseup, touchmove, touchend)
+  - Cleanup of camera and scene lights
+
+- ✅ **Race condition guards**: Added ID-based tracking for async load operations
+  - Prevents visual glitches when multiple skin/cape/ears/background loads occur in quick succession
+  - Ensures only the latest load request is applied
+  - Applied to `loadSkin()`, `loadCape()`, `loadEars()`, and `loadBackground()` methods
+
+- ✅ **Null safety improvements**: Removed non-null assertions in `NameTagObject`
+  - Added proper null checks for canvas 2D rendering context
+  - Throws descriptive error if context cannot be obtained
+
+### Changed
+- 🔧 **Code quality improvements**: Enhanced type safety and documentation
+  - Fixed TSDoc formatting with consistent `@param` style using dashes
+  - Fixed broken markdown link in `NameTagObject` documentation
+  - Improved null handling in `nameTag` setter with proper disposal of old name tags
+  - Added null check for FXAA pass uniform updates
+
+- 🔧 **File header consistency**: Changed file headers from `/**` to `/*` format
+
+---
+
 ## [0.1.2] - 2026-01-04
 
 **Patch Release: Build Fixes and Configuration Updates**
