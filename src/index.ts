@@ -23,8 +23,8 @@ export {
 	WaveAnimation,
 	CrouchAnimation,
 	HitAnimation
-} from "./Animation.js";
-export * from "./Animation.js";
+} from "./animation.js";
+export * from "./animation.js";
 
-// Export from Nametag.js
-export * from "./Nametag.js";
+// Export from nametag.js
+export * from "./nametag.js";

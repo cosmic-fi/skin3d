@@ -45,9 +45,9 @@ import { FullScreenQuad } from "three/examples/jsm/postprocessing/Pass.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
-import { PlayerAnimation } from "./Animation.js";
+import { PlayerAnimation } from "./animation.js";
 import { type BackEquipment, PlayerObject } from "./model.js";
-import { NameTagObject } from "./Nametag.js";
+import { NameTagObject } from "./nametag.js";
 
 
 export interface RenderOptions {
