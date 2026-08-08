@@ -2,7 +2,27 @@ import terser from '@rollup/plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const input = 'dist/index.js';
-const external = (id: string) => id === 'three';
+const external = [
+	'three',
+	'skinview-utils',
+	'three/examples/jsm/controls/OrbitControls.js',
+	'three/examples/jsm/postprocessing/EffectComposer.js',
+	'three/examples/jsm/postprocessing/Pass.js',
+	'three/examples/jsm/postprocessing/RenderPass.js',
+	'three/examples/jsm/postprocessing/ShaderPass.js',
+	'three/examples/jsm/shaders/FXAAShader.js'
+];
+
+const globals = {
+	three: 'THREE',
+	'skinview-utils': 'skinviewUtils',
+	'three/examples/jsm/controls/OrbitControls.js': 'OrbitControls',
+	'three/examples/jsm/postprocessing/EffectComposer.js': 'EffectComposer',
+	'three/examples/jsm/postprocessing/Pass.js': 'Pass',
+	'three/examples/jsm/postprocessing/RenderPass.js': 'RenderPass',
+	'three/examples/jsm/postprocessing/ShaderPass.js': 'ShaderPass',
+	'three/examples/jsm/shaders/FXAAShader.js': 'FXAAShader'
+};
 
 function createConfig(file: string, format: 'umd' | 'es', minify: boolean) {
 	return {
@@ -16,10 +36,7 @@ function createConfig(file: string, format: 'umd' | 'es', minify: boolean) {
 			file,
 			format,
 			sourcemap: true,
-			...(format === 'umd' && {
-				globals: { three: 'THREE' },
-				name: 'skin3d'
-			})
+			...(format === 'umd' && { globals, name: 'skin3d' })
 		}
 	};
 }
