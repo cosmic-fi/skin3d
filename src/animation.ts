@@ -1,4 +1,4 @@
-/**
+/*
  * @file Animation.ts
  * @description This file defines the PlayerAnimation class and its subclasses for animating PlayerObject instances.
  * @author Cosmic-fi
@@ -90,7 +90,7 @@ export class FunctionAnimation extends PlayerAnimation {
 		this.fn = fn;
 	}
 
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject, delta: number): void {
 		this.fn(player, this.progress, delta);
 	}
@@ -101,7 +101,7 @@ export class FunctionAnimation extends PlayerAnimation {
  */
 export class IdleAnimation extends PlayerAnimation {
 
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 2;
 		const basicArmRotationZ = Math.PI * 0.02;
@@ -122,7 +122,7 @@ export class WalkingAnimation extends PlayerAnimation {
 	 */
 	headBobbing: boolean = true;
 
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 8;
 		player.skin.leftLeg.rotation.x = Math.sin(t) * 0.5;
@@ -150,7 +150,7 @@ export class WalkingAnimation extends PlayerAnimation {
  * Running animation (faster, more exaggerated swing).
  */
 export class RunningAnimation extends PlayerAnimation {
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 15 + Math.PI * 0.5;
 		player.skin.leftLeg.rotation.x = Math.cos(t + Math.PI) * 1.3;
@@ -183,7 +183,7 @@ function clamp(num: number, min: number, max: number): number {
  * Flying animation (body rotates, elytra wings expand).
  */
 export class FlyingAnimation extends PlayerAnimation {
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress > 0 ? this.progress * 20 : 0;
 		const startProgress = clamp((t * t) / 100, 0, 1);
@@ -219,7 +219,7 @@ export class WaveAnimation extends PlayerAnimation {
 		this.whichArm = whichArm;
 	}
 
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * Math.PI;
 		const targetArm = this.whichArm === "left" ? player.skin.leftArm : player.skin.rightArm;
@@ -258,7 +258,7 @@ export class CrouchAnimation extends PlayerAnimation {
 		this.hitAnimationSpeed = speed;
 	}
 
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		let pr = this.progress * 8;
 		if (pr === 0) this.isCrouched = undefined;
@@ -328,7 +328,7 @@ export class CrouchAnimation extends PlayerAnimation {
  * Hit animation (right arm swings).
  */
 export class HitAnimation extends PlayerAnimation {
-	/** @inheritdoc */
+	/** {@inheritdoc} */
 	protected animate(player: PlayerObject): void {
 		const t = this.progress * 18;
 		player.skin.rightArm.rotation.x = -0.4537860552 * 2 + 2 * Math.sin(t + Math.PI) * 0.3;

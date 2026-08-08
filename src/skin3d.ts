@@ -1,6 +1,6 @@
-/**
- * @file Render.ts
- * @description This file defines the Render class that renders a 3D player model on a canvas.
+/*
+ * @file skin3d.ts
+ * @description This file defines the Render class and related types for rendering Minecraft skins in 3D.
  * @author Cosmic-fi
  * @license MIT
  */
@@ -308,7 +308,7 @@ export interface Options {
 }
 
 /**
- * The {Render} renders the player on a canvas.
+ * The {@link Render} renders the player on a canvas.
  */
 export class Render {
 	/** The canvas where the renderer draws its output. */
@@ -984,9 +984,11 @@ export class Render {
 	 * will be automatically created with default options.
 	 *
 	 * @example
+	 * ```ts
 	 * Render.nameTag = "Norch";
 	 * Render.nameTag = new NameTagObject("hello", { textStyle: "yellow" });
 	 * Render.nameTag = null;
+	 * ```
 	 */
 	get nameTag(): NameTagObject | null {
 		return this._nameTag;

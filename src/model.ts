@@ -1,4 +1,4 @@
-/**
+/*
  * @file Model.ts
  * @description This file defines the 3D model classes for Minecraft-style player models, including skin, cape, elytra, and ears.
  * @author Cosmic-fi
@@ -44,14 +44,14 @@ function createMaterial(
 
 /**
  * Set the UV mapping for a box geometry.
- * @param box The box geometry to set UVs for.
- * @param u The U coordinate of the top-left corner of the texture region.
- * @param v The V coordinate of the top-left corner of the texture region.
- * @param width The width of the texture region.
- * @param height The height of the texture region.
- * @param depth The depth of the texture region.
- * @param textureWidth The total width of the texture.
- * @param textureHeight The total height of the texture.
+ * @param box - The box geometry to set UVs for.
+ * @param u - The U coordinate of the top-left corner of the texture region.
+ * @param v - The V coordinate of the top-left corner of the texture region.
+ * @param width - The width of the texture region.
+ * @param height - The height of the texture region.
+ * @param depth - The depth of the texture region.
+ * @param textureWidth - The total width of the texture.
+ * @param textureHeight - The total height of the texture.
  */
 function setUVs(
 	box: BoxGeometry,
@@ -96,26 +96,27 @@ function setUVs(
 }
 
 /**
- * Set UVs for a skin box (64x64 texture). 
- * @param box The box geometry to set UVs for.
- * @param u The U coordinate of the top-left corner of the texture region.
- * @param v The V coordinate of the top-left corner of the texture region.
- * @param width The width of the texture region.
- * @param height The height of the texture region.
- * @param depth The depth of the texture region.
-*/
+ * Set UVs for a skin box (64x64 texture).
+ * @param box - The box geometry to set UVs for.
+ * @param u - The U coordinate of the top-left corner of the texture region.
+ * @param v - The V coordinate of the top-left corner of the texture region.
+ * @param width - The width of the texture region.
+ * @param height - The height of the texture region.
+ * @param depth - The depth of the texture region.
+ */
 function setSkinUVs(box: BoxGeometry, u: number, v: number, width: number, height: number, depth: number): void {
 	setUVs(box, u, v, width, height, depth, 64, 64);
 }
 
-/** Set UVs for a cape box (64x32 texture). 
- * @param box The box geometry to set UVs for.
- * @param u The U coordinate of the top-left corner of the texture region.
- * @param v The V coordinate of the top-left corner of the texture region.
- * @param width The width of the texture region.
- * @param height The height of the texture region.
- * @param depth The depth of the texture region.
-*/
+/**
+ * Set UVs for a cape box (64x32 texture).
+ * @param box - The box geometry to set UVs for.
+ * @param u - The U coordinate of the top-left corner of the texture region.
+ * @param v - The V coordinate of the top-left corner of the texture region.
+ * @param width - The width of the texture region.
+ * @param height - The height of the texture region.
+ * @param depth - The depth of the texture region.
+ */
 function setCapeUVs(box: BoxGeometry, u: number, v: number, width: number, height: number, depth: number): void {
 	setUVs(box, u, v, width, height, depth, 64, 32);
 }
@@ -331,7 +332,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * The texture map for the skin. 
-	 * @return The texture map for the skin.
+	 * @returns The texture map for the skin.
 	*/
 	get map(): Texture | null {
 		return this._map;
@@ -339,7 +340,7 @@ export class SkinObject extends Group {
 
 	/**
 	 * Set the texture map for the skin.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this._map = newMap;
@@ -355,7 +356,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * The model type ("default" or "slim"). 
-	 * @return The model type.
+	 * @returns The model type.
 	*/
 	get modelType(): ModelType {
 		return this.slim ? "slim" : "default";
@@ -363,7 +364,7 @@ export class SkinObject extends Group {
 
 	/**
 	 * Set the model type.
-	 * @param value The new model type.
+	 * @param value - The new model type.
 	 */
 	set modelType(value: ModelType) {
 		this.slim = value === "slim";
@@ -372,7 +373,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * Get all body parts in this skin. 
-	 * @return An array of all body parts.
+	 * @returns An array of all body parts.
 	*/
 	private getBodyParts(): Array<BodyPart> {
 		return this.children.filter(it => it instanceof BodyPart) as Array<BodyPart>;
@@ -380,7 +381,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * Show or hide the inner layer of all body parts. 
-	 * @param value Whether to show the inner layer.
+	 * @param value - Whether to show the inner layer.
 	*/
 	setInnerLayerVisible(value: boolean): void {
 		this.getBodyParts().forEach(part => (part.innerLayer.visible = value));
@@ -388,7 +389,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * Show or hide the outer layer of all body parts. 
-	 * @param value Whether to show the outer layer.
+	 * @param value - Whether to show the outer layer.
 	 */
 	setOuterLayerVisible(value: boolean): void {
 		this.getBodyParts().forEach(part => (part.outerLayer.visible = value));
@@ -446,7 +447,7 @@ export class CapeObject extends Group {
 
 	/**
 	 * The texture map for the cape.
-	 * @return The texture map for the cape.
+	 * @returns The texture map for the cape.
 	 */
 	get map(): Texture | null {
 		return this.material.map;
@@ -454,7 +455,7 @@ export class CapeObject extends Group {
 
 	/**
 	 * Set the texture map for the cape.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
@@ -526,7 +527,7 @@ export class ElytraObject extends Group {
 
 	/**
 	 * The texture map for the elytra.
-	 * @return The texture map for the elytra.
+	 * @returns The texture map for the elytra.
 	 */
 	get map(): Texture | null {
 		return this.material.map;
@@ -534,7 +535,7 @@ export class ElytraObject extends Group {
 
 	/**
 	 * Set the texture map for the elytra.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
@@ -569,7 +570,7 @@ export class EarsObject extends Group {
 
 	/**
 	 * The texture map for the ears.
-	 * @return The texture map for the ears.
+	 * @returns The texture map for the ears.
 	 */
 	get map(): Texture | null {
 		return this.material.map;
@@ -577,7 +578,7 @@ export class EarsObject extends Group {
 
 	/**
 	 * Set the texture map for the ears.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
@@ -634,7 +635,7 @@ export class PlayerObject extends Group {
 
 	/** 
 	 * Which back equipment is visible ("cape", "elytra", or null). 
-	 * @return The currently visible back equipment.
+	 * @returns The currently visible back equipment.
 	 */
 	get backEquipment(): BackEquipment | null {
 		if (this.cape.visible) return "cape";
@@ -644,7 +645,7 @@ export class PlayerObject extends Group {
 
 	/**
 	 * Set which back equipment is visible.
-	 * @param value The back equipment to show, or null to hide both.
+	 * @param value - The back equipment to show, or null to hide both.
 	 */
 	set backEquipment(value: BackEquipment | null) {
 		this.cape.visible = value === "cape";

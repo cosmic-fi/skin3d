@@ -1,4 +1,4 @@
-/**
+/*
  * @file Nametag.ts
  * @description This file defines the NameTagObject class for creating Minecraft-style name tags.
  * @author Cosmic-fi
@@ -14,7 +14,7 @@ export interface NameTagOptions {
 	 * @defaultValue `"48px Minecraft"`
 	 *
 	 * @remarks
-	 * To use the Minecraft font, add this @font-face rule to your CSS:
+	 * To use the Minecraft font, add this `@font-face` rule to your CSS:
 	 * ```css
 	 * @font-face {
 	 *   font-family: 'Minecraft';
@@ -125,7 +125,7 @@ export class NameTagObject extends Sprite {
 
 	/**
 	 * Set the text of the name tag.
-	 * @param newText The new text.
+	 * @param newText - The new text.
 	 */
 	private async loadAndPaint() {
 		await document.fonts.load(this.font, this.text);
@@ -145,7 +145,6 @@ export class NameTagObject extends Sprite {
 	 * Paint the name tag.
 	 * This method creates a canvas, draws the text and background,
 	 * and applies it as a texture to the sprite.
-	 * @private
 	 */
 	private paint() {
 		this.textMaterial.map?.dispose();
@@ -161,7 +160,10 @@ export class NameTagObject extends Sprite {
 		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Advanced_text_metrics}
 		*/
 
-		let ctx = canvas.getContext("2d")!;
+		let ctx = canvas.getContext("2d");
+		if (ctx === null) {
+			throw new Error("Could not get 2D rendering context");
+		}
 		ctx.font = this.font;
 		const metrics = ctx.measureText(this.text);
 
@@ -177,9 +179,12 @@ export class NameTagObject extends Sprite {
 		 * @remarks
 		 * We need to get the context again after resizing the canvas,
 		 * because resizing clears the canvas and resets the context.
-		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#resizing_the_canvas
+		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas#resizing_the_canvas }
 		 */
-		ctx = canvas.getContext("2d")!;
+		ctx = canvas.getContext("2d");
+		if (ctx === null) {
+			throw new Error("Could not get 2D rendering context");
+		}
 		ctx.font = this.font;
 
 		/**
