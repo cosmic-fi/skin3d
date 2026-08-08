@@ -5,14 +5,14 @@
  * @license MIT
  */
 
-// Export from Model.js
+// Export from model.js
 export * from "./model.js";
 
 // Export from skin3d.js - explicitly export the main Render class
 export { Render } from "./skin3d.js";
 export * from "./skin3d.js";
 
-// Export from Animation.js - explicitly export all animation classes
+// Export from animation.js - explicitly export all animation classes
 export {
 	PlayerAnimation,
 	FunctionAnimation,

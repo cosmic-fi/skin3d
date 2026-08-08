@@ -1,4 +1,4 @@
-/**
+/*
  * @file Model.ts
  * @description This file defines the 3D model classes for Minecraft-style player models, including skin, cape, elytra, and ears.
  * @author Cosmic-fi
@@ -6,13 +6,14 @@
  */
 
 import type { ModelType } from "skinview-utils";
+import type { BufferAttribute } from "three";
 import {
 	BoxGeometry,
-	BufferAttribute,
 	DoubleSide,
 	FrontSide,
 	Group,
 	Mesh,
+	MeshLambertMaterial,
 	MeshStandardMaterial,
 	Object3D,
 	Texture,
@@ -20,15 +21,37 @@ import {
 } from "three";
 
 /**
+ * Material quality preset.
+ * - `"standard"` uses `MeshStandardMaterial` (PBR, better lighting, slower).
+ * - `"lambert"` uses `MeshLambertMaterial` (flat Gouraud shading, faster).
+ */
+export type MaterialType = "standard" | "lambert";
+
+function createMaterial(
+	type: MaterialType,
+	params: {
+		side: typeof FrontSide | typeof DoubleSide;
+		transparent?: boolean;
+		alphaTest?: number;
+		map?: Texture | null;
+	}
+): MeshStandardMaterial | MeshLambertMaterial {
+	if (type === "lambert") {
+		return new MeshLambertMaterial(params);
+	}
+	return new MeshStandardMaterial(params);
+}
+
+/**
  * Set the UV mapping for a box geometry.
- * @param box The box geometry to set UVs for.
- * @param u The U coordinate of the top-left corner of the texture region.
- * @param v The V coordinate of the top-left corner of the texture region.
- * @param width The width of the texture region.
- * @param height The height of the texture region.
- * @param depth The depth of the texture region.
- * @param textureWidth The total width of the texture.
- * @param textureHeight The total height of the texture.
+ * @param box - The box geometry to set UVs for.
+ * @param u - The U coordinate of the top-left corner of the texture region.
+ * @param v - The V coordinate of the top-left corner of the texture region.
+ * @param width - The width of the texture region.
+ * @param height - The height of the texture region.
+ * @param depth - The depth of the texture region.
+ * @param textureWidth - The total width of the texture.
+ * @param textureHeight - The total height of the texture.
  */
 function setUVs(
 	box: BoxGeometry,
@@ -73,26 +96,27 @@ function setUVs(
 }
 
 /**
- * Set UVs for a skin box (64x64 texture). 
- * @param box The box geometry to set UVs for.
- * @param u The U coordinate of the top-left corner of the texture region.
- * @param v The V coordinate of the top-left corner of the texture region.
- * @param width The width of the texture region.
- * @param height The height of the texture region.
- * @param depth The depth of the texture region.
-*/
+ * Set UVs for a skin box (64x64 texture).
+ * @param box - The box geometry to set UVs for.
+ * @param u - The U coordinate of the top-left corner of the texture region.
+ * @param v - The V coordinate of the top-left corner of the texture region.
+ * @param width - The width of the texture region.
+ * @param height - The height of the texture region.
+ * @param depth - The depth of the texture region.
+ */
 function setSkinUVs(box: BoxGeometry, u: number, v: number, width: number, height: number, depth: number): void {
 	setUVs(box, u, v, width, height, depth, 64, 64);
 }
 
-/** Set UVs for a cape box (64x32 texture). 
- * @param box The box geometry to set UVs for.
- * @param u The U coordinate of the top-left corner of the texture region.
- * @param v The V coordinate of the top-left corner of the texture region.
- * @param width The width of the texture region.
- * @param height The height of the texture region.
- * @param depth The depth of the texture region.
-*/
+/**
+ * Set UVs for a cape box (64x32 texture).
+ * @param box - The box geometry to set UVs for.
+ * @param u - The U coordinate of the top-left corner of the texture region.
+ * @param v - The V coordinate of the top-left corner of the texture region.
+ * @param width - The width of the texture region.
+ * @param height - The height of the texture region.
+ * @param depth - The depth of the texture region.
+ */
 function setCapeUVs(box: BoxGeometry, u: number, v: number, width: number, height: number, depth: number): void {
 	setUVs(box, u, v, width, height, depth, 64, 32);
 }
@@ -128,19 +152,19 @@ export class SkinObject extends Group {
 	private slim = false;
 
 	private _map: Texture | null = null;
-	private layer1Material: MeshStandardMaterial;
-	private layer1MaterialBiased: MeshStandardMaterial;
-	private layer2Material: MeshStandardMaterial;
-	private layer2MaterialBiased: MeshStandardMaterial;
+	private layer1Material: MeshStandardMaterial | MeshLambertMaterial;
+	private layer1MaterialBiased: MeshStandardMaterial | MeshLambertMaterial;
+	private layer2Material: MeshStandardMaterial | MeshLambertMaterial;
+	private layer2MaterialBiased: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
 
 		/**
 		 * Material for the inner layer (layer 1) of the skin.
 		 */
-		this.layer1Material = new MeshStandardMaterial({ side: FrontSide });
-		this.layer2Material = new MeshStandardMaterial({ side: DoubleSide, transparent: true, alphaTest: 1e-5 });
+		this.layer1Material = createMaterial(materialType, { side: FrontSide });
+		this.layer2Material = createMaterial(materialType, { side: DoubleSide, transparent: true, alphaTest: 1e-5 });
 
 		this.layer1MaterialBiased = this.layer1Material.clone();
 		this.layer1MaterialBiased.polygonOffset = true;
@@ -308,7 +332,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * The texture map for the skin. 
-	 * @return The texture map for the skin.
+	 * @returns The texture map for the skin.
 	*/
 	get map(): Texture | null {
 		return this._map;
@@ -316,7 +340,7 @@ export class SkinObject extends Group {
 
 	/**
 	 * Set the texture map for the skin.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this._map = newMap;
@@ -332,7 +356,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * The model type ("default" or "slim"). 
-	 * @return The model type.
+	 * @returns The model type.
 	*/
 	get modelType(): ModelType {
 		return this.slim ? "slim" : "default";
@@ -340,7 +364,7 @@ export class SkinObject extends Group {
 
 	/**
 	 * Set the model type.
-	 * @param value The new model type.
+	 * @param value - The new model type.
 	 */
 	set modelType(value: ModelType) {
 		this.slim = value === "slim";
@@ -349,7 +373,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * Get all body parts in this skin. 
-	 * @return An array of all body parts.
+	 * @returns An array of all body parts.
 	*/
 	private getBodyParts(): Array<BodyPart> {
 		return this.children.filter(it => it instanceof BodyPart) as Array<BodyPart>;
@@ -357,7 +381,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * Show or hide the inner layer of all body parts. 
-	 * @param value Whether to show the inner layer.
+	 * @param value - Whether to show the inner layer.
 	*/
 	setInnerLayerVisible(value: boolean): void {
 		this.getBodyParts().forEach(part => (part.innerLayer.visible = value));
@@ -365,7 +389,7 @@ export class SkinObject extends Group {
 
 	/** 
 	 * Show or hide the outer layer of all body parts. 
-	 * @param value Whether to show the outer layer.
+	 * @param value - Whether to show the outer layer.
 	 */
 	setOuterLayerVisible(value: boolean): void {
 		this.getBodyParts().forEach(part => (part.outerLayer.visible = value));
@@ -404,11 +428,11 @@ export class SkinObject extends Group {
  */
 export class CapeObject extends Group {
 	readonly cape: Mesh;
-	private material: MeshStandardMaterial;
+	private material: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
-		this.material = new MeshStandardMaterial({
+		this.material = createMaterial(materialType, {
 			side: DoubleSide,
 			transparent: true,
 			alphaTest: 1e-5,
@@ -423,7 +447,7 @@ export class CapeObject extends Group {
 
 	/**
 	 * The texture map for the cape.
-	 * @return The texture map for the cape.
+	 * @returns The texture map for the cape.
 	 */
 	get map(): Texture | null {
 		return this.material.map;
@@ -431,7 +455,7 @@ export class CapeObject extends Group {
 
 	/**
 	 * Set the texture map for the cape.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
@@ -445,11 +469,11 @@ export class CapeObject extends Group {
 export class ElytraObject extends Group {
 	readonly leftWing: Group;
 	readonly rightWing: Group;
-	private material: MeshStandardMaterial;
+	private material: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
-		this.material = new MeshStandardMaterial({
+		this.material = createMaterial(materialType, {
 			side: DoubleSide,
 			transparent: true,
 			alphaTest: 1e-5,
@@ -503,7 +527,7 @@ export class ElytraObject extends Group {
 
 	/**
 	 * The texture map for the elytra.
-	 * @return The texture map for the elytra.
+	 * @returns The texture map for the elytra.
 	 */
 	get map(): Texture | null {
 		return this.material.map;
@@ -511,7 +535,7 @@ export class ElytraObject extends Group {
 
 	/**
 	 * Set the texture map for the elytra.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
@@ -525,11 +549,11 @@ export class ElytraObject extends Group {
 export class EarsObject extends Group {
 	readonly rightEar: Mesh;
 	readonly leftEar: Mesh;
-	private material: MeshStandardMaterial;
+	private material: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
-		this.material = new MeshStandardMaterial({ side: FrontSide });
+		this.material = createMaterial(materialType, { side: FrontSide });
 		const earBox = new BoxGeometry(8, 8, 4 / 3);
 		setUVs(earBox, 0, 0, 6, 6, 1, 14, 7);
 
@@ -546,7 +570,7 @@ export class EarsObject extends Group {
 
 	/**
 	 * The texture map for the ears.
-	 * @return The texture map for the ears.
+	 * @returns The texture map for the ears.
 	 */
 	get map(): Texture | null {
 		return this.material.map;
@@ -554,7 +578,7 @@ export class EarsObject extends Group {
 
 	/**
 	 * Set the texture map for the ears.
-	 * @param newMap The new texture map.
+	 * @param newMap - The new texture map.
 	 */
 	set map(newMap: Texture | null) {
 		this.material.map = newMap;
@@ -578,15 +602,15 @@ export class PlayerObject extends Group {
 	readonly elytra: ElytraObject;
 	readonly ears: EarsObject;
 
-	constructor() {
+	constructor({ materialType }: { materialType?: MaterialType } = {}) {
 		super();
 
-		this.skin = new SkinObject();
+		this.skin = new SkinObject(materialType);
 		this.skin.name = "skin";
 		this.skin.position.y = 8;
 		this.add(this.skin);
 
-		this.cape = new CapeObject();
+		this.cape = new CapeObject(materialType);
 		this.cape.name = "cape";
 		this.cape.position.y = 8;
 		this.cape.position.z = -2;
@@ -594,14 +618,14 @@ export class PlayerObject extends Group {
 		this.cape.rotation.y = Math.PI;
 		this.add(this.cape);
 
-		this.elytra = new ElytraObject();
+		this.elytra = new ElytraObject(materialType);
 		this.elytra.name = "elytra";
 		this.elytra.position.y = 8;
 		this.elytra.position.z = -2;
 		this.elytra.visible = false;
 		this.add(this.elytra);
 
-		this.ears = new EarsObject();
+		this.ears = new EarsObject(materialType);
 		this.ears.name = "ears";
 		this.ears.position.y = 10;
 		this.ears.position.z = 2 / 3;
@@ -611,7 +635,7 @@ export class PlayerObject extends Group {
 
 	/** 
 	 * Which back equipment is visible ("cape", "elytra", or null). 
-	 * @return The currently visible back equipment.
+	 * @returns The currently visible back equipment.
 	 */
 	get backEquipment(): BackEquipment | null {
 		if (this.cape.visible) return "cape";
@@ -621,7 +645,7 @@ export class PlayerObject extends Group {
 
 	/**
 	 * Set which back equipment is visible.
-	 * @param value The back equipment to show, or null to hide both.
+	 * @param value - The back equipment to show, or null to hide both.
 	 */
 	set backEquipment(value: BackEquipment | null) {
 		this.cape.visible = value === "cape";

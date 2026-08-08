@@ -1,6 +1,6 @@
-/**
- * @file Render.ts
- * @description This file defines the Render class that renders a 3D player model on a canvas.
+/*
+ * @file skin3d.ts
+ * @description This file defines the Render class and related types for rendering Minecraft skins in 3D.
  * @author Cosmic-fi
  * @license MIT
  */
@@ -41,12 +41,12 @@ import {
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { FullScreenQuad } from "three/examples/jsm/postprocessing/Pass.js";
+import type { FullScreenQuad } from "three/examples/jsm/postprocessing/Pass.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { PlayerAnimation } from "./animation.js";
-import { type BackEquipment, PlayerObject } from "./model.js";
+import { type BackEquipment, type MaterialType, PlayerObject } from "./model.js";
 import { NameTagObject } from "./nametag.js";
 
 
@@ -242,6 +242,25 @@ export interface Options {
 	enableControls?: boolean;
 
 	/**
+	 * Whether to enable FXAA antialiasing through post-processing.
+	 *
+	 * Disabling it reduces initial shader compilation time and GPU cost on
+	 * low-end devices, at the cost of slightly more jagged edges.
+	 *
+	 * @defaultValue `true`
+	 */
+	enableFXAA?: boolean;
+
+	/**
+	 * Maximum device pixel ratio to use when {@link pixelRatio} is set to
+	 * `"match-device"` or passed as a number. Helps keep GPU usage low on
+	 * high-DPR screens (e.g. mobile devices with DPR 3+).
+	 *
+	 * @defaultValue `2`
+	 */
+	maxPixelRatio?: number;
+
+	/**
 	 * The animation to play on the player.
 	 *
 	 * @defaultValue If unspecified, no animation will be played.
@@ -276,10 +295,20 @@ export interface Options {
 	 * @defaultValue true
 	 */
 	allowZoom?: boolean;
+
+	/**
+	 * Material preset for the player model.
+	 *
+	 * - `"standard"` uses `MeshStandardMaterial` (physically-based lighting).
+	 * - `"lambert"` uses `MeshLambertMaterial` (faster, simpler shading).
+	 *
+	 * @defaultValue `"standard"`
+	 */
+	materialType?: MaterialType;
 }
 
 /**
- * The {Render} renders the player on a canvas.
+ * The {@link Render} renders the player on a canvas.
  */
 export class Render {
 	/** The canvas where the renderer draws its output. */
@@ -302,7 +331,7 @@ export class Render {
 
 	readonly composer: EffectComposer;
 	readonly renderPass: RenderPass;
-	readonly fxaaPass: ShaderPass;
+	readonly fxaaPass: ShaderPass | null;
 
 	readonly skinCanvas: HTMLCanvasElement;
 	readonly capeCanvas: HTMLCanvasElement;
@@ -341,10 +370,21 @@ export class Render {
 	private onContextRestored: () => void;
 
 	private _pixelRatio: number | "match-device";
+	private _maxPixelRatio: number;
 	private devicePixelRatioQuery: MediaQueryList | null;
 	private onDevicePixelRatioChange: () => void;
 
+	private onMouseDown: () => void;
+	private onMouseUp: () => void;
+	private onTouchMove: (e: TouchEvent) => void;
+	private onTouchEnd: () => void;
+
 	private _nameTag: NameTagObject | null = null;
+
+	private skinLoadId = 0;
+	private capeLoadId = 0;
+	private earsLoadId = 0;
+	private backgroundLoadId = 0;
 
 	constructor(options: Options = {}) {
 		this.canvas = options.canvas ?? document.createElement("canvas");
@@ -363,8 +403,11 @@ export class Render {
 			preserveDrawingBuffer: options.preserveDrawingBuffer === true,
 		});
 
+		this._maxPixelRatio = options.maxPixelRatio ?? 2;
+
 		this.onDevicePixelRatioChange = () => {
-			this.renderer.setPixelRatio(window.devicePixelRatio);
+			this.devicePixelRatioQuery?.removeEventListener("change", this.onDevicePixelRatioChange);
+			this.renderer.setPixelRatio(this.getEffectivePixelRatio(window.devicePixelRatio));
 			this.updateComposerSize();
 			if (this._pixelRatio === "match-device") {
 				this.devicePixelRatioQuery = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
@@ -375,11 +418,11 @@ export class Render {
 			this._pixelRatio = "match-device";
 			this.devicePixelRatioQuery = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
 			this.devicePixelRatioQuery.addEventListener("change", this.onDevicePixelRatioChange, { once: true });
-			this.renderer.setPixelRatio(window.devicePixelRatio);
+			this.renderer.setPixelRatio(this.getEffectivePixelRatio(window.devicePixelRatio));
 		} else {
 			this._pixelRatio = options.pixelRatio;
 			this.devicePixelRatioQuery = null;
-			this.renderer.setPixelRatio(options.pixelRatio);
+			this.renderer.setPixelRatio(this.getEffectivePixelRatio(options.pixelRatio));
 		}
 
 		this.renderer.setClearColor(0, 0);
@@ -392,11 +435,13 @@ export class Render {
 		}
 		this.composer = new EffectComposer(this.renderer, renderTarget);
 		this.renderPass = new RenderPass(this.scene, this.camera);
-		this.fxaaPass = new ShaderPass(FXAAShader);
+		this.fxaaPass = options.enableFXAA !== false ? new ShaderPass(FXAAShader) : null;
 		this.composer.addPass(this.renderPass);
-		this.composer.addPass(this.fxaaPass);
+		if (this.fxaaPass !== null) {
+			this.composer.addPass(this.fxaaPass);
+		}
 
-		this.playerObject = new PlayerObject();
+		this.playerObject = new PlayerObject({ materialType: options.materialType });
 		this.playerObject.name = "player";
 		this.playerObject.skin.visible = false;
 		this.playerObject.cape.visible = false;
@@ -454,34 +499,22 @@ export class Render {
 		};
 		this.canvas.addEventListener("webglcontextlost", this.onContextLost, false);
 		this.canvas.addEventListener("webglcontextrestored", this.onContextRestored, false);
-		this.canvas.addEventListener(
-			"mousedown",
-			() => {
-				this.isUserRotating = true;
-			},
-			false
-		);
-		this.canvas.addEventListener(
-			"mouseup",
-			() => {
-				this.isUserRotating = false;
-			},
-			false
-		);
-		this.canvas.addEventListener(
-			"touchmove",
-			e => {
-				this.isUserRotating = e.touches.length === 1;
-			},
-			false
-		);
-		this.canvas.addEventListener(
-			"touchend",
-			() => {
-				this.isUserRotating = false;
-			},
-			false
-		);
+		this.onMouseDown = () => {
+			this.isUserRotating = true;
+		};
+		this.onMouseUp = () => {
+			this.isUserRotating = false;
+		};
+		this.onTouchMove = (e: TouchEvent) => {
+			this.isUserRotating = e.touches.length === 1;
+		};
+		this.onTouchEnd = () => {
+			this.isUserRotating = false;
+		};
+		this.canvas.addEventListener("mousedown", this.onMouseDown, false);
+		this.canvas.addEventListener("mouseup", this.onMouseUp, false);
+		this.canvas.addEventListener("touchmove", this.onTouchMove, false);
+		this.canvas.addEventListener("touchend", this.onTouchEnd, false);
 	}
 
 	/** 
@@ -493,8 +526,18 @@ export class Render {
 		this.composer.setSize(this.width, this.height);
 		const pixelRatio = this.renderer.getPixelRatio();
 		this.composer.setPixelRatio(pixelRatio);
-		this.fxaaPass.material.uniforms["resolution"].value.x = 1 / (this.width * pixelRatio);
-		this.fxaaPass.material.uniforms["resolution"].value.y = 1 / (this.height * pixelRatio);
+		if (this.fxaaPass !== null) {
+			this.fxaaPass.material.uniforms["resolution"].value.x = 1 / (this.width * pixelRatio);
+			this.fxaaPass.material.uniforms["resolution"].value.y = 1 / (this.height * pixelRatio);
+		}
+	}
+
+	/**
+	 * Clamp a raw pixel ratio to the configured maximum.
+	 * @internal
+	 */
+	private getEffectivePixelRatio(pixelRatio: number): number {
+		return Math.min(pixelRatio, this._maxPixelRatio);
 	}
 
 	/** 
@@ -550,6 +593,7 @@ export class Render {
 		if (source === null) {
 			this.resetSkin();
 		} else if (isTextureSource(source)) {
+			this.skinLoadId++;
 			loadSkinToCanvas(this.skinCanvas, source);
 			this.recreateSkinTexture();
 			this.playerObject.skin.modelType =
@@ -563,14 +607,19 @@ export class Render {
 				if (options.ears === true) this.playerObject.ears.visible = true;
 			}
 		} else {
-			return loadImage(source).then(image => this.loadSkin(image, options));
+			const id = ++this.skinLoadId;
+			return loadImage(source).then(image => {
+				if (id !== this.skinLoadId) return;
+				this.loadSkin(image, options);
+			});
 		}
 	}
 
 	/**
-	*  Hide and dispose the current skin texture. 
+	*	Hide and dispose the current skin texture. 
 	*/
 	resetSkin(): void {
+		this.skinLoadId++;
 		this.playerObject.skin.visible = false;
 		this.playerObject.skin.map = null;
 		this.skinTexture?.dispose();
@@ -591,18 +640,24 @@ export class Render {
 		if (source === null) {
 			this.resetCape();
 		} else if (isTextureSource(source)) {
+			this.capeLoadId++;
 			loadCapeToCanvas(this.capeCanvas, source);
 			this.recreateCapeTexture();
 			if (options.makeVisible !== false) {
 				this.playerObject.backEquipment = options.backEquipment ?? "cape";
 			}
 		} else {
-			return loadImage(source).then(image => this.loadCape(image, options));
+			const id = ++this.capeLoadId;
+			return loadImage(source).then(image => {
+				if (id !== this.capeLoadId) return;
+				this.loadCape(image, options);
+			});
 		}
 	}
 
 	/** Hide and dispose the current cape texture. */
 	resetCape(): void {
+		this.capeLoadId++;
 		this.playerObject.backEquipment = null;
 		this.playerObject.cape.map = null;
 		this.playerObject.elytra.map = null;
@@ -624,6 +679,7 @@ export class Render {
 		if (source === null) {
 			this.resetEars();
 		} else if (isTextureSource(source)) {
+			this.earsLoadId++;
 			if (options.textureType === "skin") {
 				loadEarsToCanvasFromSkin(this.earsCanvas, source);
 			} else {
@@ -632,7 +688,11 @@ export class Render {
 			this.recreateEarsTexture();
 			if (options.makeVisible !== false) this.playerObject.ears.visible = true;
 		} else {
-			return loadImage(source).then(image => this.loadEars(image, options));
+			const id = ++this.earsLoadId;
+			return loadImage(source).then(image => {
+				if (id !== this.earsLoadId) return;
+				this.loadEars(image, options);
+			});
 		}
 	}
 
@@ -640,6 +700,7 @@ export class Render {
 	 * Hide and dispose the current ears texture. 
 	 */
 	resetEars(): void {
+		this.earsLoadId++;
 		this.playerObject.ears.visible = false;
 		this.playerObject.ears.map = null;
 		this.earsTexture?.dispose();
@@ -665,6 +726,7 @@ export class Render {
 	): S extends TextureSource ? void : Promise<void>;
 	loadBackground<S extends TextureSource | RemoteImage>(source: S, mapping?: Mapping): void | Promise<void> {
 		if (isTextureSource(source)) {
+			this.backgroundLoadId++;
 			this.backgroundTexture?.dispose();
 			this.backgroundTexture = new Texture();
 			this.backgroundTexture.image = source;
@@ -672,7 +734,11 @@ export class Render {
 			this.backgroundTexture.needsUpdate = true;
 			this.scene.background = this.backgroundTexture;
 		} else {
-			return loadImage(source).then(image => this.loadBackground(image, mapping));
+			const id = ++this.backgroundLoadId;
+			return loadImage(source).then(image => {
+				if (id !== this.backgroundLoadId) return;
+				this.loadBackground(image, mapping);
+			});
 		}
 	}
 
@@ -715,19 +781,60 @@ export class Render {
 		this._disposed = true;
 		this.canvas.removeEventListener("webglcontextlost", this.onContextLost, false);
 		this.canvas.removeEventListener("webglcontextrestored", this.onContextRestored, false);
+		this.canvas.removeEventListener("mousedown", this.onMouseDown, false);
+		this.canvas.removeEventListener("mouseup", this.onMouseUp, false);
+		this.canvas.removeEventListener("touchmove", this.onTouchMove, false);
+		this.canvas.removeEventListener("touchend", this.onTouchEnd, false);
 		this.devicePixelRatioQuery?.removeEventListener("change", this.onDevicePixelRatioChange);
 		this.devicePixelRatioQuery = null;
 		if (this.animationID !== null) {
 			window.cancelAnimationFrame(this.animationID);
 			this.animationID = null;
 		}
+		if (this._nameTag !== null) {
+			this.playerWrapper.remove(this._nameTag);
+			this._nameTag.dispose();
+			this._nameTag = null;
+		}
 		this.controls.dispose();
+		this.playerObject.traverse((object: Object3D) => {
+			const mesh = object as {
+				isMesh?: boolean;
+				geometry?: { dispose(): void };
+				material?: { dispose(): void } | Array<{ dispose(): void }>;
+			};
+			if (mesh.isMesh) {
+				mesh.geometry?.dispose();
+				if (Array.isArray(mesh.material)) {
+					mesh.material.forEach(m => m.dispose());
+				} else {
+					mesh.material?.dispose();
+				}
+			}
+		});
+		if (this.fxaaPass !== null) {
+			this.fxaaPass.material.dispose();
+			(this.fxaaPass.fsQuad as FullScreenQuad).dispose();
+		}
+		const composerTargets = this.composer as unknown as {
+			renderTarget1?: { depthTexture?: { dispose(): void }; dispose(): void };
+			renderTarget2?: { depthTexture?: { dispose(): void }; dispose(): void };
+		};
+		if (composerTargets.renderTarget1) {
+			composerTargets.renderTarget1.depthTexture?.dispose?.();
+			composerTargets.renderTarget1.dispose();
+		}
+		if (composerTargets.renderTarget2) {
+			composerTargets.renderTarget2.depthTexture?.dispose?.();
+			composerTargets.renderTarget2.dispose();
+		}
+		this.camera.remove(this.cameraLight);
+		this.scene.remove(this.camera, this.globalLight);
 		this.renderer.dispose();
 		this.resetSkin();
 		this.resetCape();
 		this.resetEars();
 		this.background = null;
-		(this.fxaaPass.fsQuad as FullScreenQuad).dispose();
 	}
 
 	get disposed(): boolean {
@@ -831,9 +938,23 @@ export class Render {
 				this.devicePixelRatioQuery = null;
 			}
 			this._pixelRatio = newValue;
-			this.renderer.setPixelRatio(newValue);
+			this.renderer.setPixelRatio(this.getEffectivePixelRatio(newValue));
 			this.updateComposerSize();
 		}
+	}
+
+	/** Maximum device pixel ratio used for rendering. */
+	get maxPixelRatio(): number {
+		return this._maxPixelRatio;
+	}
+	set maxPixelRatio(value: number) {
+		this._maxPixelRatio = value;
+		if (this._pixelRatio === "match-device") {
+			this.renderer.setPixelRatio(this.getEffectivePixelRatio(window.devicePixelRatio));
+		} else {
+			this.renderer.setPixelRatio(this.getEffectivePixelRatio(this._pixelRatio));
+		}
+		this.updateComposerSize();
 	}
 
 	/**
@@ -863,20 +984,29 @@ export class Render {
 	 * will be automatically created with default options.
 	 *
 	 * @example
+	 * ```ts
 	 * Render.nameTag = "Norch";
 	 * Render.nameTag = new NameTagObject("hello", { textStyle: "yellow" });
 	 * Render.nameTag = null;
+	 * ```
 	 */
 	get nameTag(): NameTagObject | null {
 		return this._nameTag;
 	}
 	set nameTag(newVal: NameTagObject | string | null) {
-		if (this._nameTag !== null) this.playerWrapper.remove(this._nameTag);
+		const oldVal = this._nameTag;
+		if (oldVal !== null) {
+			this.playerWrapper.remove(oldVal);
+		}
 		if (newVal === null) {
 			this._nameTag = null;
+			oldVal?.dispose();
 			return;
 		}
 		if (!(newVal instanceof Object3D)) newVal = new NameTagObject(newVal);
+		if (oldVal !== null && oldVal !== newVal) {
+			oldVal.dispose();
+		}
 		this.playerWrapper.add(newVal);
 		newVal.position.y = 20;
 		this._nameTag = newVal;
