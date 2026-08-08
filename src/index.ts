@@ -6,25 +6,13 @@
  */
 
 // Export from Model.js
-export * from "./Model.js";
+export * from "./model.js";
 
-// Export from skin3d.js - explicitly export the main Render class
-export { Render } from "./skin3d.js";
+// Export from skin3d.js
 export * from "./skin3d.js";
 
-// Export from Animation.js - explicitly export all animation classes
-export {
-	PlayerAnimation,
-	FunctionAnimation,
-	IdleAnimation,
-	WalkingAnimation,
-	RunningAnimation,
-	FlyingAnimation,
-	WaveAnimation,
-	CrouchAnimation,
-	HitAnimation
-} from "./Animation.js";
-export * from "./Animation.js";
+// Export from Animation.js
+export * from "./animation.js";
 
 // Export from Nametag.js
-export * from "./Nametag.js";
+export * from "./nametag.js";

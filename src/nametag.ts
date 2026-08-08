@@ -133,12 +133,23 @@ export class NameTagObject extends Sprite {
 	}
 
 	/**
+	 * Dispose the name tag texture and material.
+	 */
+	dispose(): void {
+		this.textMaterial.map?.dispose();
+		this.textMaterial.map = null;
+		this.textMaterial.dispose();
+	}
+
+	/**
 	 * Paint the name tag.
 	 * This method creates a canvas, draws the text and background,
 	 * and applies it as a texture to the sprite.
 	 * @private
 	 */
 	private paint() {
+		this.textMaterial.map?.dispose();
+
 		const canvas = document.createElement("canvas");
 
 		/**

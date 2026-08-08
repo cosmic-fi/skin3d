@@ -6,18 +6,41 @@
  */
 
 import type { ModelType } from "skinview-utils";
+import type { BufferAttribute } from "three";
 import {
 	BoxGeometry,
-	BufferAttribute,
 	DoubleSide,
 	FrontSide,
 	Group,
 	Mesh,
+	MeshLambertMaterial,
 	MeshStandardMaterial,
 	Object3D,
 	Texture,
 	Vector2,
 } from "three";
+
+/**
+ * Material quality preset.
+ * - `"standard"` uses `MeshStandardMaterial` (PBR, better lighting, slower).
+ * - `"lambert"` uses `MeshLambertMaterial` (flat Gouraud shading, faster).
+ */
+export type MaterialType = "standard" | "lambert";
+
+function createMaterial(
+	type: MaterialType,
+	params: {
+		side: typeof FrontSide | typeof DoubleSide;
+		transparent?: boolean;
+		alphaTest?: number;
+		map?: Texture | null;
+	}
+): MeshStandardMaterial | MeshLambertMaterial {
+	if (type === "lambert") {
+		return new MeshLambertMaterial(params);
+	}
+	return new MeshStandardMaterial(params);
+}
 
 /**
  * Set the UV mapping for a box geometry.
@@ -128,19 +151,19 @@ export class SkinObject extends Group {
 	private slim = false;
 
 	private _map: Texture | null = null;
-	private layer1Material: MeshStandardMaterial;
-	private layer1MaterialBiased: MeshStandardMaterial;
-	private layer2Material: MeshStandardMaterial;
-	private layer2MaterialBiased: MeshStandardMaterial;
+	private layer1Material: MeshStandardMaterial | MeshLambertMaterial;
+	private layer1MaterialBiased: MeshStandardMaterial | MeshLambertMaterial;
+	private layer2Material: MeshStandardMaterial | MeshLambertMaterial;
+	private layer2MaterialBiased: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
 
 		/**
 		 * Material for the inner layer (layer 1) of the skin.
 		 */
-		this.layer1Material = new MeshStandardMaterial({ side: FrontSide });
-		this.layer2Material = new MeshStandardMaterial({ side: DoubleSide, transparent: true, alphaTest: 1e-5 });
+		this.layer1Material = createMaterial(materialType, { side: FrontSide });
+		this.layer2Material = createMaterial(materialType, { side: DoubleSide, transparent: true, alphaTest: 1e-5 });
 
 		this.layer1MaterialBiased = this.layer1Material.clone();
 		this.layer1MaterialBiased.polygonOffset = true;
@@ -404,11 +427,11 @@ export class SkinObject extends Group {
  */
 export class CapeObject extends Group {
 	readonly cape: Mesh;
-	private material: MeshStandardMaterial;
+	private material: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
-		this.material = new MeshStandardMaterial({
+		this.material = createMaterial(materialType, {
 			side: DoubleSide,
 			transparent: true,
 			alphaTest: 1e-5,
@@ -445,11 +468,11 @@ export class CapeObject extends Group {
 export class ElytraObject extends Group {
 	readonly leftWing: Group;
 	readonly rightWing: Group;
-	private material: MeshStandardMaterial;
+	private material: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
-		this.material = new MeshStandardMaterial({
+		this.material = createMaterial(materialType, {
 			side: DoubleSide,
 			transparent: true,
 			alphaTest: 1e-5,
@@ -525,11 +548,11 @@ export class ElytraObject extends Group {
 export class EarsObject extends Group {
 	readonly rightEar: Mesh;
 	readonly leftEar: Mesh;
-	private material: MeshStandardMaterial;
+	private material: MeshStandardMaterial | MeshLambertMaterial;
 
-	constructor() {
+	constructor(materialType: MaterialType = "standard") {
 		super();
-		this.material = new MeshStandardMaterial({ side: FrontSide });
+		this.material = createMaterial(materialType, { side: FrontSide });
 		const earBox = new BoxGeometry(8, 8, 4 / 3);
 		setUVs(earBox, 0, 0, 6, 6, 1, 14, 7);
 
@@ -578,15 +601,15 @@ export class PlayerObject extends Group {
 	readonly elytra: ElytraObject;
 	readonly ears: EarsObject;
 
-	constructor() {
+	constructor({ materialType }: { materialType?: MaterialType } = {}) {
 		super();
 
-		this.skin = new SkinObject();
+		this.skin = new SkinObject(materialType);
 		this.skin.name = "skin";
 		this.skin.position.y = 8;
 		this.add(this.skin);
 
-		this.cape = new CapeObject();
+		this.cape = new CapeObject(materialType);
 		this.cape.name = "cape";
 		this.cape.position.y = 8;
 		this.cape.position.z = -2;
@@ -594,14 +617,14 @@ export class PlayerObject extends Group {
 		this.cape.rotation.y = Math.PI;
 		this.add(this.cape);
 
-		this.elytra = new ElytraObject();
+		this.elytra = new ElytraObject(materialType);
 		this.elytra.name = "elytra";
 		this.elytra.position.y = 8;
 		this.elytra.position.z = -2;
 		this.elytra.visible = false;
 		this.add(this.elytra);
 
-		this.ears = new EarsObject();
+		this.ears = new EarsObject(materialType);
 		this.ears.name = "ears";
 		this.ears.position.y = 10;
 		this.ears.position.z = 2 / 3;

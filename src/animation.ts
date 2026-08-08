@@ -5,7 +5,7 @@
  * @license MIT
  */
 
-import { PlayerObject } from "./Model.js";
+import { PlayerObject } from "./model.js";
 
 /**
  * Abstract base class for animations that can be played on a PlayerObject.
