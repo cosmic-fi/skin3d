@@ -1,0 +1,85 @@
+{
+	"name": "skin3d",
+	"version": "0.2.0",
+	"description": "Skin3d is a lightweight JS library that renders any Minecraft skin as a smooth, interactive 3D model you can drop straight into a webpage.",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./bundles/*": {
+			"import": "./dist/*.esm.js",
+			"require": "./dist/*.umd.js"
+		}
+	},
+	"scripts": {
+		"clean": "rimraf dist",
+		"build:modules": "tsc -p . && npm run build:esm",
+		"build:esm": "node -e \"require('fs').copyFileSync('dist/index.js', 'dist/index.mjs')\"",
+		"build:bundles": "npx rollup -c",
+		"build:docs": "typedoc src/index.ts",
+		"build": "npm-run-all build:modules build:bundles",
+		"format": "prettier src eslint.config.js --write",
+		"test:lint": "eslint src eslint.config.js",
+		"test:types": "tsc --noEmit",
+		"test": "npm-run-all test:lint test:types",
+		"dev:watch:modules": "tsc -w --preserveWatchOutput --declaration --sourceMap --outDir dist -p .",
+		"dev:watch:bundles": "rollup -w --no-watch.clearScreen -c --configPlugin=swc3",
+		"prepublishOnly": "npm run clean && npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cosmic-fi/skin3d.git"
+	},
+	"author": "Cosmic-fi (https://github.com/cosmic-fi)",
+	"contributors": [],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/cosmic-fi/skin3d/issues"
+	},
+	"homepage": "https://github.com/cosmic-fi/skin3d",
+	"keywords": [
+		"minecraft",
+		"skin",
+		"3d-skinviewer",
+		"viewer",
+		"3d",
+		"three.js",
+		"renderer",
+		"preview",
+		"webgl",
+		"avatar",
+		"model",
+		"skin3d",
+		"skin-viewer"
+	],
+	"files": [
+		"dist",
+		"assets"
+	],
+	"dependencies": {
+		"skinview-utils": "^0.7.1",
+		"three": "^0.156.1"
+	},
+	"devDependencies": {
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@types/three": "^0.182.0",
+		"@typescript-eslint/eslint-plugin": "^8.31.1",
+		"@typescript-eslint/parser": "^8.31.1",
+		"eslint": "^9.26.0",
+		"eslint-plugin-tsdoc": "^0.2.17",
+		"local-web-server": "^5.2.1",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.0.3",
+		"rimraf": "^3.0.2",
+		"typedoc": "^0.25.7",
+		"typedoc-material-theme": "^1.4.1",
+		"typescript": "^5.0.4"
+	}
+}

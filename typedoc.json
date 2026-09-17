@@ -1,0 +1,35 @@
+{
+    // TypeDoc configuration file
+
+    // Entry point(s) of your project
+    "entryPoints": ["src/view.ts"],
+
+    // Output directory for generated docs
+    "out": "docs",
+
+    // Include private members in documentation
+    "excludePrivate": false,
+
+    // Include protected members in documentation
+    "excludeProtected": false,
+
+    // Exclude external modules from documentation
+    "excludeExternals": true,
+
+    // Exclude files or patterns
+    "exclude": ["**/*.spec.ts", "**/test/**"],
+
+    "includeVersion": true,
+
+    // Name of the project
+    "name": "Skin3d Documentation",
+
+    "plugin": ["typedoc-material-theme"],
+    "themeColor": "#cb9820",
+
+    // Set the theme (default, minimal, etc.)
+    "theme": "default",
+
+    // Treat warnings as errors
+    "treatWarningsAsErrors": false
+}
